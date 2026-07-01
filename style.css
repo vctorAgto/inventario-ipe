@@ -66,6 +66,15 @@ h1,h2,h3{
 .masthead h1{font-size:2.5rem;margin-bottom:9px;letter-spacing:-.01em;}
 .sub{color:var(--ink-soft);max-width:640px;margin:0;font-size:.96rem;}
 
+/* Nota discreta de "atualizado em" na tela publica - nao deve parecer um campo clicavel */
+.updated-note{
+  display:flex;align-items:center;gap:7px;color:var(--ink-soft);
+  font-size:.78rem;margin:10px 0 0;
+}
+.updated-note::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--verificado);flex-shrink:0;}
+.updated-note.error{color:#a83a3a;}
+.updated-note.error::before{background:#a83a3a;}
+
 /* Status bar */
 .statusbar{
   background:var(--paper);border:1px solid var(--line);border-radius:10px;
