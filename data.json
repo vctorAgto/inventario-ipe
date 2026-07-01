@@ -124,7 +124,7 @@
       "code": "t-sfr",
       "title": "A dor e a tristeza vão acabar algum dia?",
       "cat": "Folheto",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/t-sfr/T/pt/t-sfr_T_lg.jpg",
       "quantity": 400,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:45:31.197Z"
+  "updatedAt": "2026-07-01T18:45:45.769Z"
 }
