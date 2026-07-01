@@ -144,6 +144,11 @@
 
 <div class="toast" id="toast" hidden></div>
 
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
 <div class="modal-overlay" id="modalOverlay" hidden>
   <div class="modal-card">
     <h3 id="modalTitle">Confirmar</h3>
@@ -508,7 +513,7 @@ function normalCardHTML(it, idx){
         <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
         <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
       </div>`;
-  const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
+  const thumbHTML = it.image ? `<img class="thumb thumb-zoomable" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
   return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
     <button class="editbtn" data-act="edit" data-idx="${idx}">Editar</button>
     <span class="hole"></span>
@@ -538,7 +543,7 @@ function countCardHTML(it, idx){
         <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
         <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
       </div>`;
-  const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
+  const thumbHTML = it.image ? `<img class="thumb thumb-zoomable" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
   return `<div class="card count-card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
     <span class="hole"></span>
     ${thumbHTML}
@@ -665,6 +670,25 @@ els.search.addEventListener('input', (e) => {
   searchTerm = e.target.value.trim();
   renderDrawers();
   renderGrid();
+});
+
+const lightboxEl = document.getElementById('lightbox');
+const lightboxImgEl = document.getElementById('lightboxImg');
+function openLightbox(src, alt){
+  lightboxImgEl.src = src;
+  lightboxImgEl.alt = alt || '';
+  lightboxEl.hidden = false;
+  requestAnimationFrame(() => lightboxEl.classList.add('show'));
+}
+function closeLightbox(){
+  lightboxEl.classList.remove('show');
+  setTimeout(() => { lightboxEl.hidden = true; lightboxImgEl.src = ''; }, 200);
+}
+lightboxEl.addEventListener('click', closeLightbox);
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+window.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !lightboxEl.hidden) closeLightbox(); });
+els.grid.addEventListener('click', (e) => {
+  if(e.target.classList.contains('thumb-zoomable')) openLightbox(e.target.src, e.target.alt);
 });
 
 els.bulkVerify.addEventListener('click', () => {

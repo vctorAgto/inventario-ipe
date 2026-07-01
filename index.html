@@ -39,6 +39,11 @@
 
 </div>
 
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
 <script src="shared.js"></script>
 <script>
 let items = [];
@@ -143,7 +148,7 @@ function renderGrid(){
     const quantidadeHTML = it.quantity === null
       ? `<span class="continuo">Controle contínuo</span>`
       : `<span class="qty-static">${it.quantity}</span>`;
-    const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
+    const thumbHTML = it.image ? `<img class="thumb thumb-zoomable" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
     return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
       <span class="hole"></span>
       ${thumbHTML}
@@ -157,7 +162,26 @@ function renderGrid(){
       ${it.lastChecked ? `<div class="lastcheck">Verificado em ${it.lastChecked}</div>` : ''}
     </div>`;
   }).join('');
+  gridEl.querySelectorAll('.thumb-zoomable').forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  });
 }
+
+const lightboxEl = document.getElementById('lightbox');
+const lightboxImgEl = document.getElementById('lightboxImg');
+function openLightbox(src, alt){
+  lightboxImgEl.src = src;
+  lightboxImgEl.alt = alt || '';
+  lightboxEl.hidden = false;
+  requestAnimationFrame(() => lightboxEl.classList.add('show'));
+}
+function closeLightbox(){
+  lightboxEl.classList.remove('show');
+  setTimeout(() => { lightboxEl.hidden = true; lightboxImgEl.src = ''; }, 200);
+}
+lightboxEl.addEventListener('click', closeLightbox);
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+window.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !lightboxEl.hidden) closeLightbox(); });
 
 function render(){
   renderDash();
