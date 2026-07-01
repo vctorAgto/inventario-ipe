@@ -104,7 +104,7 @@
       "code": "g20.1",
       "title": "Como aliviar o estresse",
       "cat": "Despertai",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/g/202003/T/pt/g_T_202003_lg.jpg",
       "quantity": 220,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:40:50.437Z"
+  "updatedAt": "2026-07-01T18:41:01.373Z"
 }
