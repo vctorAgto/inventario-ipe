@@ -134,7 +134,7 @@
       "code": "t-fam",
       "title": "Como ter uma família feliz?",
       "cat": "Folheto",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/g/202103/T/pt/g_T_202103_lg.jpg",
       "quantity": 400,
       "status": "Verificado",
       "note": "",
@@ -144,7 +144,7 @@
       "code": "t-rlg",
       "title": "Deus aprova todas as religiões?",
       "cat": "Folheto",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/t-rlg/T/pt/t-rlg_T_lg.jpg",
       "quantity": 400,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:45:45.769Z"
+  "updatedAt": "2026-07-01T18:46:06.832Z"
 }
