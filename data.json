@@ -174,7 +174,7 @@
       "code": "t-kng",
       "title": "Como o Reino de Deus vai agir",
       "cat": "Folheto",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/t-kng/T/pt/t-kng_T_lg.jpg",
       "quantity": 400,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:46:42.155Z"
+  "updatedAt": "2026-07-01T18:46:55.395Z"
 }
