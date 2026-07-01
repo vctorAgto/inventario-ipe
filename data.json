@@ -414,7 +414,7 @@
       "code": "tmp-sabedoria-jesus",
       "title": "Aprenda com a sabedoria de Jesus",
       "cat": "Cartilha",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/wfg/T/pt/wfg_T_lg.jpg",
       "quantity": 63,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:47:26.171Z"
+  "updatedAt": "2026-07-01T18:47:38.361Z"
 }
