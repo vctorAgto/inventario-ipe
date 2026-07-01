@@ -27,6 +27,11 @@
 
   <div class="searchrow">
     <input type="text" id="search" placeholder="Buscar por título ou código (ex: bt, Sentinela, Bíblia)…">
+    <div class="view-toggle">
+      <button class="btnline active-view" id="btnViewCards">▦ Cards</button>
+      <button class="btnline" id="btnViewList">☰ Lista</button>
+      <button class="btnline print-only-btn" id="btnPrint" hidden>🖨 Imprimir</button>
+    </div>
   </div>
 
   <div class="drawers" id="drawers"></div>
@@ -36,6 +41,7 @@
   </div>
 
   <div class="grid" id="grid"></div>
+  <div class="list-wrap" id="listWrap" hidden></div>
 
 </div>
 
@@ -50,12 +56,17 @@ let items = [];
 let activeCategory = CATEGORIES[0];
 let searchTerm = "";
 let statFilter = null; // null = navega por categoria; 'all' | 'verified' | 'attention'
+let viewMode = 'cards'; // 'cards' | 'list'
 
 const drawersEl = document.getElementById('drawers');
 const gridEl = document.getElementById('grid');
+const listWrapEl = document.getElementById('listWrap');
 const dashEl = document.getElementById('dash');
 const sectionTitleEl = document.getElementById('sectionTitle');
 const statusbarEl = document.getElementById('statusbar');
+const btnViewCards = document.getElementById('btnViewCards');
+const btnViewList = document.getElementById('btnViewList');
+const btnPrint = document.getElementById('btnPrint');
 
 async function loadData(){
   try{
@@ -138,6 +149,16 @@ function renderGrid(){
   const list = visibleItems();
   const filterLabels = { all: 'Todos os itens', verified: 'Itens verificados', attention: 'Itens que precisam de atenção' };
   sectionTitleEl.textContent = searchTerm ? `Resultados para "${searchTerm}"` : (filterLabels[statFilter] || activeCategory);
+
+  if(viewMode === 'list'){
+    gridEl.hidden = true;
+    listWrapEl.hidden = false;
+    renderListTable(list);
+    return;
+  }
+  gridEl.hidden = false;
+  listWrapEl.hidden = true;
+
   if(!list.length){
     gridEl.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
     return;
@@ -166,6 +187,38 @@ function renderGrid(){
     img.addEventListener('click', () => openLightbox(img.src, img.alt));
   });
 }
+
+function renderListTable(list){
+  if(!list.length){
+    listWrapEl.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
+    return;
+  }
+  const rows = list.map(it => `
+    <tr>
+      <td class="mono">${it.code}</td>
+      <td>${it.title}</td>
+      <td>${it.cat}</td>
+      <td class="num">${it.quantity === null ? 'Contínuo' : it.quantity}</td>
+      <td>${it.status}</td>
+      <td>${it.lastChecked || '—'}</td>
+    </tr>`).join('');
+  listWrapEl.innerHTML = `
+    <table class="inv-table">
+      <thead><tr><th>Código</th><th>Título</th><th>Categoria</th><th>Qtd.</th><th>Status</th><th>Verificado em</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+function setViewMode(mode){
+  viewMode = mode;
+  btnViewCards.classList.toggle('active-view', mode === 'cards');
+  btnViewList.classList.toggle('active-view', mode === 'list');
+  btnPrint.hidden = mode !== 'list';
+  renderGrid();
+}
+btnViewCards.addEventListener('click', () => setViewMode('cards'));
+btnViewList.addEventListener('click', () => setViewMode('list'));
+btnPrint.addEventListener('click', () => window.print());
 
 const lightboxEl = document.getElementById('lightbox');
 const lightboxImgEl = document.getElementById('lightboxImg');
