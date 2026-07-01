@@ -434,7 +434,7 @@
       "code": "tmp-volte-jeova",
       "title": "Volte para Jeová",
       "cat": "Brochura",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/rj/T/pt/rj_T_lg.jpg",
       "quantity": 7,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:44:42.593Z"
+  "updatedAt": "2026-07-01T18:44:54.995Z"
 }
