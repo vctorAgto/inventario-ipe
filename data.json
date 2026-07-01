@@ -254,7 +254,7 @@
       "code": "lff",
       "title": "Seja feliz para sempre! (livro)",
       "cat": "Livro",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/lff/T/pt/lff_T_lg.jpg",
       "quantity": 0,
       "status": "Repor",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:41:42.687Z"
+  "updatedAt": "2026-07-01T18:41:54.619Z"
 }
