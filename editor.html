@@ -92,8 +92,14 @@
         <button class="btnline" id="btnNewItem">+ Novo item</button>
         <button class="btnline" id="btnLoad">Recarregar do GitHub</button>
         <button class="btnline" id="bulkVerify">Marcar visíveis como verificados</button>
+        <button class="btnline" id="btnCountMode">Iniciar novo levantamento</button>
         <button class="btnline primary" id="btnSave" disabled>Salvar no GitHub</button>
       </div>
+    </div>
+
+    <div class="count-progress" id="countProgress" hidden>
+      <p id="countProgressText"></p>
+      <div class="progress-outer"><div class="progress-inner" id="countProgressBar" style="width:0%"></div></div>
     </div>
 
     <div class="newitem-panel" id="newItemPanel" hidden>
@@ -136,6 +142,8 @@
   <footer>Alterações são gravadas como commits no GitHub · Congregação Ipê</footer>
 </div>
 
+<div class="toast" id="toast" hidden></div>
+
 <script src="shared.js"></script>
 <script>
 // Valores padrão deste repositório — quem só tem a senha de acesso não precisa preencher nada disso.
@@ -147,6 +155,8 @@ let dirty = false;
 let activeCategory = CATEGORIES[0];
 let searchTerm = "";
 let editingIndex = null; // null = modo "novo item"; numero = editando items[editingIndex]
+let countMode = false;
+let sessionConfirmed = new Set(); // codigos ja confirmados no levantamento em andamento
 
 const els = {
   loginGate: document.getElementById('loginGate'),
@@ -170,6 +180,11 @@ const els = {
   bulkVerify: document.getElementById('bulkVerify'),
   search: document.getElementById('search'),
   btnNewItem: document.getElementById('btnNewItem'),
+  btnCountMode: document.getElementById('btnCountMode'),
+  countProgress: document.getElementById('countProgress'),
+  countProgressText: document.getElementById('countProgressText'),
+  countProgressBar: document.getElementById('countProgressBar'),
+  toast: document.getElementById('toast'),
   newItemPanel: document.getElementById('newItemPanel'),
   niHeading: document.getElementById('niHeading'),
   niCode: document.getElementById('niCode'),
@@ -226,6 +241,19 @@ function setStatus(msg, isError){
   els.statusbar.classList.toggle('error', !!isError);
 }
 
+let toastTimer = null;
+function showToast(msg, isError){
+  clearTimeout(toastTimer);
+  els.toast.textContent = msg;
+  els.toast.hidden = false;
+  els.toast.classList.toggle('error', !!isError);
+  requestAnimationFrame(() => els.toast.classList.add('show'));
+  toastTimer = setTimeout(() => {
+    els.toast.classList.remove('show');
+    setTimeout(() => { els.toast.hidden = true; }, 250);
+  }, 4000);
+}
+
 function showApp(){
   els.loginGate.hidden = true;
   els.appView.hidden = false;
@@ -277,6 +305,8 @@ async function saveToGitHub(){
   }
   setStatus('Salvando no GitHub...');
   els.btnSave.disabled = true;
+  const originalLabel = els.btnSave.textContent;
+  els.btnSave.textContent = 'Salvando...';
   try{
     const payload = { items, updatedAt: new Date().toISOString() };
     const content = utf8ToBase64(JSON.stringify(payload, null, 2));
@@ -304,8 +334,13 @@ async function saveToGitHub(){
     currentSha = json.content.sha;
     dirty = false;
     setStatus('Salvo no GitHub às ' + new Date().toLocaleTimeString('pt-BR') + '. A tela pública atualiza em ~1 minuto.');
+    showToast('✓ Inventário salvo no GitHub com sucesso.');
+    els.btnSave.textContent = 'Salvo ✓';
+    setTimeout(() => { els.btnSave.textContent = originalLabel; }, 2500);
   }catch(e){
     setStatus('Falha ao salvar: ' + e.message + ' — nada foi perdido, tente salvar de novo.', true);
+    showToast('Falha ao salvar: ' + e.message, true);
+    els.btnSave.textContent = originalLabel;
     els.btnSave.disabled = false;
   }
 }
@@ -356,6 +391,14 @@ function renderDrawers(){
 }
 
 function visibleItems(){
+  if(countMode){
+    let list = items.filter(it => !sessionConfirmed.has(it.code));
+    if(searchTerm){
+      const t = searchTerm.toLowerCase();
+      list = list.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
+    }
+    return list;
+  }
   if(searchTerm){
     const t = searchTerm.toLowerCase();
     return items.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
@@ -363,44 +406,94 @@ function visibleItems(){
   return items.filter(it => it.cat === activeCategory);
 }
 
+function normalCardHTML(it, idx){
+  const key = CAT_KEY[it.cat];
+  const tok = STATUS_TOKEN[it.status] || 'pendente';
+  const quantidadeHTML = it.quantity === null
+    ? `<span class="continuo">Controle contínuo</span>`
+    : `<div class="stepper">
+        <button data-act="dec" data-idx="${idx}" aria-label="Diminuir">−</button>
+        <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
+        <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
+      </div>`;
+  const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
+  return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
+    <button class="editbtn" data-act="edit" data-idx="${idx}">Editar</button>
+    <span class="hole"></span>
+    ${thumbHTML}
+    <span class="code">${it.code}</span>
+    <p class="title">${it.title}</p>
+    <div class="row">
+      ${quantidadeHTML}
+      <select class="status" data-idx="${idx}" style="background:var(--${tok}-bg);color:var(--${tok});">
+        <option ${it.status==='Pendente'?'selected':''}>Pendente</option>
+        <option ${it.status==='Verificado'?'selected':''}>Verificado</option>
+        <option ${it.status==='Baixo Estoque'?'selected':''}>Baixo Estoque</option>
+        <option ${it.status==='Repor'?'selected':''}>Repor</option>
+      </select>
+    </div>
+    <textarea class="note" rows="1" placeholder="Observação…" data-idx="${idx}">${it.note||''}</textarea>
+    ${it.lastChecked ? `<div class="lastcheck">Verificado em ${it.lastChecked}</div>` : ''}
+  </div>`;
+}
+
+function countCardHTML(it, idx){
+  const key = CAT_KEY[it.cat];
+  const quantidadeHTML = it.quantity === null
+    ? `<span class="continuo">Controle contínuo</span>`
+    : `<div class="stepper">
+        <button data-act="dec" data-idx="${idx}" aria-label="Diminuir">−</button>
+        <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
+        <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
+      </div>`;
+  const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
+  return `<div class="card count-card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
+    <span class="hole"></span>
+    ${thumbHTML}
+    <span class="code">${it.code}</span>
+    <p class="title">${it.title}</p>
+    <div class="row">
+      ${quantidadeHTML}
+    </div>
+    <button class="btnline primary" data-act="confirm" data-idx="${idx}" style="width:100%;margin-top:11px;">Confirmar contagem ✓</button>
+  </div>`;
+}
+
+function renderCountProgress(){
+  const total = items.length;
+  const done = sessionConfirmed.size;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  els.countProgressText.textContent = `${done} de ${total} confirmados`;
+  els.countProgressBar.style.width = pct + '%';
+}
+
 function renderGrid(){
   const list = visibleItems();
+  if(countMode){
+    renderCountProgress();
+    els.sectionTitle.textContent = searchTerm ? `Resultados para "${searchTerm}"` : 'Levantamento em andamento';
+    if(!list.length){
+      els.grid.innerHTML = '<div class="empty">🎉 Levantamento concluído! Todos os itens foram confirmados. Clique em "Salvar no GitHub" pra gravar, ou "Encerrar levantamento" pra voltar à edição normal.</div>';
+      return;
+    }
+    els.grid.innerHTML = list.map((it) => countCardHTML(it, items.indexOf(it))).join('');
+    els.grid.querySelectorAll('[data-act="inc"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, 1)));
+    els.grid.querySelectorAll('[data-act="dec"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, -1)));
+    els.grid.querySelectorAll('[data-act="qty"]').forEach(inp => inp.addEventListener('change', () => {
+      const idx = inp.dataset.idx;
+      items[idx].quantity = Math.max(0, parseInt(inp.value)||0);
+      markDirty();
+    }));
+    els.grid.querySelectorAll('[data-act="confirm"]').forEach(b => b.addEventListener('click', () => confirmCount(Number(b.dataset.idx))));
+    return;
+  }
+
   els.sectionTitle.textContent = searchTerm ? `Resultados para "${searchTerm}"` : activeCategory;
   if(!list.length){
     els.grid.innerHTML = '<div class="empty">Nenhum item encontrado. Clique em "Recarregar do GitHub" se a lista estiver vazia.</div>';
     return;
   }
-  els.grid.innerHTML = list.map((it) => {
-    const key = CAT_KEY[it.cat];
-    const idx = items.indexOf(it);
-    const tok = STATUS_TOKEN[it.status] || 'pendente';
-    const quantidadeHTML = it.quantity === null
-      ? `<span class="continuo">Controle contínuo</span>`
-      : `<div class="stepper">
-          <button data-act="dec" data-idx="${idx}" aria-label="Diminuir">−</button>
-          <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
-          <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
-        </div>`;
-    const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
-    return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
-      <button class="editbtn" data-act="edit" data-idx="${idx}">Editar</button>
-      <span class="hole"></span>
-      ${thumbHTML}
-      <span class="code">${it.code}</span>
-      <p class="title">${it.title}</p>
-      <div class="row">
-        ${quantidadeHTML}
-        <select class="status" data-idx="${idx}" style="background:var(--${tok}-bg);color:var(--${tok});">
-          <option ${it.status==='Pendente'?'selected':''}>Pendente</option>
-          <option ${it.status==='Verificado'?'selected':''}>Verificado</option>
-          <option ${it.status==='Baixo Estoque'?'selected':''}>Baixo Estoque</option>
-          <option ${it.status==='Repor'?'selected':''}>Repor</option>
-        </select>
-      </div>
-      <textarea class="note" rows="1" placeholder="Observação…" data-idx="${idx}">${it.note||''}</textarea>
-      ${it.lastChecked ? `<div class="lastcheck">Verificado em ${it.lastChecked}</div>` : ''}
-    </div>`;
-  }).join('');
+  els.grid.innerHTML = list.map((it) => normalCardHTML(it, items.indexOf(it))).join('');
 
   els.grid.querySelectorAll('[data-act="inc"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, 1)));
   els.grid.querySelectorAll('[data-act="dec"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, -1)));
@@ -414,7 +507,7 @@ function renderGrid(){
     const idx = sel.dataset.idx;
     items[idx].status = sel.value;
     if(sel.value === 'Verificado'){
-      items[idx].lastChecked = new Date().toLocaleDateString('pt-BR');
+      items[idx].lastChecked = new Date().toLocaleString('pt-BR');
     }
     afterEdit();
   }));
@@ -422,6 +515,39 @@ function renderGrid(){
     items[ta.dataset.idx].note = ta.value;
     markDirty();
   }));
+}
+
+function confirmCount(idx){
+  const it = items[idx];
+  it.status = (it.quantity||0) === 0 ? 'Repor' : 'Verificado';
+  it.lastChecked = new Date().toLocaleString('pt-BR');
+  sessionConfirmed.add(it.code);
+  afterEdit();
+}
+
+function startCountMode(){
+  countMode = true;
+  sessionConfirmed = new Set();
+  searchTerm = '';
+  els.search.value = '';
+  els.drawers.hidden = true;
+  els.countProgress.hidden = false;
+  els.btnNewItem.hidden = true;
+  els.btnLoad.hidden = true;
+  els.bulkVerify.hidden = true;
+  els.btnCountMode.textContent = 'Encerrar levantamento';
+  render();
+}
+
+function endCountMode(){
+  countMode = false;
+  els.drawers.hidden = false;
+  els.countProgress.hidden = true;
+  els.btnNewItem.hidden = false;
+  els.btnLoad.hidden = false;
+  els.bulkVerify.hidden = false;
+  els.btnCountMode.textContent = 'Iniciar novo levantamento';
+  render();
 }
 
 function bump(idx, delta){
@@ -450,9 +576,18 @@ els.search.addEventListener('input', (e) => {
 
 els.bulkVerify.addEventListener('click', () => {
   const list = visibleItems();
-  const today = new Date().toLocaleDateString('pt-BR');
-  list.forEach(it => { it.status = 'Verificado'; it.lastChecked = today; });
+  const now = new Date().toLocaleString('pt-BR');
+  list.forEach(it => { it.status = 'Verificado'; it.lastChecked = now; });
   afterEdit();
+});
+
+els.btnCountMode.addEventListener('click', () => {
+  if(countMode){
+    endCountMode();
+  }else{
+    if(!confirm('Isso vai listar todos os itens como pendentes de contagem, até você confirmar cada um. Continuar?')) return;
+    startCountMode();
+  }
 });
 
 els.btnLoad.addEventListener('click', loadFromGitHub);
