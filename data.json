@@ -244,7 +244,7 @@
       "code": "tmp-aprenda-historias-biblicas",
       "title": "Aprenda com as histórias bíblicas",
       "cat": "Livro",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/lfb/T/pt/lfb_T_lg.jpg",
       "quantity": 0,
       "status": "Repor",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:41:30.983Z"
+  "updatedAt": "2026-07-01T18:41:42.687Z"
 }
