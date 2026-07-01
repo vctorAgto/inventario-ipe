@@ -224,7 +224,7 @@
       "code": "tmp-5-dicas-precos",
       "title": "5 dicas para lidar com as altas de preço",
       "cat": "Despertai",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/g/202511/T/pt/g_T_202511_lg.jpg",
       "quantity": 0,
       "status": "Repor",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:41:01.373Z"
+  "updatedAt": "2026-07-01T18:41:12.855Z"
 }
