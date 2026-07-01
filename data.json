@@ -284,7 +284,7 @@
       "code": "be",
       "title": "Beneficie-se",
       "cat": "Livro",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/be/T/pt/be_T_lg.jpg",
       "quantity": 1,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:42:17.211Z"
+  "updatedAt": "2026-07-01T18:42:29.371Z"
 }
