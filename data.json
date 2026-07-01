@@ -374,7 +374,7 @@
       "code": "jj-m",
       "title": "Cante de coração (edição média)",
       "cat": "Cântico",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/1102016770/T/art/1102016770_T_cvr_lg.jpg",
       "quantity": 11,
       "status": "Verificado",
       "note": "Sufixo -m adicionado manualmente para diferenciar do formato grande (jj-g). Confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:48:10.947Z"
+  "updatedAt": "2026-07-01T18:48:13.825Z"
 }
