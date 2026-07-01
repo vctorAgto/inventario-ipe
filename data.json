@@ -404,7 +404,7 @@
       "code": "tmp-veja-boa-terra",
       "title": "Veja a boa terra",
       "cat": "Cartilha",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/gl/univ/pt/gl_univ_lg.jpg",
       "quantity": 11,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:47:06.321Z"
+  "updatedAt": "2026-07-01T18:47:26.171Z"
 }
