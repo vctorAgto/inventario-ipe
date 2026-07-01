@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Editor — Balcão de Literatura</title>
+<link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -11,42 +12,63 @@
 <div class="wrap">
 
   <div class="masthead">
-    <p class="eyebrow"><span>Congregação Ipê · Edição</span><a class="badge-link" href="index.html">Ver tela pública →</a></p>
-    <h1>Editor do inventário</h1>
-    <p class="sub">As alterações aqui gravam um commit direto no repositório GitHub. A tela pública (index.html) reflete essas mudanças assim que o GitHub Pages publicar (geralmente ~1 minuto).</p>
+    <div class="brandrow">
+      <img src="logo.png" alt="Símbolo da Congregação Ipê" class="brandmark">
+      <div class="brandtext">
+        <p class="eyebrow"><span>Congregação Ipê · Edição</span><a class="badge-link" href="index.html">Ver tela pública →</a></p>
+        <h1>Editor do inventário</h1>
+        <p class="sub">As alterações aqui gravam um commit direto no repositório GitHub. A tela pública (index.html) reflete essas mudanças assim que o GitHub Pages publicar (geralmente ~1 minuto).</p>
+      </div>
+    </div>
   </div>
 
   <details class="settings" id="settingsBox">
-    <summary>Configuração do repositório (preencher uma vez por navegador)</summary>
-    <div class="settings-grid">
+    <summary>Acesso do editor (preencher uma vez por navegador)</summary>
+    <div class="login-fields">
       <div>
-        <label>Usuário/organização do GitHub</label>
-        <input type="text" id="cfgOwner" placeholder="ex: vctorAgto">
+        <label>Seu nome</label>
+        <input type="text" id="cfgName" placeholder="ex: Ana">
       </div>
       <div>
-        <label>Nome do repositório</label>
-        <input type="text" id="cfgRepo" placeholder="ex: inventario-ipe">
-      </div>
-      <div>
-        <label>Branch</label>
-        <input type="text" id="cfgBranch" placeholder="main" value="main">
-      </div>
-      <div>
-        <label>Caminho do arquivo de dados</label>
-        <input type="text" id="cfgPath" placeholder="data.json" value="data.json">
-      </div>
-      <div class="settings-full">
-        <label>Personal Access Token (fine-grained, com permissão só de leitura/escrita de conteúdo neste repositório)</label>
-        <input type="password" id="cfgToken" placeholder="github_pat_...">
+        <label>Senha de acesso</label>
+        <input type="password" id="cfgToken" placeholder="senha compartilhada com os editores">
       </div>
     </div>
     <div class="settings-note">
-      O token fica salvo apenas neste navegador (localStorage) — nunca é gravado no repositório. Crie um token em
-      github.com → Settings → Developer settings → Fine-grained tokens, com acesso restrito só a este repositório e permissão "Contents: Read and write".
-      Qualquer pessoa com este token consegue editar o repositório: não compartilhe o link desta tela publicamente, apenas com quem for atualizar o inventário.
+      A senha fica salva apenas neste navegador (localStorage) — nunca é gravada no repositório.
+      Peça a senha de acesso a quem administra o inventário. Seu nome aparece só no histórico de
+      alterações do GitHub, pra facilitar saber quem atualizou o quê.
     </div>
-    <div class="row" style="margin-top:12px;">
-      <button class="btnline" id="btnSaveConfig">Salvar configuração</button>
+    <details class="advanced">
+      <summary>Configuração avançada (só para quem administra o repositório)</summary>
+      <div class="settings-grid">
+        <div>
+          <label>Usuário/organização do GitHub</label>
+          <input type="text" id="cfgOwner" placeholder="vctorAgto">
+        </div>
+        <div>
+          <label>Nome do repositório</label>
+          <input type="text" id="cfgRepo" placeholder="inventario-ipe">
+        </div>
+        <div>
+          <label>Branch</label>
+          <input type="text" id="cfgBranch" placeholder="main">
+        </div>
+        <div>
+          <label>Caminho do arquivo de dados</label>
+          <input type="text" id="cfgPath" placeholder="data.json">
+        </div>
+      </div>
+      <div class="settings-note">
+        Deixe em branco pra usar os valores padrão deste repositório. A "senha de acesso" acima é,
+        por baixo dos panos, um token do GitHub (fine-grained, permissão só de "Contents: Read and write"
+        neste repositório) — quem administra gera esse token em github.com → Settings → Developer settings
+        → Fine-grained tokens, e compartilha com os editores como se fosse uma senha única. Qualquer pessoa
+        com essa senha consegue editar o repositório: não compartilhe fora do grupo de editores.
+      </div>
+    </details>
+    <div class="row" style="margin-top:14px;">
+      <button class="btnline" id="btnSaveConfig">Salvar</button>
       <button class="btnline" id="btnLoad">Carregar do GitHub</button>
     </div>
   </details>
@@ -71,7 +93,7 @@
   </div>
 
   <div class="newitem-panel" id="newItemPanel" hidden>
-    <h3>Adicionar novo item</h3>
+    <h3 id="niHeading">Adicionar novo item</h3>
     <div class="newitem-grid">
       <div>
         <label>Código<span class="req">obrigatório</span></label>
@@ -91,9 +113,12 @@
       </div>
     </div>
     <div class="newitem-error" id="niError"></div>
-    <div class="row" style="margin-top:12px; justify-content:flex-end;">
-      <button class="btnline" id="btnNewItemCancel">Cancelar</button>
-      <button class="btnline primary" id="btnNewItemConfirm">Adicionar item</button>
+    <div class="row" style="margin-top:12px; justify-content:space-between;">
+      <button class="btnline danger" id="btnNewItemRemove" hidden>Remover item</button>
+      <div class="row" style="margin-left:auto;">
+        <button class="btnline" id="btnNewItemCancel">Cancelar</button>
+        <button class="btnline primary" id="btnNewItemConfirm">Adicionar item</button>
+      </div>
     </div>
   </div>
 
@@ -104,13 +129,18 @@
 
 <script src="shared.js"></script>
 <script>
+// Valores padrão deste repositório — quem só tem a senha de acesso não precisa preencher nada disso.
+const DEFAULTS = { owner: 'vctorAgto', repo: 'inventario-ipe', branch: 'main', path: 'data.json' };
+
 let items = [];
 let currentSha = null;
 let dirty = false;
 let activeCategory = CATEGORIES[0];
 let searchTerm = "";
+let editingIndex = null; // null = modo "novo item"; numero = editando items[editingIndex]
 
 const els = {
+  name: document.getElementById('cfgName'),
   owner: document.getElementById('cfgOwner'),
   repo: document.getElementById('cfgRepo'),
   branch: document.getElementById('cfgBranch'),
@@ -129,37 +159,49 @@ const els = {
   search: document.getElementById('search'),
   btnNewItem: document.getElementById('btnNewItem'),
   newItemPanel: document.getElementById('newItemPanel'),
+  niHeading: document.getElementById('niHeading'),
   niCode: document.getElementById('niCode'),
   niTitle: document.getElementById('niTitle'),
   niCat: document.getElementById('niCat'),
   niQty: document.getElementById('niQty'),
   niError: document.getElementById('niError'),
   btnNewItemCancel: document.getElementById('btnNewItemCancel'),
-  btnNewItemConfirm: document.getElementById('btnNewItemConfirm')
+  btnNewItemConfirm: document.getElementById('btnNewItemConfirm'),
+  btnNewItemRemove: document.getElementById('btnNewItemRemove')
 };
 
 function loadConfig(){
   const cfg = JSON.parse(localStorage.getItem('inv-github-config') || '{}');
+  els.name.value = cfg.name || '';
   els.owner.value = cfg.owner || '';
   els.repo.value = cfg.repo || '';
-  els.branch.value = cfg.branch || 'main';
-  els.path.value = cfg.path || 'data.json';
+  els.branch.value = cfg.branch || '';
+  els.path.value = cfg.path || '';
   els.token.value = cfg.token || '';
-  if(cfg.owner && cfg.repo) els.settingsBox.open = false;
+  if(cfg.token) els.settingsBox.open = false;
 }
 function saveConfig(){
   const cfg = {
+    name: els.name.value.trim(),
     owner: els.owner.value.trim(),
     repo: els.repo.value.trim(),
-    branch: els.branch.value.trim() || 'main',
-    path: els.path.value.trim() || 'data.json',
+    branch: els.branch.value.trim(),
+    path: els.path.value.trim(),
     token: els.token.value.trim()
   };
   localStorage.setItem('inv-github-config', JSON.stringify(cfg));
   return cfg;
 }
 function getConfig(){
-  return JSON.parse(localStorage.getItem('inv-github-config') || '{}');
+  const cfg = JSON.parse(localStorage.getItem('inv-github-config') || '{}');
+  return {
+    name: cfg.name || '',
+    owner: cfg.owner || DEFAULTS.owner,
+    repo: cfg.repo || DEFAULTS.repo,
+    branch: cfg.branch || DEFAULTS.branch,
+    path: cfg.path || DEFAULTS.path,
+    token: cfg.token || ''
+  };
 }
 
 function apiUrl(cfg){
@@ -173,14 +215,14 @@ function setStatus(msg, isError){
 
 async function loadFromGitHub(){
   const cfg = getConfig();
-  if(!cfg.owner || !cfg.repo || !cfg.token){
-    setStatus('Preencha usuário, repositório e token antes de carregar.', true);
+  if(!cfg.token){
+    setStatus('Preencha a senha de acesso antes de carregar.', true);
     els.settingsBox.open = true;
     return;
   }
   setStatus('Carregando do GitHub...');
   try{
-    const res = await fetch(`${apiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch || 'main')}`, {
+    const res = await fetch(`${apiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch)}`, {
       headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' }
     });
     if(!res.ok){
@@ -203,8 +245,8 @@ async function loadFromGitHub(){
 
 async function saveToGitHub(){
   const cfg = getConfig();
-  if(!cfg.owner || !cfg.repo || !cfg.token){
-    setStatus('Preencha a configuração antes de salvar.', true);
+  if(!cfg.token){
+    setStatus('Preencha a senha de acesso antes de salvar.', true);
     els.settingsBox.open = true;
     return;
   }
@@ -213,10 +255,11 @@ async function saveToGitHub(){
   try{
     const payload = { items, updatedAt: new Date().toISOString() };
     const content = utf8ToBase64(JSON.stringify(payload, null, 2));
+    const quem = cfg.name ? cfg.name : 'Editor';
     const body = {
-      message: 'Atualiza inventário — ' + new Date().toLocaleString('pt-BR'),
+      message: `Atualiza inventário — ${quem} — ` + new Date().toLocaleString('pt-BR'),
       content,
-      branch: cfg.branch || 'main'
+      branch: cfg.branch
     };
     if(currentSha) body.sha = currentSha;
     const res = await fetch(apiUrl(cfg), {
@@ -314,6 +357,7 @@ function renderGrid(){
           <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
         </div>`;
     return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
+      <button class="editbtn" data-act="edit" data-idx="${idx}">Editar</button>
       <span class="hole"></span>
       <span class="code">${it.code}</span>
       <p class="title">${it.title}</p>
@@ -333,6 +377,7 @@ function renderGrid(){
 
   els.grid.querySelectorAll('[data-act="inc"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, 1)));
   els.grid.querySelectorAll('[data-act="dec"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, -1)));
+  els.grid.querySelectorAll('[data-act="edit"]').forEach(b => b.addEventListener('click', () => openEditPanel(Number(b.dataset.idx))));
   els.grid.querySelectorAll('[data-act="qty"]').forEach(inp => inp.addEventListener('change', () => {
     const idx = inp.dataset.idx;
     items[idx].quantity = Math.max(0, parseInt(inp.value)||0);
@@ -390,10 +435,14 @@ els.btnSaveConfig.addEventListener('click', () => {
 els.btnLoad.addEventListener('click', loadFromGitHub);
 els.btnSave.addEventListener('click', saveToGitHub);
 
-// --- Novo item (código é sempre obrigatório) ---
+// --- Painel de item: adicionar novo ou editar existente (código é sempre obrigatório) ---
 els.niCat.innerHTML = CATEGORIES.map(c => `<option>${c}</option>`).join('');
 
 function openNewItemPanel(){
+  editingIndex = null;
+  els.niHeading.textContent = 'Adicionar novo item';
+  els.btnNewItemConfirm.textContent = 'Adicionar item';
+  els.btnNewItemRemove.hidden = true;
   els.newItemPanel.hidden = false;
   els.niCode.value = '';
   els.niTitle.value = '';
@@ -402,9 +451,27 @@ function openNewItemPanel(){
   els.niError.textContent = '';
   els.niCode.focus();
 }
+
+function openEditPanel(idx){
+  editingIndex = idx;
+  const it = items[idx];
+  els.niHeading.textContent = 'Editar item';
+  els.btnNewItemConfirm.textContent = 'Salvar alterações';
+  els.btnNewItemRemove.hidden = false;
+  els.newItemPanel.hidden = false;
+  els.niCode.value = it.code;
+  els.niTitle.value = it.title;
+  els.niCat.value = it.cat;
+  els.niQty.value = it.quantity === null ? 0 : it.quantity;
+  els.niError.textContent = '';
+  els.newItemPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  els.niCode.focus();
+}
+
 function closeNewItemPanel(){
   els.newItemPanel.hidden = true;
   els.niError.textContent = '';
+  editingIndex = null;
 }
 els.btnNewItem.addEventListener('click', openNewItemPanel);
 els.btnNewItemCancel.addEventListener('click', closeNewItemPanel);
@@ -426,25 +493,35 @@ els.btnNewItemConfirm.addEventListener('click', () => {
     return;
   }
   const codeLower = code.toLowerCase();
-  if(items.some(it => it.code.toLowerCase() === codeLower)){
+  const clash = items.some((it, i) => i !== editingIndex && it.code.toLowerCase() === codeLower);
+  if(clash){
     els.niError.textContent = `Já existe um item com o código "${code}". Use um código diferente.`;
     els.niCode.focus();
     return;
   }
 
-  items.push({
-    code,
-    title,
-    cat,
-    quantity,
-    status: 'Pendente',
-    note: '',
-    lastChecked: null
-  });
+  if(editingIndex === null){
+    items.push({ code, title, cat, quantity, status: 'Pendente', note: '', lastChecked: null });
+  }else{
+    const it = items[editingIndex];
+    it.code = code;
+    it.title = title;
+    it.cat = cat;
+    it.quantity = quantity;
+  }
 
   activeCategory = cat;
   searchTerm = '';
   els.search.value = '';
+  closeNewItemPanel();
+  afterEdit();
+});
+
+els.btnNewItemRemove.addEventListener('click', () => {
+  if(editingIndex === null) return;
+  const it = items[editingIndex];
+  if(!confirm(`Remover "${it.title}" (${it.code}) do inventário?`)) return;
+  items.splice(editingIndex, 1);
   closeNewItemPanel();
   afterEdit();
 });
