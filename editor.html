@@ -346,6 +346,36 @@ async function loadFromGitHub(){
   }
 }
 
+async function putToGitHub(cfg, sha){
+  const payload = { items, updatedAt: new Date().toISOString() };
+  const content = utf8ToBase64(JSON.stringify(payload, null, 2));
+  const quem = cfg.name ? cfg.name : 'Editor';
+  const body = {
+    message: `Atualiza inventário — ${quem} — ` + new Date().toLocaleString('pt-BR'),
+    content,
+    branch: cfg.branch
+  };
+  if(sha) body.sha = sha;
+  return fetch(apiUrl(cfg), {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${cfg.token}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+}
+
+async function fetchLatestSha(cfg){
+  const res = await fetch(`${apiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch)}`, {
+    headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' }
+  });
+  if(!res.ok) return null;
+  const json = await res.json();
+  return json.sha;
+}
+
 async function saveToGitHub(){
   const cfg = getConfig();
   if(!cfg.token){
@@ -356,25 +386,19 @@ async function saveToGitHub(){
   els.btnSave.disabled = true;
   const originalLabel = els.btnSave.textContent;
   els.btnSave.textContent = 'Salvando...';
+  let resolvedConflict = false;
   try{
-    const payload = { items, updatedAt: new Date().toISOString() };
-    const content = utf8ToBase64(JSON.stringify(payload, null, 2));
-    const quem = cfg.name ? cfg.name : 'Editor';
-    const body = {
-      message: `Atualiza inventário — ${quem} — ` + new Date().toLocaleString('pt-BR'),
-      content,
-      branch: cfg.branch
-    };
-    if(currentSha) body.sha = currentSha;
-    const res = await fetch(apiUrl(cfg), {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${cfg.token}`,
-        'Accept': 'application/vnd.github+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
+    let res = await putToGitHub(cfg, currentSha);
+    if(res.status === 409){
+      // Alguem salvou entre o carregamento desta aba e agora. Busca o sha atual e tenta de novo,
+      // sem perder as edicoes feitas nesta aba.
+      setStatus('Outra pessoa salvou enquanto você editava — sincronizando automaticamente...');
+      const freshSha = await fetchLatestSha(cfg);
+      if(freshSha){
+        res = await putToGitHub(cfg, freshSha);
+        resolvedConflict = res.ok;
+      }
+    }
     if(!res.ok){
       const errBody = await res.text();
       throw new Error(`HTTP ${res.status} — ${errBody.slice(0,200)}`);
@@ -382,8 +406,11 @@ async function saveToGitHub(){
     const json = await res.json();
     currentSha = json.content.sha;
     dirty = false;
-    setStatus('Salvo no GitHub às ' + new Date().toLocaleTimeString('pt-BR') + '. A tela pública atualiza em ~1 minuto.');
-    showToast('✓ Inventário salvo no GitHub com sucesso.');
+    const successMsg = resolvedConflict
+      ? 'Conflito resolvido automaticamente — suas alterações foram salvas por cima.'
+      : 'Salvo no GitHub às ' + new Date().toLocaleTimeString('pt-BR') + '. A tela pública atualiza em ~1 minuto.';
+    setStatus(successMsg);
+    showToast(resolvedConflict ? '✓ Salvo (um conflito com outra edição foi resolvido automaticamente).' : '✓ Inventário salvo no GitHub com sucesso.');
     els.btnSave.textContent = 'Salvo ✓';
     setTimeout(() => { els.btnSave.textContent = originalLabel; }, 2500);
   }catch(e){
