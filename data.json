@@ -304,7 +304,7 @@
       "code": "bt-lg",
       "title": "Testemunho cabal (letra grande)",
       "cat": "Livro Letra Grande",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/bt/T/pt/bt_T_lg.jpg",
       "quantity": 3,
       "status": "Verificado",
       "note": "Sufixo -lg adicionado manualmente para diferenciar da edição comum (bt). Confirme se o código oficial é outro.",
@@ -314,7 +314,7 @@
       "code": "tmp-venha-seguidor-lg",
       "title": "Venha ser meu seguidor (letra grande)",
       "cat": "Livro Letra Grande",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/cf/T/pt/cf_T_lg.jpg",
       "quantity": 2,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial da edição em letra grande.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:43:15.817Z"
+  "updatedAt": "2026-07-01T18:43:43.975Z"
 }
