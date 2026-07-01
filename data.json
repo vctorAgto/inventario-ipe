@@ -444,7 +444,7 @@
       "code": "tmp-espiritos-mortos",
       "title": "Espíritos dos mortos",
       "cat": "Brochura",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/sp/T/pt/sp_T_lg.jpg",
       "quantity": 4,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:44:54.995Z"
+  "updatedAt": "2026-07-01T18:45:06.291Z"
 }
