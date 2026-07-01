@@ -424,7 +424,7 @@
       "code": "tmp-melhore",
       "title": "Melhore",
       "cat": "Cartilha",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/th/T/pt/th_T_lg.jpg",
       "quantity": 9,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:47:38.361Z"
+  "updatedAt": "2026-07-01T18:47:48.565Z"
 }
