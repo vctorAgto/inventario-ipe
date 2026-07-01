@@ -144,6 +144,17 @@
 
 <div class="toast" id="toast" hidden></div>
 
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal-card">
+    <h3 id="modalTitle">Confirmar</h3>
+    <p id="modalMessage"></p>
+    <div class="row" style="justify-content:flex-end; margin-top:18px;">
+      <button class="btnline" id="modalCancel">Cancelar</button>
+      <button class="btnline primary" id="modalConfirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <script src="shared.js"></script>
 <script>
 // Valores padrão deste repositório — quem só tem a senha de acesso não precisa preencher nada disso.
@@ -185,6 +196,11 @@ const els = {
   countProgressText: document.getElementById('countProgressText'),
   countProgressBar: document.getElementById('countProgressBar'),
   toast: document.getElementById('toast'),
+  modalOverlay: document.getElementById('modalOverlay'),
+  modalTitle: document.getElementById('modalTitle'),
+  modalMessage: document.getElementById('modalMessage'),
+  modalCancel: document.getElementById('modalCancel'),
+  modalConfirm: document.getElementById('modalConfirm'),
   newItemPanel: document.getElementById('newItemPanel'),
   niHeading: document.getElementById('niHeading'),
   niCode: document.getElementById('niCode'),
@@ -239,6 +255,38 @@ function apiUrl(cfg){
 function setStatus(msg, isError){
   els.statusbar.textContent = msg;
   els.statusbar.classList.toggle('error', !!isError);
+}
+
+function showConfirm(message, opts){
+  opts = opts || {};
+  const title = opts.title || 'Confirmar';
+  const confirmLabel = opts.confirmLabel || 'Confirmar';
+  const danger = !!opts.danger;
+  return new Promise((resolve) => {
+    els.modalTitle.textContent = title;
+    els.modalMessage.textContent = message;
+    els.modalConfirm.textContent = confirmLabel;
+    els.modalConfirm.classList.toggle('danger', danger);
+    els.modalConfirm.classList.toggle('primary', !danger);
+    els.modalOverlay.hidden = false;
+    requestAnimationFrame(() => els.modalOverlay.classList.add('show'));
+
+    function cleanup(result){
+      els.modalOverlay.classList.remove('show');
+      setTimeout(() => { els.modalOverlay.hidden = true; }, 150);
+      els.modalConfirm.removeEventListener('click', onConfirm);
+      els.modalCancel.removeEventListener('click', onCancel);
+      els.modalOverlay.removeEventListener('click', onBackdrop);
+      resolve(result);
+    }
+    function onConfirm(){ cleanup(true); }
+    function onCancel(){ cleanup(false); }
+    function onBackdrop(e){ if(e.target === els.modalOverlay) cleanup(false); }
+
+    els.modalConfirm.addEventListener('click', onConfirm);
+    els.modalCancel.addEventListener('click', onCancel);
+    els.modalOverlay.addEventListener('click', onBackdrop);
+  });
 }
 
 let toastTimer = null;
@@ -581,11 +629,15 @@ els.bulkVerify.addEventListener('click', () => {
   afterEdit();
 });
 
-els.btnCountMode.addEventListener('click', () => {
+els.btnCountMode.addEventListener('click', async () => {
   if(countMode){
     endCountMode();
   }else{
-    if(!confirm('Isso vai listar todos os itens como pendentes de contagem, até você confirmar cada um. Continuar?')) return;
+    const ok = await showConfirm(
+      'Isso vai listar todos os itens como pendentes de contagem, até você confirmar cada um. Continuar?',
+      { title: 'Iniciar levantamento', confirmLabel: 'Iniciar' }
+    );
+    if(!ok) return;
     startCountMode();
   }
 });
@@ -604,8 +656,11 @@ els.btnLogin.addEventListener('click', async () => {
   els.btnLogin.disabled = false;
 });
 
-els.btnLogout.addEventListener('click', () => {
-  if(dirty && !confirm('Existem alterações não salvas. Sair mesmo assim?')) return;
+els.btnLogout.addEventListener('click', async () => {
+  if(dirty){
+    const ok = await showConfirm('Existem alterações não salvas. Sair mesmo assim?', { title: 'Sair sem salvar?', confirmLabel: 'Sair', danger: true });
+    if(!ok) return;
+  }
   localStorage.removeItem('inv-github-config');
   els.token.value = '';
   items = [];
@@ -699,10 +754,11 @@ els.btnNewItemConfirm.addEventListener('click', () => {
   afterEdit();
 });
 
-els.btnNewItemRemove.addEventListener('click', () => {
+els.btnNewItemRemove.addEventListener('click', async () => {
   if(editingIndex === null) return;
   const it = items[editingIndex];
-  if(!confirm(`Remover "${it.title}" (${it.code}) do inventário?`)) return;
+  const ok = await showConfirm(`Remover "${it.title}" (${it.code}) do inventário?`, { title: 'Remover item?', confirmLabel: 'Remover', danger: true });
+  if(!ok) return;
   items.splice(editingIndex, 1);
   closeNewItemPanel();
   afterEdit();
