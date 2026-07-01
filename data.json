@@ -274,7 +274,7 @@
       "code": "kr",
       "title": "O Reino de Deus já governa!",
       "cat": "Livro",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/kr/T/pt/kr_T_lg.jpg",
       "quantity": 4,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:42:05.744Z"
+  "updatedAt": "2026-07-01T18:42:17.211Z"
 }
