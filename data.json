@@ -18,7 +18,7 @@
       "quantity": 800,
       "status": "Verificado",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "01/07/2026, 14:43:43"
     },
     {
       "code": "g18.2",
@@ -28,7 +28,7 @@
       "quantity": 650,
       "status": "Verificado",
       "note": "Na verdade é Despertai N.º 2 2018 (estava catalogado como Brochura).",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "01/07/2026, 14:43:42"
     },
     {
       "code": "wp19.2",
@@ -38,7 +38,7 @@
       "quantity": 450,
       "status": "Verificado",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "01/07/2026, 14:43:41"
     },
     {
       "code": "wp19.1",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T17:43:35.687Z"
+  "updatedAt": "2026-07-01T17:43:44.744Z"
 }
