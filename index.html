@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Balcão de Literatura — Congregação Ipê</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <p class="eyebrow"><span>Congregação Ipê · Somente leitura</span><a class="badge-link" href="editor.html">Ir para edição →</a></p>
+    <h1>Balcão de Literatura</h1>
+    <p class="sub">Consulta pública do inventário. Para atualizar quantidades, use a tela de edição.</p>
+    <div class="statusbar" id="statusbar">Carregando...</div>
+  </div>
+
+  <div class="dash" id="dash"></div>
+
+  <div class="searchrow">
+    <input type="text" id="search" placeholder="Buscar por título ou código (ex: bt, Sentinela, Bíblia)…">
+  </div>
+
+  <div class="drawers" id="drawers"></div>
+
+  <div class="bulkrow">
+    <h2 id="sectionTitle">Todos os itens</h2>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>Dados publicados via GitHub Pages · Congregação Ipê</footer>
+</div>
+
+<script src="shared.js"></script>
+<script>
+let items = [];
+let activeCategory = CATEGORIES[0];
+let searchTerm = "";
+
+const drawersEl = document.getElementById('drawers');
+const gridEl = document.getElementById('grid');
+const dashEl = document.getElementById('dash');
+const sectionTitleEl = document.getElementById('sectionTitle');
+const statusbarEl = document.getElementById('statusbar');
+
+async function loadData(){
+  try{
+    const res = await fetch('./data.json?t=' + Date.now());
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const payload = await res.json();
+    items = payload.items || [];
+    statusbarEl.textContent = payload.updatedAt ? ('Atualizado em ' + formatDateTime(payload.updatedAt)) : 'Dados carregados';
+    statusbarEl.classList.remove('error');
+    render();
+  }catch(e){
+    statusbarEl.textContent = 'Não foi possível carregar data.json — verifique se o arquivo existe no repositório e se o GitHub Pages já publicou.';
+    statusbarEl.classList.add('error');
+  }
+}
+
+function renderDash(){
+  const countable = items.filter(it => it.quantity !== null);
+  const total = countable.length;
+  const verified = items.filter(it => it.status === 'Verificado').length;
+  const totalQty = countable.reduce((s,it) => s + (Number(it.quantity)||0), 0);
+  const pct = total ? Math.round((verified/total)*100) : 0;
+  dashEl.innerHTML = `
+    <div class="stat"><div class="n">${items.length}</div><div class="l">Itens no catálogo</div></div>
+    <div class="stat"><div class="n">${totalQty.toLocaleString('pt-BR')}</div><div class="l">Exemplares em estoque</div></div>
+    <div class="stat"><div class="n">${verified}/${total}</div><div class="l">Verificados</div>
+      <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
+    </div>
+    <div class="stat"><div class="n">${items.filter(it=>it.status==='Repor'||it.status==='Baixo Estoque').length}</div><div class="l">Precisam de atenção</div></div>
+  `;
+}
+
+function renderDrawers(){
+  drawersEl.innerHTML = CATEGORIES.map(cat => {
+    const key = CAT_KEY[cat];
+    const catItems = items.filter(it => it.cat === cat);
+    const verified = catItems.filter(it => it.status === 'Verificado').length;
+    const active = (!searchTerm && cat === activeCategory) ? 'active' : '';
+    return `<div class="drawer ${active}" data-cat="${cat}" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
+      <span class="icon">${ICONS[cat]}</span>
+      <span class="name">${cat}</span>
+      <span class="count">${verified}/${catItems.length} verificados</span>
+    </div>`;
+  }).join('');
+  drawersEl.querySelectorAll('.drawer').forEach(el => {
+    el.addEventListener('click', () => {
+      activeCategory = el.dataset.cat;
+      searchTerm = '';
+      document.getElementById('search').value = '';
+      renderDrawers();
+      renderGrid();
+    });
+  });
+}
+
+function visibleItems(){
+  if(searchTerm){
+    const t = searchTerm.toLowerCase();
+    return items.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
+  }
+  return items.filter(it => it.cat === activeCategory);
+}
+
+function renderGrid(){
+  const list = visibleItems();
+  sectionTitleEl.textContent = searchTerm ? `Resultados para "${searchTerm}"` : activeCategory;
+  if(!list.length){
+    gridEl.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
+    return;
+  }
+  gridEl.innerHTML = list.map((it) => {
+    const key = CAT_KEY[it.cat];
+    const tok = STATUS_TOKEN[it.status] || 'pendente';
+    const quantidadeHTML = it.quantity === null
+      ? `<span class="continuo">Controle contínuo</span>`
+      : `<span class="qty-static">${it.quantity}</span>`;
+    return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
+      <span class="hole"></span>
+      <span class="code">${it.code}</span>
+      <p class="title">${it.title}</p>
+      <div class="row">
+        ${quantidadeHTML}
+        <span class="status-pill" style="background:var(--${tok}-bg);color:var(--${tok});">${it.status}</span>
+      </div>
+      ${it.note ? `<div class="note-static">${it.note}</div>` : ''}
+      ${it.lastChecked ? `<div class="lastcheck">Verificado em ${it.lastChecked}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function render(){
+  renderDash();
+  renderDrawers();
+  renderGrid();
+}
+
+document.getElementById('search').addEventListener('input', (e) => {
+  searchTerm = e.target.value.trim();
+  renderDrawers();
+  renderGrid();
+});
+
+loadData();
+setInterval(loadData, 30000);
+</script>
+</body>
+</html>

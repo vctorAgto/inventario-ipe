@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Editor — Balcão de Literatura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <p class="eyebrow"><span>Congregação Ipê · Edição</span><a class="badge-link" href="index.html">Ver tela pública →</a></p>
+    <h1>Editor do inventário</h1>
+    <p class="sub">As alterações aqui gravam um commit direto no repositório GitHub. A tela pública (index.html) reflete essas mudanças assim que o GitHub Pages publicar (geralmente ~1 minuto).</p>
+  </div>
+
+  <details class="settings" id="settingsBox">
+    <summary>Configuração do repositório (preencher uma vez por navegador)</summary>
+    <div class="settings-grid">
+      <div>
+        <label>Usuário/organização do GitHub</label>
+        <input type="text" id="cfgOwner" placeholder="ex: vctorAgto">
+      </div>
+      <div>
+        <label>Nome do repositório</label>
+        <input type="text" id="cfgRepo" placeholder="ex: inventario-ipe">
+      </div>
+      <div>
+        <label>Branch</label>
+        <input type="text" id="cfgBranch" placeholder="main" value="main">
+      </div>
+      <div>
+        <label>Caminho do arquivo de dados</label>
+        <input type="text" id="cfgPath" placeholder="data.json" value="data.json">
+      </div>
+      <div class="settings-full">
+        <label>Personal Access Token (fine-grained, com permissão só de leitura/escrita de conteúdo neste repositório)</label>
+        <input type="password" id="cfgToken" placeholder="github_pat_...">
+      </div>
+    </div>
+    <div class="settings-note">
+      O token fica salvo apenas neste navegador (localStorage) — nunca é gravado no repositório. Crie um token em
+      github.com → Settings → Developer settings → Fine-grained tokens, com acesso restrito só a este repositório e permissão "Contents: Read and write".
+      Qualquer pessoa com este token consegue editar o repositório: não compartilhe o link desta tela publicamente, apenas com quem for atualizar o inventário.
+    </div>
+    <div class="row" style="margin-top:12px;">
+      <button class="btnline" id="btnSaveConfig">Salvar configuração</button>
+      <button class="btnline" id="btnLoad">Carregar do GitHub</button>
+    </div>
+  </details>
+
+  <div class="statusbar" id="statusbar"></div>
+
+  <div class="dash" id="dash"></div>
+
+  <div class="searchrow">
+    <input type="text" id="search" placeholder="Buscar por título ou código…">
+  </div>
+
+  <div class="drawers" id="drawers"></div>
+
+  <div class="bulkrow">
+    <h2 id="sectionTitle">Todos os itens</h2>
+    <div style="display:flex; gap:8px;">
+      <button class="btnline" id="btnNewItem">+ Novo item</button>
+      <button class="btnline" id="bulkVerify">Marcar visíveis como verificados</button>
+      <button class="btnline primary" id="btnSave" disabled>Salvar no GitHub</button>
+    </div>
+  </div>
+
+  <div class="newitem-panel" id="newItemPanel" hidden>
+    <h3>Adicionar novo item</h3>
+    <div class="newitem-grid">
+      <div>
+        <label>Código<span class="req">obrigatório</span></label>
+        <input type="text" id="niCode" placeholder="ex: wp24.1">
+      </div>
+      <div>
+        <label>Título<span class="req">obrigatório</span></label>
+        <input type="text" id="niTitle" placeholder="ex: Como saber o que é certo e errado">
+      </div>
+      <div>
+        <label>Categoria</label>
+        <select id="niCat"></select>
+      </div>
+      <div>
+        <label>Quantidade</label>
+        <input type="number" id="niQty" min="0" value="0">
+      </div>
+    </div>
+    <div class="newitem-error" id="niError"></div>
+    <div class="row" style="margin-top:12px; justify-content:flex-end;">
+      <button class="btnline" id="btnNewItemCancel">Cancelar</button>
+      <button class="btnline primary" id="btnNewItemConfirm">Adicionar item</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>Alterações são gravadas como commits no GitHub · Congregação Ipê</footer>
+</div>
+
+<script src="shared.js"></script>
+<script>
+let items = [];
+let currentSha = null;
+let dirty = false;
+let activeCategory = CATEGORIES[0];
+let searchTerm = "";
+
+const els = {
+  owner: document.getElementById('cfgOwner'),
+  repo: document.getElementById('cfgRepo'),
+  branch: document.getElementById('cfgBranch'),
+  path: document.getElementById('cfgPath'),
+  token: document.getElementById('cfgToken'),
+  settingsBox: document.getElementById('settingsBox'),
+  statusbar: document.getElementById('statusbar'),
+  drawers: document.getElementById('drawers'),
+  grid: document.getElementById('grid'),
+  dash: document.getElementById('dash'),
+  sectionTitle: document.getElementById('sectionTitle'),
+  btnSave: document.getElementById('btnSave'),
+  btnLoad: document.getElementById('btnLoad'),
+  btnSaveConfig: document.getElementById('btnSaveConfig'),
+  bulkVerify: document.getElementById('bulkVerify'),
+  search: document.getElementById('search'),
+  btnNewItem: document.getElementById('btnNewItem'),
+  newItemPanel: document.getElementById('newItemPanel'),
+  niCode: document.getElementById('niCode'),
+  niTitle: document.getElementById('niTitle'),
+  niCat: document.getElementById('niCat'),
+  niQty: document.getElementById('niQty'),
+  niError: document.getElementById('niError'),
+  btnNewItemCancel: document.getElementById('btnNewItemCancel'),
+  btnNewItemConfirm: document.getElementById('btnNewItemConfirm')
+};
+
+function loadConfig(){
+  const cfg = JSON.parse(localStorage.getItem('inv-github-config') || '{}');
+  els.owner.value = cfg.owner || '';
+  els.repo.value = cfg.repo || '';
+  els.branch.value = cfg.branch || 'main';
+  els.path.value = cfg.path || 'data.json';
+  els.token.value = cfg.token || '';
+  if(cfg.owner && cfg.repo) els.settingsBox.open = false;
+}
+function saveConfig(){
+  const cfg = {
+    owner: els.owner.value.trim(),
+    repo: els.repo.value.trim(),
+    branch: els.branch.value.trim() || 'main',
+    path: els.path.value.trim() || 'data.json',
+    token: els.token.value.trim()
+  };
+  localStorage.setItem('inv-github-config', JSON.stringify(cfg));
+  return cfg;
+}
+function getConfig(){
+  return JSON.parse(localStorage.getItem('inv-github-config') || '{}');
+}
+
+function apiUrl(cfg){
+  return `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.path}`;
+}
+
+function setStatus(msg, isError){
+  els.statusbar.textContent = msg;
+  els.statusbar.classList.toggle('error', !!isError);
+}
+
+async function loadFromGitHub(){
+  const cfg = getConfig();
+  if(!cfg.owner || !cfg.repo || !cfg.token){
+    setStatus('Preencha usuário, repositório e token antes de carregar.', true);
+    els.settingsBox.open = true;
+    return;
+  }
+  setStatus('Carregando do GitHub...');
+  try{
+    const res = await fetch(`${apiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch || 'main')}`, {
+      headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' }
+    });
+    if(!res.ok){
+      const body = await res.text();
+      throw new Error(`HTTP ${res.status} — ${body.slice(0,200)}`);
+    }
+    const json = await res.json();
+    currentSha = json.sha;
+    const decoded = base64ToUtf8(json.content.replace(/\n/g, ''));
+    const payload = JSON.parse(decoded);
+    items = payload.items || [];
+    dirty = false;
+    els.btnSave.disabled = true;
+    setStatus('Carregado do GitHub. Última atualização: ' + formatDateTime(payload.updatedAt));
+    render();
+  }catch(e){
+    setStatus('Falha ao carregar: ' + e.message, true);
+  }
+}
+
+async function saveToGitHub(){
+  const cfg = getConfig();
+  if(!cfg.owner || !cfg.repo || !cfg.token){
+    setStatus('Preencha a configuração antes de salvar.', true);
+    els.settingsBox.open = true;
+    return;
+  }
+  setStatus('Salvando no GitHub...');
+  els.btnSave.disabled = true;
+  try{
+    const payload = { items, updatedAt: new Date().toISOString() };
+    const content = utf8ToBase64(JSON.stringify(payload, null, 2));
+    const body = {
+      message: 'Atualiza inventário — ' + new Date().toLocaleString('pt-BR'),
+      content,
+      branch: cfg.branch || 'main'
+    };
+    if(currentSha) body.sha = currentSha;
+    const res = await fetch(apiUrl(cfg), {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${cfg.token}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    if(!res.ok){
+      const errBody = await res.text();
+      throw new Error(`HTTP ${res.status} — ${errBody.slice(0,200)}`);
+    }
+    const json = await res.json();
+    currentSha = json.content.sha;
+    dirty = false;
+    setStatus('Salvo no GitHub às ' + new Date().toLocaleTimeString('pt-BR') + '. A tela pública atualiza em ~1 minuto.');
+  }catch(e){
+    setStatus('Falha ao salvar: ' + e.message + ' — nada foi perdido, tente salvar de novo.', true);
+    els.btnSave.disabled = false;
+  }
+}
+
+function markDirty(){
+  dirty = true;
+  els.btnSave.disabled = false;
+  setStatus('Alterações não salvas — clique em "Salvar no GitHub" para gravar.');
+}
+
+function renderDash(){
+  const countable = items.filter(it => it.quantity !== null);
+  const total = countable.length;
+  const verified = items.filter(it => it.status === 'Verificado').length;
+  const totalQty = countable.reduce((s,it) => s + (Number(it.quantity)||0), 0);
+  const pct = total ? Math.round((verified/total)*100) : 0;
+  els.dash.innerHTML = `
+    <div class="stat"><div class="n">${items.length}</div><div class="l">Itens no catálogo</div></div>
+    <div class="stat"><div class="n">${totalQty.toLocaleString('pt-BR')}</div><div class="l">Exemplares em estoque</div></div>
+    <div class="stat"><div class="n">${verified}/${total}</div><div class="l">Verificados</div>
+      <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
+    </div>
+    <div class="stat"><div class="n">${items.filter(it=>it.status==='Repor'||it.status==='Baixo Estoque').length}</div><div class="l">Precisam de atenção</div></div>
+  `;
+}
+
+function renderDrawers(){
+  els.drawers.innerHTML = CATEGORIES.map(cat => {
+    const key = CAT_KEY[cat];
+    const catItems = items.filter(it => it.cat === cat);
+    const verified = catItems.filter(it => it.status === 'Verificado').length;
+    const active = (!searchTerm && cat === activeCategory) ? 'active' : '';
+    return `<div class="drawer ${active}" data-cat="${cat}" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
+      <span class="icon">${ICONS[cat]}</span>
+      <span class="name">${cat}</span>
+      <span class="count">${verified}/${catItems.length} verificados</span>
+    </div>`;
+  }).join('');
+  els.drawers.querySelectorAll('.drawer').forEach(el => {
+    el.addEventListener('click', () => {
+      activeCategory = el.dataset.cat;
+      searchTerm = '';
+      els.search.value = '';
+      renderDrawers();
+      renderGrid();
+    });
+  });
+}
+
+function visibleItems(){
+  if(searchTerm){
+    const t = searchTerm.toLowerCase();
+    return items.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
+  }
+  return items.filter(it => it.cat === activeCategory);
+}
+
+function renderGrid(){
+  const list = visibleItems();
+  els.sectionTitle.textContent = searchTerm ? `Resultados para "${searchTerm}"` : activeCategory;
+  if(!list.length){
+    els.grid.innerHTML = '<div class="empty">Nenhum item encontrado. Clique em "Carregar do GitHub" se a lista estiver vazia.</div>';
+    return;
+  }
+  els.grid.innerHTML = list.map((it) => {
+    const key = CAT_KEY[it.cat];
+    const idx = items.indexOf(it);
+    const tok = STATUS_TOKEN[it.status] || 'pendente';
+    const quantidadeHTML = it.quantity === null
+      ? `<span class="continuo">Controle contínuo</span>`
+      : `<div class="stepper">
+          <button data-act="dec" data-idx="${idx}" aria-label="Diminuir">−</button>
+          <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
+          <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
+        </div>`;
+    return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
+      <span class="hole"></span>
+      <span class="code">${it.code}</span>
+      <p class="title">${it.title}</p>
+      <div class="row">
+        ${quantidadeHTML}
+        <select class="status" data-idx="${idx}" style="background:var(--${tok}-bg);color:var(--${tok});">
+          <option ${it.status==='Pendente'?'selected':''}>Pendente</option>
+          <option ${it.status==='Verificado'?'selected':''}>Verificado</option>
+          <option ${it.status==='Baixo Estoque'?'selected':''}>Baixo Estoque</option>
+          <option ${it.status==='Repor'?'selected':''}>Repor</option>
+        </select>
+      </div>
+      <textarea class="note" rows="1" placeholder="Observação…" data-idx="${idx}">${it.note||''}</textarea>
+      ${it.lastChecked ? `<div class="lastcheck">Verificado em ${it.lastChecked}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  els.grid.querySelectorAll('[data-act="inc"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, 1)));
+  els.grid.querySelectorAll('[data-act="dec"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, -1)));
+  els.grid.querySelectorAll('[data-act="qty"]').forEach(inp => inp.addEventListener('change', () => {
+    const idx = inp.dataset.idx;
+    items[idx].quantity = Math.max(0, parseInt(inp.value)||0);
+    afterEdit();
+  }));
+  els.grid.querySelectorAll('select.status').forEach(sel => sel.addEventListener('change', () => {
+    const idx = sel.dataset.idx;
+    items[idx].status = sel.value;
+    if(sel.value === 'Verificado'){
+      items[idx].lastChecked = new Date().toLocaleDateString('pt-BR');
+    }
+    afterEdit();
+  }));
+  els.grid.querySelectorAll('textarea.note').forEach(ta => ta.addEventListener('input', () => {
+    items[ta.dataset.idx].note = ta.value;
+    markDirty();
+  }));
+}
+
+function bump(idx, delta){
+  items[idx].quantity = Math.max(0, (items[idx].quantity||0) + delta);
+  afterEdit();
+}
+
+function afterEdit(){
+  renderDash();
+  renderDrawers();
+  renderGrid();
+  markDirty();
+}
+
+function render(){
+  renderDash();
+  renderDrawers();
+  renderGrid();
+}
+
+els.search.addEventListener('input', (e) => {
+  searchTerm = e.target.value.trim();
+  renderDrawers();
+  renderGrid();
+});
+
+els.bulkVerify.addEventListener('click', () => {
+  const list = visibleItems();
+  const today = new Date().toLocaleDateString('pt-BR');
+  list.forEach(it => { it.status = 'Verificado'; it.lastChecked = today; });
+  afterEdit();
+});
+
+els.btnSaveConfig.addEventListener('click', () => {
+  saveConfig();
+  setStatus('Configuração salva neste navegador.');
+});
+els.btnLoad.addEventListener('click', loadFromGitHub);
+els.btnSave.addEventListener('click', saveToGitHub);
+
+// --- Novo item (código é sempre obrigatório) ---
+els.niCat.innerHTML = CATEGORIES.map(c => `<option>${c}</option>`).join('');
+
+function openNewItemPanel(){
+  els.newItemPanel.hidden = false;
+  els.niCode.value = '';
+  els.niTitle.value = '';
+  els.niCat.value = activeCategory;
+  els.niQty.value = 0;
+  els.niError.textContent = '';
+  els.niCode.focus();
+}
+function closeNewItemPanel(){
+  els.newItemPanel.hidden = true;
+  els.niError.textContent = '';
+}
+els.btnNewItem.addEventListener('click', openNewItemPanel);
+els.btnNewItemCancel.addEventListener('click', closeNewItemPanel);
+
+els.btnNewItemConfirm.addEventListener('click', () => {
+  const code = els.niCode.value.trim();
+  const title = els.niTitle.value.trim();
+  const cat = els.niCat.value;
+  const quantity = Math.max(0, parseInt(els.niQty.value) || 0);
+
+  if(!code){
+    els.niError.textContent = 'O código é obrigatório.';
+    els.niCode.focus();
+    return;
+  }
+  if(!title){
+    els.niError.textContent = 'O título é obrigatório.';
+    els.niTitle.focus();
+    return;
+  }
+  const codeLower = code.toLowerCase();
+  if(items.some(it => it.code.toLowerCase() === codeLower)){
+    els.niError.textContent = `Já existe um item com o código "${code}". Use um código diferente.`;
+    els.niCode.focus();
+    return;
+  }
+
+  items.push({
+    code,
+    title,
+    cat,
+    quantity,
+    status: 'Pendente',
+    note: '',
+    lastChecked: null
+  });
+
+  activeCategory = cat;
+  searchTerm = '';
+  els.search.value = '';
+  closeNewItemPanel();
+  afterEdit();
+});
+
+window.addEventListener('beforeunload', (e) => {
+  if(dirty){ e.preventDefault(); e.returnValue = ''; }
+});
+
+loadConfig();
+render();
+if(getConfig().token) loadFromGitHub();
+</script>
+</body>
+</html>
