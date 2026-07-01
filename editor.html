@@ -17,13 +17,15 @@
       <div class="brandtext">
         <p class="eyebrow"><span>Congregação Ipê · Edição</span><a class="badge-link" href="index.html">Ver tela pública →</a></p>
         <h1>Editor do inventário</h1>
-        <p class="sub">As alterações aqui gravam um commit direto no repositório GitHub. A tela pública (index.html) reflete essas mudanças assim que o GitHub Pages publicar (geralmente ~1 minuto).</p>
+        <p class="sub">Acesso restrito a quem cuida do inventário. As alterações aqui gravam um commit direto no repositório GitHub — a tela pública reflete essas mudanças assim que o GitHub Pages publicar (geralmente ~1 minuto).</p>
       </div>
     </div>
   </div>
 
-  <details class="settings" id="settingsBox">
-    <summary>Acesso do editor (preencher uma vez por navegador)</summary>
+  <!-- Tela de login: nada do inventário aparece antes de entrar -->
+  <div class="login-gate" id="loginGate">
+    <h2>Entrar no editor</h2>
+    <p class="sub" style="margin-bottom:16px;">Peça o nome e a senha de acesso a quem administra o inventário.</p>
     <div class="login-fields">
       <div>
         <label>Seu nome</label>
@@ -34,10 +36,9 @@
         <input type="password" id="cfgToken" placeholder="senha compartilhada com os editores">
       </div>
     </div>
-    <div class="settings-note">
-      A senha fica salva apenas neste navegador (localStorage) — nunca é gravada no repositório.
-      Peça a senha de acesso a quem administra o inventário. Seu nome aparece só no histórico de
-      alterações do GitHub, pra facilitar saber quem atualizou o quê.
+    <div class="newitem-error" id="loginError"></div>
+    <div class="row" style="margin-top:14px;">
+      <button class="btnline primary" id="btnLogin">Entrar</button>
     </div>
     <details class="advanced">
       <summary>Configuração avançada (só para quem administra o repositório)</summary>
@@ -60,69 +61,77 @@
         </div>
       </div>
       <div class="settings-note">
-        Deixe em branco pra usar os valores padrão deste repositório. A "senha de acesso" acima é,
-        por baixo dos panos, um token do GitHub (fine-grained, permissão só de "Contents: Read and write"
-        neste repositório) — quem administra gera esse token em github.com → Settings → Developer settings
-        → Fine-grained tokens, e compartilha com os editores como se fosse uma senha única. Qualquer pessoa
-        com essa senha consegue editar o repositório: não compartilhe fora do grupo de editores.
+        Deixe em branco pra usar os valores padrão deste repositório. A "senha de acesso" é, por baixo dos
+        panos, um token do GitHub (fine-grained, permissão só de "Contents: Read and write" neste repositório)
+        — quem administra gera esse token em github.com → Settings → Developer settings → Fine-grained tokens,
+        e compartilha com os editores como se fosse uma senha única. Qualquer pessoa com essa senha consegue
+        editar o repositório: não compartilhe fora do grupo de editores.
       </div>
     </details>
-    <div class="row" style="margin-top:14px;">
-      <button class="btnline" id="btnSaveConfig">Salvar</button>
-      <button class="btnline" id="btnLoad">Carregar do GitHub</button>
-    </div>
-  </details>
-
-  <div class="statusbar" id="statusbar"></div>
-
-  <div class="dash" id="dash"></div>
-
-  <div class="searchrow">
-    <input type="text" id="search" placeholder="Buscar por título ou código…">
   </div>
 
-  <div class="drawers" id="drawers"></div>
+  <!-- Conteúdo do editor: só aparece depois de entrar com sucesso -->
+  <div id="appView" hidden>
+    <div class="statusbar" id="statusbar"></div>
 
-  <div class="bulkrow">
-    <h2 id="sectionTitle">Todos os itens</h2>
-    <div style="display:flex; gap:8px;">
-      <button class="btnline" id="btnNewItem">+ Novo item</button>
-      <button class="btnline" id="bulkVerify">Marcar visíveis como verificados</button>
-      <button class="btnline primary" id="btnSave" disabled>Salvar no GitHub</button>
+    <div class="row" style="justify-content:flex-end; margin-bottom:4px;">
+      <button class="btnline small" id="btnLogout">Sair</button>
     </div>
+
+    <div class="dash" id="dash"></div>
+
+    <div class="searchrow">
+      <input type="text" id="search" placeholder="Buscar por título ou código…">
+    </div>
+
+    <div class="drawers" id="drawers"></div>
+
+    <div class="bulkrow">
+      <h2 id="sectionTitle">Todos os itens</h2>
+      <div style="display:flex; gap:8px;">
+        <button class="btnline" id="btnNewItem">+ Novo item</button>
+        <button class="btnline" id="btnLoad">Recarregar do GitHub</button>
+        <button class="btnline" id="bulkVerify">Marcar visíveis como verificados</button>
+        <button class="btnline primary" id="btnSave" disabled>Salvar no GitHub</button>
+      </div>
+    </div>
+
+    <div class="newitem-panel" id="newItemPanel" hidden>
+      <h3 id="niHeading">Adicionar novo item</h3>
+      <div class="newitem-grid">
+        <div>
+          <label>Código<span class="req">obrigatório</span></label>
+          <input type="text" id="niCode" placeholder="ex: wp24.1">
+        </div>
+        <div>
+          <label>Título<span class="req">obrigatório</span></label>
+          <input type="text" id="niTitle" placeholder="ex: Como saber o que é certo e errado">
+        </div>
+        <div>
+          <label>Categoria</label>
+          <select id="niCat"></select>
+        </div>
+        <div>
+          <label>Quantidade</label>
+          <input type="number" id="niQty" min="0" value="0">
+        </div>
+        <div class="settings-full">
+          <label>URL da imagem (opcional)</label>
+          <input type="text" id="niImage" placeholder="https://.../capa-da-publicacao.jpg">
+        </div>
+      </div>
+      <div class="newitem-error" id="niError"></div>
+      <div class="row" style="margin-top:12px; justify-content:space-between;">
+        <button class="btnline danger" id="btnNewItemRemove" hidden>Remover item</button>
+        <div class="row" style="margin-left:auto;">
+          <button class="btnline" id="btnNewItemCancel">Cancelar</button>
+          <button class="btnline primary" id="btnNewItemConfirm">Adicionar item</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" id="grid"></div>
   </div>
-
-  <div class="newitem-panel" id="newItemPanel" hidden>
-    <h3 id="niHeading">Adicionar novo item</h3>
-    <div class="newitem-grid">
-      <div>
-        <label>Código<span class="req">obrigatório</span></label>
-        <input type="text" id="niCode" placeholder="ex: wp24.1">
-      </div>
-      <div>
-        <label>Título<span class="req">obrigatório</span></label>
-        <input type="text" id="niTitle" placeholder="ex: Como saber o que é certo e errado">
-      </div>
-      <div>
-        <label>Categoria</label>
-        <select id="niCat"></select>
-      </div>
-      <div>
-        <label>Quantidade</label>
-        <input type="number" id="niQty" min="0" value="0">
-      </div>
-    </div>
-    <div class="newitem-error" id="niError"></div>
-    <div class="row" style="margin-top:12px; justify-content:space-between;">
-      <button class="btnline danger" id="btnNewItemRemove" hidden>Remover item</button>
-      <div class="row" style="margin-left:auto;">
-        <button class="btnline" id="btnNewItemCancel">Cancelar</button>
-        <button class="btnline primary" id="btnNewItemConfirm">Adicionar item</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="grid" id="grid"></div>
 
   <footer>Alterações são gravadas como commits no GitHub · Congregação Ipê</footer>
 </div>
@@ -140,13 +149,17 @@ let searchTerm = "";
 let editingIndex = null; // null = modo "novo item"; numero = editando items[editingIndex]
 
 const els = {
+  loginGate: document.getElementById('loginGate'),
+  appView: document.getElementById('appView'),
+  loginError: document.getElementById('loginError'),
+  btnLogin: document.getElementById('btnLogin'),
+  btnLogout: document.getElementById('btnLogout'),
   name: document.getElementById('cfgName'),
   owner: document.getElementById('cfgOwner'),
   repo: document.getElementById('cfgRepo'),
   branch: document.getElementById('cfgBranch'),
   path: document.getElementById('cfgPath'),
   token: document.getElementById('cfgToken'),
-  settingsBox: document.getElementById('settingsBox'),
   statusbar: document.getElementById('statusbar'),
   drawers: document.getElementById('drawers'),
   grid: document.getElementById('grid'),
@@ -154,7 +167,6 @@ const els = {
   sectionTitle: document.getElementById('sectionTitle'),
   btnSave: document.getElementById('btnSave'),
   btnLoad: document.getElementById('btnLoad'),
-  btnSaveConfig: document.getElementById('btnSaveConfig'),
   bulkVerify: document.getElementById('bulkVerify'),
   search: document.getElementById('search'),
   btnNewItem: document.getElementById('btnNewItem'),
@@ -164,6 +176,7 @@ const els = {
   niTitle: document.getElementById('niTitle'),
   niCat: document.getElementById('niCat'),
   niQty: document.getElementById('niQty'),
+  niImage: document.getElementById('niImage'),
   niError: document.getElementById('niError'),
   btnNewItemCancel: document.getElementById('btnNewItemCancel'),
   btnNewItemConfirm: document.getElementById('btnNewItemConfirm'),
@@ -178,7 +191,7 @@ function loadConfig(){
   els.branch.value = cfg.branch || '';
   els.path.value = cfg.path || '';
   els.token.value = cfg.token || '';
-  if(cfg.token) els.settingsBox.open = false;
+  return cfg;
 }
 function saveConfig(){
   const cfg = {
@@ -213,12 +226,22 @@ function setStatus(msg, isError){
   els.statusbar.classList.toggle('error', !!isError);
 }
 
+function showApp(){
+  els.loginGate.hidden = true;
+  els.appView.hidden = false;
+}
+function showGate(msg, isError){
+  els.appView.hidden = true;
+  els.loginGate.hidden = false;
+  els.loginError.textContent = msg || '';
+  els.loginError.classList.toggle('error', !!isError);
+}
+
 async function loadFromGitHub(){
   const cfg = getConfig();
   if(!cfg.token){
-    setStatus('Preencha a senha de acesso antes de carregar.', true);
-    els.settingsBox.open = true;
-    return;
+    showGate('Preencha a senha de acesso para entrar.', true);
+    return false;
   }
   setStatus('Carregando do GitHub...');
   try{
@@ -236,18 +259,20 @@ async function loadFromGitHub(){
     items = payload.items || [];
     dirty = false;
     els.btnSave.disabled = true;
+    showApp();
     setStatus('Carregado do GitHub. Última atualização: ' + formatDateTime(payload.updatedAt));
     render();
+    return true;
   }catch(e){
-    setStatus('Falha ao carregar: ' + e.message, true);
+    showGate('Não foi possível entrar: ' + e.message, true);
+    return false;
   }
 }
 
 async function saveToGitHub(){
   const cfg = getConfig();
   if(!cfg.token){
-    setStatus('Preencha a senha de acesso antes de salvar.', true);
-    els.settingsBox.open = true;
+    showGate('Preencha a senha de acesso.', true);
     return;
   }
   setStatus('Salvando no GitHub...');
@@ -342,7 +367,7 @@ function renderGrid(){
   const list = visibleItems();
   els.sectionTitle.textContent = searchTerm ? `Resultados para "${searchTerm}"` : activeCategory;
   if(!list.length){
-    els.grid.innerHTML = '<div class="empty">Nenhum item encontrado. Clique em "Carregar do GitHub" se a lista estiver vazia.</div>';
+    els.grid.innerHTML = '<div class="empty">Nenhum item encontrado. Clique em "Recarregar do GitHub" se a lista estiver vazia.</div>';
     return;
   }
   els.grid.innerHTML = list.map((it) => {
@@ -356,9 +381,11 @@ function renderGrid(){
           <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
           <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
         </div>`;
+    const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
     return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
       <button class="editbtn" data-act="edit" data-idx="${idx}">Editar</button>
       <span class="hole"></span>
+      ${thumbHTML}
       <span class="code">${it.code}</span>
       <p class="title">${it.title}</p>
       <div class="row">
@@ -428,12 +455,28 @@ els.bulkVerify.addEventListener('click', () => {
   afterEdit();
 });
 
-els.btnSaveConfig.addEventListener('click', () => {
-  saveConfig();
-  setStatus('Configuração salva neste navegador.');
-});
 els.btnLoad.addEventListener('click', loadFromGitHub);
 els.btnSave.addEventListener('click', saveToGitHub);
+
+els.btnLogin.addEventListener('click', async () => {
+  if(!els.token.value.trim()){
+    showGate('Preencha a senha de acesso.', true);
+    return;
+  }
+  saveConfig();
+  els.btnLogin.disabled = true;
+  await loadFromGitHub();
+  els.btnLogin.disabled = false;
+});
+
+els.btnLogout.addEventListener('click', () => {
+  if(dirty && !confirm('Existem alterações não salvas. Sair mesmo assim?')) return;
+  localStorage.removeItem('inv-github-config');
+  els.token.value = '';
+  items = [];
+  dirty = false;
+  showGate('Você saiu. Entre novamente com a senha de acesso.');
+});
 
 // --- Painel de item: adicionar novo ou editar existente (código é sempre obrigatório) ---
 els.niCat.innerHTML = CATEGORIES.map(c => `<option>${c}</option>`).join('');
@@ -448,6 +491,7 @@ function openNewItemPanel(){
   els.niTitle.value = '';
   els.niCat.value = activeCategory;
   els.niQty.value = 0;
+  els.niImage.value = '';
   els.niError.textContent = '';
   els.niCode.focus();
 }
@@ -463,6 +507,7 @@ function openEditPanel(idx){
   els.niTitle.value = it.title;
   els.niCat.value = it.cat;
   els.niQty.value = it.quantity === null ? 0 : it.quantity;
+  els.niImage.value = it.image || '';
   els.niError.textContent = '';
   els.newItemPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
   els.niCode.focus();
@@ -481,6 +526,7 @@ els.btnNewItemConfirm.addEventListener('click', () => {
   const title = els.niTitle.value.trim();
   const cat = els.niCat.value;
   const quantity = Math.max(0, parseInt(els.niQty.value) || 0);
+  const image = els.niImage.value.trim();
 
   if(!code){
     els.niError.textContent = 'O código é obrigatório.';
@@ -501,12 +547,13 @@ els.btnNewItemConfirm.addEventListener('click', () => {
   }
 
   if(editingIndex === null){
-    items.push({ code, title, cat, quantity, status: 'Pendente', note: '', lastChecked: null });
+    items.push({ code, title, cat, image, quantity, status: 'Pendente', note: '', lastChecked: null });
   }else{
     const it = items[editingIndex];
     it.code = code;
     it.title = title;
     it.cat = cat;
+    it.image = image;
     it.quantity = quantity;
   }
 
@@ -530,9 +577,13 @@ window.addEventListener('beforeunload', (e) => {
   if(dirty){ e.preventDefault(); e.returnValue = ''; }
 });
 
-loadConfig();
-render();
-if(getConfig().token) loadFromGitHub();
+const savedCfg = loadConfig();
+if(savedCfg.token){
+  showGate('Entrando...');
+  loadFromGitHub();
+}else{
+  showGate();
+}
 </script>
 </body>
 </html>

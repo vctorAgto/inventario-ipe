@@ -126,8 +126,10 @@ function renderGrid(){
     const quantidadeHTML = it.quantity === null
       ? `<span class="continuo">Controle contínuo</span>`
       : `<span class="qty-static">${it.quantity}</span>`;
+    const thumbHTML = it.image ? `<img class="thumb" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
     return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
       <span class="hole"></span>
+      ${thumbHTML}
       <span class="code">${it.code}</span>
       <p class="title">${it.title}</p>
       <div class="row">
