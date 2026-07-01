@@ -294,7 +294,7 @@
       "code": "tmp-jesus-caminho-lg",
       "title": "Jesus é o caminho, a verdade e a vida (letra grande)",
       "cat": "Livro Letra Grande",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/jy/T/pt/jy_T_lg.jpg",
       "quantity": 4,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial da edição em letra grande.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:05:12.841Z"
+  "updatedAt": "2026-07-01T18:15:38.161Z"
 }
