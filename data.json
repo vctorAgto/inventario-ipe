@@ -54,7 +54,7 @@
       "code": "g22.1",
       "title": "Um mundo em crise",
       "cat": "Despertai",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/g/202207/T/pt/g_T_202207_lg.jpg",
       "quantity": 185,
       "status": "Verificado",
       "note": "",
@@ -74,7 +74,7 @@
       "code": "g21.3",
       "title": "Faz sentido acreditar num Criador?",
       "cat": "Despertai",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/g/202111/T/pt/g_T_202111_lg.jpg",
       "quantity": 97,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:40:23.689Z"
+  "updatedAt": "2026-07-01T18:40:50.437Z"
 }
