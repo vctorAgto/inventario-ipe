@@ -128,9 +128,11 @@ input:focus,select:focus,textarea:focus{
 .dash{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0;}
 .stat{
   background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:17px;
-  box-shadow:var(--shadow);transition:box-shadow .15s, transform .15s;
+  box-shadow:var(--shadow);transition:box-shadow .15s, transform .15s, border-color .15s;
+  cursor:pointer;border:1px solid var(--line);
 }
 .stat:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px);}
+.stat.active{border-color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent);}
 .stat .n{font-family:'Fraunces',serif;font-size:1.85rem;letter-spacing:-.01em;}
 .stat .l{font-size:.76rem;color:var(--ink-soft);margin-top:3px;}
 .progress-outer{height:6px;background:var(--line);border-radius:4px;margin-top:10px;overflow:hidden;}
@@ -160,6 +162,7 @@ input:focus,select:focus,textarea:focus{
 /* Bulk row / actions */
 .bulkrow{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px;flex-wrap:wrap;gap:10px;}
 .bulkrow h2{font-size:1.3rem;}
+.bulkrow-actions{display:flex;gap:8px;flex-wrap:wrap;}
 
 /* Item panel (novo / editar) */
 .newitem-panel{
@@ -271,6 +274,9 @@ footer{text-align:center;color:var(--ink-soft);font-size:.76rem;margin-top:56px;
   .masthead h1{font-size:1.9rem;}
   .brandmark{width:44px;height:44px;}
   .bulkrow{flex-direction:column;align-items:stretch;}
-  .bulkrow > div{flex-direction:column;}
+  .bulkrow-actions{flex-direction:column;}
   .bulkrow .btnline{width:100%;}
+  .toast{left:16px;right:16px;bottom:16px;max-width:none;}
+  .stat{padding:14px;}
+  .stat .n{font-size:1.5rem;}
 }

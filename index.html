@@ -44,6 +44,7 @@
 let items = [];
 let activeCategory = CATEGORIES[0];
 let searchTerm = "";
+let statFilter = null; // null = navega por categoria; 'all' | 'verified' | 'attention'
 
 const drawersEl = document.getElementById('drawers');
 const gridEl = document.getElementById('grid');
@@ -72,14 +73,25 @@ function renderDash(){
   const verified = items.filter(it => it.status === 'Verificado').length;
   const totalQty = countable.reduce((s,it) => s + (Number(it.quantity)||0), 0);
   const pct = total ? Math.round((verified/total)*100) : 0;
+  const attention = items.filter(it=>it.status==='Repor'||it.status==='Baixo Estoque').length;
+  const isActive = (f) => statFilter === f ? 'active' : '';
   dashEl.innerHTML = `
-    <div class="stat"><div class="n">${items.length}</div><div class="l">Itens no catálogo</div></div>
-    <div class="stat"><div class="n">${totalQty.toLocaleString('pt-BR')}</div><div class="l">Exemplares em estoque</div></div>
-    <div class="stat"><div class="n">${verified}/${total}</div><div class="l">Verificados</div>
+    <div class="stat ${isActive('all')}" data-filter="all"><div class="n">${items.length}</div><div class="l">Itens no catálogo</div></div>
+    <div class="stat ${isActive('all')}" data-filter="all"><div class="n">${totalQty.toLocaleString('pt-BR')}</div><div class="l">Exemplares em estoque</div></div>
+    <div class="stat ${isActive('verified')}" data-filter="verified"><div class="n">${verified}/${total}</div><div class="l">Verificados</div>
       <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
     </div>
-    <div class="stat"><div class="n">${items.filter(it=>it.status==='Repor'||it.status==='Baixo Estoque').length}</div><div class="l">Precisam de atenção</div></div>
+    <div class="stat ${isActive('attention')}" data-filter="attention"><div class="n">${attention}</div><div class="l">Precisam de atenção</div></div>
   `;
+  dashEl.querySelectorAll('.stat[data-filter]').forEach(el => {
+    el.addEventListener('click', () => {
+      statFilter = el.dataset.filter;
+      searchTerm = '';
+      document.getElementById('search').value = '';
+      renderDrawers();
+      renderGrid();
+    });
+  });
 }
 
 function renderDrawers(){
@@ -87,7 +99,7 @@ function renderDrawers(){
     const key = CAT_KEY[cat];
     const catItems = items.filter(it => it.cat === cat);
     const verified = catItems.filter(it => it.status === 'Verificado').length;
-    const active = (!searchTerm && cat === activeCategory) ? 'active' : '';
+    const active = (!searchTerm && !statFilter && cat === activeCategory) ? 'active' : '';
     return `<div class="drawer ${active}" data-cat="${cat}" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
       <span class="icon">${ICONS[cat]}</span>
       <span class="name">${cat}</span>
@@ -97,6 +109,7 @@ function renderDrawers(){
   drawersEl.querySelectorAll('.drawer').forEach(el => {
     el.addEventListener('click', () => {
       activeCategory = el.dataset.cat;
+      statFilter = null;
       searchTerm = '';
       document.getElementById('search').value = '';
       renderDrawers();
@@ -110,12 +123,16 @@ function visibleItems(){
     const t = searchTerm.toLowerCase();
     return items.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
   }
+  if(statFilter === 'all') return items;
+  if(statFilter === 'verified') return items.filter(it => it.status === 'Verificado');
+  if(statFilter === 'attention') return items.filter(it => it.status === 'Repor' || it.status === 'Baixo Estoque');
   return items.filter(it => it.cat === activeCategory);
 }
 
 function renderGrid(){
   const list = visibleItems();
-  sectionTitleEl.textContent = searchTerm ? `Resultados para "${searchTerm}"` : activeCategory;
+  const filterLabels = { all: 'Todos os itens', verified: 'Itens verificados', attention: 'Itens que precisam de atenção' };
+  sectionTitleEl.textContent = searchTerm ? `Resultados para "${searchTerm}"` : (filterLabels[statFilter] || activeCategory);
   if(!list.length){
     gridEl.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
     return;
