@@ -14,7 +14,7 @@
       "code": "lffi",
       "title": "Seja feliz para sempre! (brochura)",
       "cat": "Brochura",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/lff/T/pt/lff_T_lg.jpg",
       "quantity": 800,
       "status": "Verificado",
       "note": "",
@@ -114,7 +114,7 @@
       "code": "ld",
       "title": "Escute a Deus",
       "cat": "Brochura",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/ld/T/pt/ld_T_lg.jpg",
       "quantity": 80,
       "status": "Verificado",
       "note": "",
@@ -204,7 +204,7 @@
       "code": "tmp-principios-biblicos",
       "title": "Princípios Bíblicos",
       "cat": "Brochura",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/scl/T/pt/scl_T_lg.jpg",
       "quantity": 2,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:43:43.975Z"
+  "updatedAt": "2026-07-01T18:44:18.903Z"
 }
