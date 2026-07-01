@@ -454,7 +454,7 @@
       "code": "tmp-vida-satisfatoria",
       "title": "Como ter uma vida satisfatória",
       "cat": "Brochura",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/la/T/pt/la_T_lg.jpg",
       "quantity": 3,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:45:06.291Z"
+  "updatedAt": "2026-07-01T18:45:19.141Z"
 }
