@@ -334,7 +334,7 @@
       "code": "lvs",
       "title": "Continue a amar a Deus",
       "cat": "Livro",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/lvs/T/pt/lvs_T_lg.jpg",
       "quantity": 9,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:42:40.575Z"
+  "updatedAt": "2026-07-01T18:42:53.391Z"
 }
