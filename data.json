@@ -34,7 +34,7 @@
       "code": "wp19.2",
       "title": "Você perdeu a alegria de viver?",
       "cat": "Sentinela",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201905/T/pt/wp_T_201905_lg.jpg",
       "quantity": 450,
       "status": "Verificado",
       "note": "",
@@ -44,7 +44,7 @@
       "code": "wp19.1",
       "title": "O que você sabe sobre Deus?",
       "cat": "Sentinela",
-      "image": "",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201901/T/pt/wp_T_201901_lg.jpg",
       "quantity": 180,
       "status": "Verificado",
       "note": "",
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T17:43:44.744Z"
+  "updatedAt": "2026-07-01T18:05:12.841Z"
 }
