@@ -211,8 +211,14 @@ input:focus,select:focus,textarea:focus{
   position:relative;background:var(--paper);border:1px solid var(--line);
   border-radius:14px;padding:17px;border-top:4px solid var(--cat-color);
   box-shadow:var(--shadow);transition:box-shadow .15s, transform .15s;
+  z-index:1;
+}
+.card::before{
+  content:'';position:absolute;inset:8px -6px -6px 8px;
+  background:var(--cat-bg);border-radius:14px;z-index:-1;opacity:.6;
 }
 .card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);}
+.card:active{transform:translateY(0) scale(.99);}
 .card .hole{
   position:absolute;top:11px;right:15px;width:8px;height:8px;border-radius:50%;
   background:var(--bg);border:1px solid var(--cat-color);
@@ -333,4 +339,16 @@ footer{text-align:center;color:var(--ink-soft);font-size:.76rem;margin-top:56px;
   .toast{left:16px;right:16px;bottom:16px;max-width:none;}
   .stat{padding:14px;}
   .stat .n{font-size:1.5rem;}
+
+  /* Cards de publicacao — layout dedicado pro celular */
+  .grid{grid-template-columns:1fr;gap:22px;padding:0 4px;}
+  .card{padding:20px;border-radius:16px;}
+  .card::before{inset:10px -8px -8px 10px;border-radius:16px;opacity:.55;}
+  .card .thumb{height:170px;}
+  .card .title{font-size:1.12rem;}
+  .card .code{font-size:.72rem;padding:4px 11px;}
+  .stepper button{width:34px;height:36px;font-size:1.15rem;}
+  .stepper input{width:56px;font-size:1rem;}
+  .view-toggle{width:100%;}
+  .view-toggle .btnline{flex:1;}
 }
