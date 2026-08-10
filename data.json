@@ -5,7 +5,7 @@
       "title": "Bíblia (edição média)",
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_lg.jpg",
-      "quantity": 2,
+      "quantity": 1,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial da edição na loja de publicações.",
       "lastChecked": "01/07/2026, 14:43:32"
@@ -15,7 +15,7 @@
       "title": "Seja feliz para sempre! (brochura)",
       "cat": "Brochura",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lff/T/pt/lff_T_lg.jpg",
-      "quantity": 800,
+      "quantity": 726,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026, 14:43:43"
@@ -25,7 +25,7 @@
       "title": "12 segredos para uma família feliz",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/201807/T/pt/g_T_201807_lg.jpg",
-      "quantity": 650,
+      "quantity": 662,
       "status": "Verificado",
       "note": "Na verdade é Despertai N.º 2 2018 (estava catalogado como Brochura).",
       "lastChecked": "01/07/2026, 14:43:42"
@@ -35,7 +35,7 @@
       "title": "Você perdeu a alegria de viver?",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201905/T/pt/wp_T_201905_lg.jpg",
-      "quantity": 450,
+      "quantity": 483,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026, 14:43:41"
@@ -45,7 +45,7 @@
       "title": "O que você sabe sobre Deus?",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201901/T/pt/wp_T_201901_lg.jpg",
-      "quantity": 180,
+      "quantity": 195,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -55,7 +55,7 @@
       "title": "Um mundo em crise",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202207/T/pt/g_T_202207_lg.jpg",
-      "quantity": 185,
+      "quantity": 177,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -65,7 +65,7 @@
       "title": "Como saber o que é certo e errado",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/202407/T/pt/wp_T_202407_lg.jpg",
-      "quantity": 87,
+      "quantity": 68,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -75,7 +75,7 @@
       "title": "Faz sentido acreditar num Criador?",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202111/T/pt/g_T_202111_lg.jpg",
-      "quantity": 97,
+      "quantity": 188,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -85,7 +85,7 @@
       "title": "Será que Deus se importa com você?",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201809/T/pt/wp_T_201809_lg.jpg",
-      "quantity": 360,
+      "quantity": 369,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -95,7 +95,7 @@
       "title": "Será que Deus ouve nossas orações?",
       "cat": "Sentinela",
       "image": "",
-      "quantity": 40,
+      "quantity": 26,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -105,7 +105,7 @@
       "title": "Como aliviar o estresse",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202003/T/pt/g_T_202003_lg.jpg",
-      "quantity": 220,
+      "quantity": 296,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -115,7 +115,7 @@
       "title": "Escute a Deus",
       "cat": "Brochura",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ld/T/pt/ld_T_lg.jpg",
-      "quantity": 80,
+      "quantity": 54,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -125,8 +125,8 @@
       "title": "A dor e a tristeza vão acabar algum dia?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-sfr/T/pt/t-sfr_T_lg.jpg",
-      "quantity": 400,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -135,8 +135,8 @@
       "title": "Como ter uma família feliz?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-fam/T/pt/t-fam_T_lg.jpg",
-      "quantity": 400,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -145,8 +145,8 @@
       "title": "Deus aprova todas as religiões?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-rlg/T/pt/t-rlg_T_lg.jpg",
-      "quantity": 400,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -155,8 +155,8 @@
       "title": "Quem é o verdadeiro Deus?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-god/T/pt/t-god_T_lg.jpg",
-      "quantity": 400,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -165,8 +165,8 @@
       "title": "É possível viver feliz para sempre?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-ftr/T/pt/t-ftr_T_lg.jpg",
-      "quantity": 400,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -175,8 +175,8 @@
       "title": "Como o Reino de Deus vai agir",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-kng/T/pt/t-kng_T_lg.jpg",
-      "quantity": 400,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -185,8 +185,8 @@
       "title": "Alguém ouve nossas orações?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-pry/T/pt/t-pry_T_lg.jpg",
-      "quantity": 400,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -195,8 +195,8 @@
       "title": "Ande corajosamente",
       "cat": "Livro",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wcg/T/jwpub/wcg_T_lg.jpg",
-      "quantity": 1,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "Código provisório — confirme o código oficial.",
       "lastChecked": "01/07/2026"
     },
@@ -325,7 +325,7 @@
       "title": "Organizados",
       "cat": "Livro",
       "image": "https://cms-imgp.jw-cdn.org/img/p/od/T/pt/od_T_lg.jpg",
-      "quantity": 20,
+      "quantity": 19,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -385,7 +385,7 @@
       "title": "Cartão de diretivas médicas avançadas",
       "cat": "Outros",
       "image": "",
-      "quantity": 40,
+      "quantity": 35,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
       "lastChecked": "01/07/2026"
@@ -435,7 +435,7 @@
       "title": "Volte para Jeová",
       "cat": "Brochura",
       "image": "https://cms-imgp.jw-cdn.org/img/p/rj/T/pt/rj_T_lg.jpg",
-      "quantity": 7,
+      "quantity": 6,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
       "lastChecked": "01/07/2026"
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-07-01T18:59:48.619Z"
+  "updatedAt": "2026-08-10T12:36:04.692Z"
 }
