@@ -5,7 +5,7 @@
       "title": "Bíblia (edição média)",
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_lg.jpg",
-      "quantity": 1,
+      "quantity": 2,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial da edição na loja de publicações.",
       "lastChecked": "01/07/2026, 14:43:32"
@@ -471,5 +471,5 @@
       "lastChecked": "01/07/2026"
     }
   ],
-  "updatedAt": "2026-08-10T12:36:04.692Z"
+  "updatedAt": "2026-08-11T12:02:53.011Z"
 }
