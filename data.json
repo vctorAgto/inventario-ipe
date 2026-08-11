@@ -8,7 +8,7 @@
       "quantity": 1,
       "status": "Verificado",
       "note": "Código provisório — confirme o código oficial da edição na loja de publicações.",
-      "lastChecked": "01/07/2026, 14:43:32"
+      "lastChecked": "11/08/2026, 09:14:10"
     },
     {
       "code": "lffi",
@@ -476,9 +476,9 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "status": "Pendente",
+      "status": "Verificado",
       "note": "",
-      "lastChecked": null
+      "lastChecked": "11/08/2026, 09:14:10"
     },
     {
       "code": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
@@ -486,10 +486,10 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "status": "Pendente",
+      "status": "Verificado",
       "note": "",
-      "lastChecked": null
+      "lastChecked": "11/08/2026, 09:14:10"
     }
   ],
-  "updatedAt": "2026-08-11T12:12:14.353Z"
+  "updatedAt": "2026-08-11T12:14:12.106Z"
 }
