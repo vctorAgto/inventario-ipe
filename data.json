@@ -5,8 +5,8 @@
       "title": "Bíblia (edição média)",
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_lg.jpg",
-      "quantity": 1,
-      "status": "Verificado",
+      "quantity": 0,
+      "status": "Repor",
       "note": "Código provisório — confirme o código oficial da edição na loja de publicações.",
       "lastChecked": "11/08/2026, 09:14:10"
     },
@@ -15,7 +15,7 @@
       "title": "Seja feliz para sempre! (brochura)",
       "cat": "Brochura",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lff/T/pt/lff_T_lg.jpg",
-      "quantity": 726,
+      "quantity": 1235,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026, 14:43:43"
@@ -25,7 +25,7 @@
       "title": "12 segredos para uma família feliz",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/201807/T/pt/g_T_201807_lg.jpg",
-      "quantity": 662,
+      "quantity": 606,
       "status": "Verificado",
       "note": "Na verdade é Despertai N.º 2 2018 (estava catalogado como Brochura).",
       "lastChecked": "01/07/2026, 14:43:42"
@@ -35,7 +35,7 @@
       "title": "Você perdeu a alegria de viver?",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201905/T/pt/wp_T_201905_lg.jpg",
-      "quantity": 483,
+      "quantity": 487,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026, 14:43:41"
@@ -45,7 +45,7 @@
       "title": "O que você sabe sobre Deus?",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201901/T/pt/wp_T_201901_lg.jpg",
-      "quantity": 195,
+      "quantity": 131,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -55,17 +55,17 @@
       "title": "Um mundo em crise",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202207/T/pt/g_T_202207_lg.jpg",
-      "quantity": 177,
+      "quantity": 170,
       "status": "Verificado",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:48:15"
     },
     {
       "code": "wp24.1",
       "title": "Como saber o que é certo e errado",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/202407/T/pt/wp_T_202407_lg.jpg",
-      "quantity": 68,
+      "quantity": 54,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -75,17 +75,17 @@
       "title": "Faz sentido acreditar num Criador?",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202111/T/pt/g_T_202111_lg.jpg",
-      "quantity": 188,
+      "quantity": 167,
       "status": "Verificado",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:32:57"
     },
     {
       "code": "wp18.3",
       "title": "Será que Deus se importa com você?",
       "cat": "Sentinela",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201809/T/pt/wp_T_201809_lg.jpg",
-      "quantity": 369,
+      "quantity": 294,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -95,7 +95,7 @@
       "title": "Será que Deus ouve nossas orações?",
       "cat": "Sentinela",
       "image": "",
-      "quantity": 26,
+      "quantity": 24,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -105,17 +105,17 @@
       "title": "Como aliviar o estresse",
       "cat": "Despertai",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202003/T/pt/g_T_202003_lg.jpg",
-      "quantity": 296,
+      "quantity": 340,
       "status": "Verificado",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:43:32"
     },
     {
       "code": "ld",
       "title": "Escute a Deus",
       "cat": "Brochura",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ld/T/pt/ld_T_lg.jpg",
-      "quantity": 54,
+      "quantity": 52,
       "status": "Verificado",
       "note": "",
       "lastChecked": "01/07/2026"
@@ -125,38 +125,38 @@
       "title": "A dor e a tristeza vão acabar algum dia?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-sfr/T/pt/t-sfr_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 200,
+      "status": "Baixo Estoque",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:57:41"
     },
     {
       "code": "t-fam",
       "title": "Como ter uma família feliz?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-fam/T/pt/t-fam_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 237,
+      "status": "Baixo Estoque",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:57:48"
     },
     {
       "code": "t-rlg",
       "title": "Deus aprova todas as religiões?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-rlg/T/pt/t-rlg_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 312,
+      "status": "Baixo Estoque",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:55:02"
     },
     {
       "code": "t-god",
       "title": "Quem é o verdadeiro Deus?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-god/T/pt/t-god_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 305,
+      "status": "Baixo Estoque",
       "note": "",
       "lastChecked": "01/07/2026"
     },
@@ -165,40 +165,40 @@
       "title": "É possível viver feliz para sempre?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-ftr/T/pt/t-ftr_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 224,
+      "status": "Baixo Estoque",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:57:36"
     },
     {
       "code": "t-kng",
       "title": "Como o Reino de Deus vai agir",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-kng/T/pt/t-kng_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 200,
+      "status": "Baixo Estoque",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:59:25"
     },
     {
       "code": "t-pry",
       "title": "Alguém ouve nossas orações?",
       "cat": "Folheto",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-pry/T/pt/t-pry_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 260,
+      "status": "Baixo Estoque",
       "note": "",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:58:12"
     },
     {
       "code": "tmp-ande-corajosamente",
       "title": "Ande corajosamente",
       "cat": "Livro",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wcg/T/jwpub/wcg_T_lg.jpg",
-      "quantity": 0,
-      "status": "Repor",
+      "quantity": 4,
+      "status": "Verificado",
       "note": "Código provisório — confirme o código oficial.",
-      "lastChecked": "01/07/2026"
+      "lastChecked": "13/09/2026, 13:44:44"
     },
     {
       "code": "tmp-principios-biblicos",
@@ -476,7 +476,7 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "status": "Verificado",
+      "status": "Repor",
       "note": "",
       "lastChecked": "11/08/2026, 09:14:10"
     },
@@ -486,10 +486,60 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "status": "Verificado",
+      "status": "Repor",
       "note": "",
       "lastChecked": "11/08/2026, 09:14:10"
+    },
+    {
+      "code": "wp26.1",
+      "title": "Paz mundial apenas um sonho?",
+      "cat": "Sentinela",
+      "image": "",
+      "quantity": 450,
+      "status": "Verificado",
+      "note": "",
+      "lastChecked": "13/09/2026, 13:44:19"
+    },
+    {
+      "code": "t-jss- T",
+      "title": "Os conselhos de jesus funcionam hoje?",
+      "cat": "Folheto",
+      "image": "",
+      "quantity": 600,
+      "status": "Baixo Estoque",
+      "note": "",
+      "lastChecked": "13/09/2026, 13:49:56"
+    },
+    {
+      "code": "T-dth-T",
+      "title": "Sera que as pessoas que amamos voltarao a viver?",
+      "cat": "Folheto",
+      "image": "",
+      "quantity": 140,
+      "status": "Baixo Estoque",
+      "note": "",
+      "lastChecked": "13/09/2026, 14:01:32"
+    },
+    {
+      "code": "jwcd9-T",
+      "title": "Curso Biblico Gratuito",
+      "cat": "Outros",
+      "image": "",
+      "quantity": 1400,
+      "status": "Verificado",
+      "note": "",
+      "lastChecked": "13/09/2026, 14:08:17"
+    },
+    {
+      "code": "jwcd4",
+      "title": "JW.ORG",
+      "cat": "Outros",
+      "image": "",
+      "quantity": 1400,
+      "status": "Verificado",
+      "note": "",
+      "lastChecked": "13/09/2026, 14:09:05"
     }
   ],
-  "updatedAt": "2026-08-11T12:14:12.106Z"
+  "updatedAt": "2026-09-13T17:09:27.243Z"
 }
