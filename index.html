@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <div class="wrap">
@@ -49,7 +49,7 @@
   <img id="lightboxImg" src="" alt="">
 </div>
 
-<script src="shared.js?v=3"></script>
+<script src="shared.js?v=4"></script>
 <script>
 let data = normalizePayload({});
 let activeCat = null;      // null = todas
@@ -83,11 +83,15 @@ function renderSurvey(){
   const pct = total ? Math.round(done / total * 100) : 0;
   $('surveyCard').innerHTML = `<section class="survey-card ${closed ? 'done' : ''}">
     <div class="survey-top">
-      <div>
-        <h2>Levantamento de ${monthLabel(month)}</h2>
-        <p>${closed
-          ? `Concluído em ${formatDateTime(data.survey.closedAt)}${data.survey.closedBy ? ' por ' + esc(data.survey.closedBy) : ''}.`
-          : done === 0 ? 'Ainda não começou. A contagem é feita no começo de cada mês.' : 'Contagem em andamento.'}</p>
+      <div class="survey-head">
+        ${countdownHTML(closed)}
+        <div>
+          <h2>Levantamento de ${monthLabel(month)}</h2>
+          <p>${closed
+            ? `✓ Concluído em ${formatDateTime(data.survey.closedAt)}${data.survey.closedBy ? ' por ' + esc(data.survey.closedBy) : ''}.`
+            : done === 0 ? 'Ainda não começou. A contagem é feita no começo de cada mês.' : 'Contagem em andamento.'}</p>
+          <p class="cd-text">${countdownInfo(closed).text}</p>
+        </div>
       </div>
     </div>
     <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>

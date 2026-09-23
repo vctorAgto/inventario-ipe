@@ -454,3 +454,26 @@ button.grow:hover{background:var(--cat-bg, var(--bg));}
 .grow.review .gname{font-family:'Inter',sans-serif;font-size:.98rem;}
 .grow .garrow{color:var(--ink-soft);font-size:1.1rem;flex-shrink:0;}
 .survey-card .groups{box-shadow:none;}
+
+/* ---------- Contador de dias ---------- */
+.countdown{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;}
+.cd-ring{
+  width:74px;height:74px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:4px solid var(--cd, var(--accent));background:var(--cd-bg, var(--paper));color:var(--cd, var(--accent));
+  box-shadow:var(--shadow);
+}
+.cd-n{font-family:'Fraunces',serif;font-weight:600;font-size:1.7rem;line-height:1;}
+.cd-u{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+.cd-cap{font-size:.68rem;color:var(--ink-soft);text-align:center;max-width:96px;line-height:1.2;}
+.countdown.ok{--cd:var(--contado);--cd-bg:var(--contado-bg);}
+.countdown.info{--cd:var(--revistas);--cd-bg:var(--revistas-bg);}
+.countdown.warn{--cd:var(--baixo);--cd-bg:var(--baixo-bg);}
+.countdown.late{--cd:var(--falta);--cd-bg:var(--falta-bg);}
+.survey-top{align-items:center;}
+.survey-head{display:flex;gap:14px;align-items:center;flex:1;min-width:0;}
+.survey-head > div:last-child{flex:1;min-width:0;}
+.cd-text{font-size:.8rem;color:var(--ink-soft);margin-top:4px;}
+@media (max-width:640px){
+  .cd-ring{width:62px;height:62px;border-width:3px;}
+  .cd-n{font-size:1.4rem;}
+}

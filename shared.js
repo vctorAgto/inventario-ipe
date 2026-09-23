@@ -240,3 +240,36 @@ function groupListHTML(items, opts){
   }).join('');
   return `<div class="groups">${rows}${opts.extra || ''}</div>`;
 }
+
+// Contador: dias até a próxima contagem (dia 1º do mês que vem) e até o prazo do mês (dia 10).
+const DEADLINE_DAY = 10;
+function daysBetween(a, b){
+  const d0 = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+  const d1 = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+  return Math.round((d1 - d0) / 86400000);
+}
+function countdownInfo(closed){
+  const now = new Date();
+  const next = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  const deadline = new Date(now.getFullYear(), now.getMonth(), DEADLINE_DAY);
+  const toNext = daysBetween(now, next);
+  const toDeadline = daysBetween(now, deadline);
+  const nextLabel = '1º de ' + MONTHS[next.getMonth()];
+  if(closed){
+    return { tone: 'ok', n: toNext, unit: toNext === 1 ? 'dia' : 'dias', caption: 'para a próxima contagem',
+      text: `Próxima contagem em <b>${nextLabel}</b>.` };
+  }
+  if(toDeadline >= 0){
+    return { tone: toDeadline <= 3 ? 'warn' : 'info', n: toDeadline, unit: toDeadline === 1 ? 'dia' : 'dias', caption: 'para o prazo',
+      text: toDeadline === 0 ? `O prazo é <b>hoje</b> (dia ${DEADLINE_DAY}).` : `Prazo: <b>dia ${DEADLINE_DAY}</b> de ${MONTHS[now.getMonth()]}.` };
+  }
+  return { tone: 'warn', n: toNext, unit: toNext === 1 ? 'dia' : 'dias', caption: 'para a próxima contagem',
+    text: `O prazo (dia ${DEADLINE_DAY}) já passou — conclua assim que puder. Próxima contagem em ${nextLabel}.` };
+}
+function countdownHTML(closed){
+  const c = countdownInfo(closed);
+  return `<div class="countdown ${c.tone}">
+    <div class="cd-ring"><span class="cd-n">${c.n}</span><span class="cd-u">${c.unit}</span></div>
+    <div class="cd-cap">${c.caption}</div>
+  </div>`;
+}

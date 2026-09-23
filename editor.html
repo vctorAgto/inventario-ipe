@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <div class="wrap">
@@ -152,7 +152,7 @@
   </div>
 </div>
 
-<script src="shared.js?v=3"></script>
+<script src="shared.js?v=4"></script>
 <script>
 // Valores padrão deste repositório — quem só tem a senha de acesso não precisa preencher nada disso.
 const DEFAULTS = { owner: 'vctorAgto', repo: 'inventario-ipe', branch: 'main', path: 'data.json' };
@@ -362,6 +362,8 @@ async function saveToGitHub(opts){
       res = await putToGitHub(cfg, currentSha, opts.message);
       if(res.ok && !$('homeView').hidden) renderHome();
     }
+    if(res.status === 401) throw new Error('a senha de acesso expirou ou foi revogada. Peça a senha nova a quem administra e entre de novo (botão Sair).');
+    if(res.status === 403) throw new Error('esta senha de acesso só pode ler, não pode gravar. Peça a quem administra uma senha com permissão "Contents: Read and write" e entre de novo (botão Sair).');
     if(!res.ok){
       const errBody = await res.text();
       throw new Error(`HTTP ${res.status} — ${errBody.slice(0, 160)}`);
@@ -377,9 +379,9 @@ async function saveToGitHub(opts){
     setSaveState('Salvo às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
     if(!opts.silent) showToast('✓ Salvo no GitHub.');
   }catch(e){
-    setStatus('Falha ao salvar: ' + e.message + ' — nada foi perdido, tente de novo.', true);
+    setStatus('Não salvou: ' + e.message, true);
     setSaveState('Não salvou — tente de novo');
-    showToast('Falha ao salvar: ' + e.message, true);
+    showToast('Não salvou: ' + e.message, true);
   }finally{
     saving = false;
     updateSaveBar();
@@ -499,11 +501,15 @@ function renderSurveyCard(){
   const btnLabel = closed ? 'Ver resumo' : p.done === 0 ? 'Começar levantamento →' : `Continuar levantamento (faltam ${p.left}) →`;
   $('surveyCard').innerHTML = `<section class="survey-card ${closed ? 'done' : ''}">
     <div class="survey-top">
-      <div>
-        <h2>Levantamento de ${monthLabel(m)}</h2>
-        <p>${closed
-          ? `Concluído em ${formatDateTime(data.survey.closedAt)}${data.survey.closedBy ? ' por ' + esc(data.survey.closedBy) : ''}.`
-          : 'Conte o estoque no começo do mês. Todos os itens precisam ser preenchidos — se não tiver nenhum, coloque 0.'}</p>
+      <div class="survey-head">
+        ${countdownHTML(closed)}
+        <div>
+          <h2>Levantamento de ${monthLabel(m)}</h2>
+          <p>${closed
+            ? `✓ Concluído em ${formatDateTime(data.survey.closedAt)}${data.survey.closedBy ? ' por ' + esc(data.survey.closedBy) : ''}.`
+            : 'Conte o estoque no começo do mês. Todos os itens precisam ser preenchidos — se não tiver nenhum, coloque 0.'}</p>
+          <p class="cd-text">${countdownInfo(closed).text}</p>
+        </div>
       </div>
       <button class="btnline ${closed ? '' : 'accent'} big" id="btnStartSurvey">${btnLabel}</button>
     </div>
