@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-23T14:09:27.678Z",
+  "updatedAt": "2026-09-23T14:09:38.100Z",
   "survey": {
     "month": "2026-09",
     "startedAt": "2026-09-13T16:32:57.000Z",
@@ -111,13 +111,11 @@
       "title": "Bíblia (edição média)",
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_lg.jpg",
-      "quantity": 1,
-      "countedMonth": "2026-09",
-      "lastChecked": "23/09/2026, 11:09",
+      "quantity": 0,
+      "countedMonth": null,
+      "lastChecked": "11/08/2026, 09:14:10",
       "reorder": false,
-      "note": "",
-      "prevQty": 0,
-      "countedBy": "Gean"
+      "note": ""
     },
     {
       "code": "lffi",
