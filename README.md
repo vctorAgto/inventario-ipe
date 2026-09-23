@@ -36,12 +36,27 @@ precisa saber disso — só preenche "Seu nome" (aparece no histórico de altera
 1. Abra `https://vctoragto.github.io/inventario-ipe/editor.html`.
 2. Preencha **Seu nome** e cole a **Senha de acesso**.
 3. Clique em "Salvar" e depois "Carregar do GitHub".
-4. Edite quantidades/status/observações e clique em "Salvar no GitHub".
+4. Faça o levantamento do mês ou ajuste itens no catálogo; as alterações são salvas no GitHub.
 
 A senha fica salva só no navegador de quem configurou (localStorage) — nunca é enviada pro repositório.
 Não precisa preencher usuário/repositório/branch — o editor já vem configurado pra este repositório
 (`vctorAgto/inventario-ipe`, branch `main`). Isso só aparece em "Configuração avançada", pra quem for
 administrar outro repositório copiado deste.
+
+## Levantamento mensal
+
+A contagem é feita **no começo de cada mês**. Na virada do mês, todos os itens voltam sozinhos para
+**Pendente** (a tela pública já mostra isso), e o editor guarda um retrato do mês anterior para comparação.
+
+No editor, toque em **"Começar levantamento"**: é um passo a passo por categoria, igual ao relatório de
+estoque do JW Hub (Bíblias, Livros, Brochuras e livretos, Formulários e itens, Folhetos, Revistas para o público).
+
+- Todo item precisa de um número — **nem que seja 0**. Só dá pra concluir quando tudo estiver preenchido.
+- O botão **"= n"** repete o número do mês anterior; **"Colocar 0 nos que faltam"** zera os vazios da categoria.
+- Cada passo é salvo sozinho no GitHub, então dá pra parar e continuar depois (ou dividir as categorias entre pessoas).
+- No fim, a **Revisão** mostra o resumo por categoria, a comparação com o mês anterior e o botão **Copiar resumo**.
+
+A contagem feita no começo do mês é a mesma pedida no relatório de estoque do JW Hub do mês anterior (prazo: dia 10).
 
 ## Adicionando ou editando publicações
 
@@ -51,7 +66,7 @@ versão mês a mês consistente: cada publicação é identificada pelo código 
 publicações), não pelo título, que pode variar.
 
 Pra corrigir título, código ou categoria de um item que já existe, passe o mouse sobre o card e clique em
-**"Editar"** (canto superior direito). O mesmo painel também tem um botão **"Remover item"**, caso precise
+o botão **✎** ao lado do item. O mesmo painel também tem um botão **"Remover item"**, caso precise
 apagar um item cadastrado por engano.
 
 Vários itens já cadastrados vieram sem código oficial confirmado — eles estão marcados com um código

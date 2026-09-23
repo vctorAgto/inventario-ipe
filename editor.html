@@ -12,151 +12,142 @@
 <body>
 <div class="wrap">
 
-  <div class="masthead">
-    <div class="brandrow">
-      <img src="logo.png" alt="Símbolo da Congregação Ipê" class="brandmark">
-      <div class="brandtext">
-        <p class="eyebrow"><span>Congregação Ipê · Edição</span><a class="badge-link" href="index.html">Ver tela pública →</a></p>
-        <h1>Editor do inventário</h1>
-        <p class="sub">Acesso restrito a quem cuida do inventário. As alterações aqui gravam um commit direto no repositório GitHub — a tela pública reflete essas mudanças assim que o GitHub Pages publicar (geralmente ~1 minuto).</p>
-      </div>
+  <header class="masthead" id="masthead">
+    <img src="logo.png" alt="Símbolo da Congregação Ipê" class="brandmark">
+    <div class="brandtext">
+      <p class="eyebrow">Congregação Ipê · Edição</p>
+      <h1>Editor do inventário</h1>
     </div>
-  </div>
+    <div class="head-actions">
+      <a class="badge-link" href="index.html">Tela pública</a>
+      <button class="badge-link" id="btnLogout" hidden>Sair</button>
+    </div>
+  </header>
 
   <!-- Tela de login: nada do inventário aparece antes de entrar -->
   <div class="login-gate" id="loginGate">
     <h2>Entrar no editor</h2>
-    <p class="sub" style="margin-bottom:16px;">Peça o nome e a senha de acesso a quem administra o inventário.</p>
+    <p class="muted" style="margin:0 0 14px;font-size:.9rem;">Peça o nome e a senha de acesso a quem administra o inventário.</p>
     <div class="login-fields">
       <div>
-        <label>Seu nome</label>
-        <input type="text" id="cfgName" placeholder="ex: Ana">
+        <label for="cfgName">Seu nome</label>
+        <input type="text" id="cfgName" placeholder="ex: Ana" autocomplete="name">
       </div>
       <div>
-        <label>Senha de acesso</label>
+        <label for="cfgToken">Senha de acesso</label>
         <input type="password" id="cfgToken" placeholder="senha compartilhada com os editores">
       </div>
     </div>
-    <div class="newitem-error" id="loginError"></div>
-    <div class="row" style="margin-top:14px;">
+    <div class="form-error" id="loginError"></div>
+    <div class="row" style="margin-top:12px;">
       <button class="btnline primary" id="btnLogin">Entrar</button>
     </div>
     <details class="advanced">
       <summary>Configuração avançada (só para quem administra o repositório)</summary>
       <div class="settings-grid">
-        <div>
-          <label>Usuário/organização do GitHub</label>
-          <input type="text" id="cfgOwner" placeholder="vctorAgto">
-        </div>
-        <div>
-          <label>Nome do repositório</label>
-          <input type="text" id="cfgRepo" placeholder="inventario-ipe">
-        </div>
-        <div>
-          <label>Branch</label>
-          <input type="text" id="cfgBranch" placeholder="main">
-        </div>
-        <div>
-          <label>Caminho do arquivo de dados</label>
-          <input type="text" id="cfgPath" placeholder="data.json">
-        </div>
+        <div><label>Usuário/organização do GitHub</label><input type="text" id="cfgOwner" placeholder="vctorAgto"></div>
+        <div><label>Nome do repositório</label><input type="text" id="cfgRepo" placeholder="inventario-ipe"></div>
+        <div><label>Branch</label><input type="text" id="cfgBranch" placeholder="main"></div>
+        <div><label>Caminho do arquivo de dados</label><input type="text" id="cfgPath" placeholder="data.json"></div>
       </div>
       <div class="settings-note">
         Deixe em branco pra usar os valores padrão deste repositório. A "senha de acesso" é, por baixo dos
-        panos, um token do GitHub (fine-grained, permissão só de "Contents: Read and write" neste repositório)
-        — quem administra gera esse token em github.com → Settings → Developer settings → Fine-grained tokens,
-        e compartilha com os editores como se fosse uma senha única. Qualquer pessoa com essa senha consegue
-        editar o repositório: não compartilhe fora do grupo de editores.
+        panos, um token do GitHub (fine-grained, permissão só de "Contents: Read and write" neste repositório).
+        Qualquer pessoa com essa senha consegue editar o repositório: não compartilhe fora do grupo de editores.
       </div>
     </details>
   </div>
 
-  <!-- Conteúdo do editor: só aparece depois de entrar com sucesso -->
-  <div id="appView" hidden>
-    <div class="statusbar" id="statusbar"></div>
+  <!-- Tela inicial do editor -->
+  <div id="homeView" hidden>
+    <p class="statusline" id="statusbar"></p>
+    <div id="notice"></div>
+    <div id="surveyCard"></div>
 
-    <div class="row" style="justify-content:flex-end; margin-bottom:4px;">
-      <button class="btnline small" id="btnLogout">Sair</button>
-    </div>
-
-    <div class="dash" id="dash"></div>
-
-    <div class="searchrow">
-      <input type="text" id="search" placeholder="Buscar por título ou código…">
-    </div>
-
-    <div class="drawers" id="drawers"></div>
-
-    <div class="bulkrow">
-      <h2 id="sectionTitle">Todos os itens</h2>
-      <div class="bulkrow-actions">
-        <button class="btnline" id="btnNewItem">+ Novo item</button>
-        <button class="btnline" id="btnLoad">Recarregar do GitHub</button>
-        <button class="btnline" id="bulkVerify">Marcar visíveis como verificados</button>
-        <button class="btnline" id="btnCountMode">Iniciar novo levantamento</button>
-        <button class="btnline primary" id="btnSave" disabled>Salvar no GitHub</button>
+    <div class="section-head">
+      <h2>Catálogo</h2>
+      <div class="row">
+        <button class="btnline small" id="btnLoad">↻ Recarregar</button>
+        <button class="btnline small" id="btnNewItem">+ Novo item</button>
       </div>
     </div>
-
-    <div class="count-progress" id="countProgress" hidden>
-      <p id="countProgressText"></p>
-      <div class="progress-outer"><div class="progress-inner" id="countProgressBar" style="width:0%"></div></div>
+    <div class="toolbar">
+      <input type="search" id="search" placeholder="Buscar por título ou código…">
     </div>
-
-    <div class="newitem-panel" id="newItemPanel" hidden>
-      <h3 id="niHeading">Adicionar novo item</h3>
-      <div class="newitem-grid">
-        <div>
-          <label>Código<span class="req">obrigatório</span></label>
-          <input type="text" id="niCode" placeholder="ex: wp24.1">
-        </div>
-        <div>
-          <label>Título<span class="req">obrigatório</span></label>
-          <input type="text" id="niTitle" placeholder="ex: Como saber o que é certo e errado">
-        </div>
-        <div>
-          <label>Categoria</label>
-          <select id="niCat"></select>
-        </div>
-        <div>
-          <label>Quantidade</label>
-          <input type="number" id="niQty" min="0" value="0">
-        </div>
-        <div class="settings-full">
-          <label>URL da imagem (opcional)</label>
-          <input type="text" id="niImage" placeholder="https://.../capa-da-publicacao.jpg">
-        </div>
-      </div>
-      <div class="newitem-error" id="niError"></div>
-      <div class="row" style="margin-top:12px; justify-content:space-between;">
-        <button class="btnline danger" id="btnNewItemRemove" hidden>Remover item</button>
-        <div class="row" style="margin-left:auto;">
-          <button class="btnline" id="btnNewItemCancel">Cancelar</button>
-          <button class="btnline primary" id="btnNewItemConfirm">Adicionar item</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid" id="grid"></div>
+    <div class="chips" id="chips"></div>
+    <div id="catalog"></div>
   </div>
 
-  <footer>Alterações são gravadas como commits no GitHub · Congregação Ipê</footer>
+  <!-- Assistente do levantamento mensal -->
+  <div id="wizardView" hidden>
+    <div class="wiz-top">
+      <div class="wiz-top-row">
+        <button class="btnline small" id="wizExit">✕ Sair</button>
+        <span class="wiz-month" id="wizMonth"></span>
+        <span class="wiz-month" id="wizStepLabel"></span>
+      </div>
+      <div class="wiz-steps" id="wizSteps"></div>
+    </div>
+    <div id="wizBody"></div>
+  </div>
+
+  <footer id="footer">Alterações são gravadas como commits no GitHub · Congregação Ipê</footer>
+</div>
+
+<div class="wiz-foot" id="wizFoot" hidden>
+  <div class="wiz-foot-inner">
+    <button class="btnline" id="wizPrev">← Anterior</button>
+    <span class="savestate" id="wizSaveState"></span>
+    <button class="btnline primary" id="wizNext">Próximo →</button>
+  </div>
+</div>
+
+<div class="savebar" id="saveBar" hidden>
+  <div class="savebar-inner">
+    <span id="saveBarText">Alterações não salvas</span>
+    <button class="btnline accent small" id="btnSave">Salvar agora</button>
+  </div>
 </div>
 
 <div class="toast" id="toast" hidden></div>
 
 <div class="lightbox" id="lightbox" hidden>
-  <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">×</button>
+  <button class="lightbox-close" aria-label="Fechar">×</button>
   <img id="lightboxImg" src="" alt="">
 </div>
 
+<!-- Confirmação genérica -->
 <div class="modal-overlay" id="modalOverlay" hidden>
   <div class="modal-card">
     <h3 id="modalTitle">Confirmar</h3>
     <p id="modalMessage"></p>
-    <div class="row" style="justify-content:flex-end; margin-top:18px;">
+    <div class="row" style="justify-content:flex-end;margin-top:18px;">
       <button class="btnline" id="modalCancel">Cancelar</button>
       <button class="btnline primary" id="modalConfirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Novo item / editar item -->
+<div class="modal-overlay" id="itemModal" hidden>
+  <div class="modal-card">
+    <h3 id="niHeading">Novo item</h3>
+    <div class="form-grid">
+      <div><label for="niCode">Código<span class="req">obrigatório</span></label><input type="text" id="niCode" placeholder="ex: wp24.1"></div>
+      <div><label for="niCat">Categoria</label><select id="niCat"></select></div>
+      <div class="full"><label for="niTitle">Título<span class="req">obrigatório</span></label><input type="text" id="niTitle" placeholder="ex: Como saber o que é certo e errado"></div>
+      <div id="niQtyWrap"><label for="niQty">Quantidade contada agora</label><input type="number" id="niQty" min="0" inputmode="numeric" placeholder="deixe vazio se não contou"></div>
+      <div class="full"><label for="niImage">URL da capa (opcional)</label><input type="text" id="niImage" placeholder="https://.../capa.jpg"></div>
+      <div class="full"><label for="niNote">Observação</label><input type="text" id="niNote" placeholder="opcional"></div>
+      <div class="full"><label class="check"><input type="checkbox" id="niReorder"> Pedir mais (estoque baixo)</label></div>
+    </div>
+    <div class="form-error" id="niError"></div>
+    <div class="row" style="justify-content:space-between;margin-top:8px;">
+      <button class="btnline danger" id="niRemove" hidden>Remover</button>
+      <div class="row" style="margin-left:auto;">
+        <button class="btnline" id="niCancel">Cancelar</button>
+        <button class="btnline primary" id="niSave">Salvar</button>
+      </div>
     </div>
   </div>
 </div>
@@ -165,80 +156,50 @@
 <script>
 // Valores padrão deste repositório — quem só tem a senha de acesso não precisa preencher nada disso.
 const DEFAULTS = { owner: 'vctorAgto', repo: 'inventario-ipe', branch: 'main', path: 'data.json' };
+const STEP_OVERVIEW = 0;
+const STEP_REVIEW = CATEGORIES.length + 1;
 
-let items = [];
+let data = normalizePayload({});
 let currentSha = null;
 let dirty = false;
-let activeCategory = CATEGORIES[0];
-let searchTerm = "";
-let editingIndex = null; // null = modo "novo item"; numero = editando items[editingIndex]
-let statFilter = null; // null = navega por categoria; 'all' | 'verified' | 'attention'
-let countMode = false;
-let sessionConfirmed = new Set(); // codigos ja confirmados no levantamento em andamento
+let editSeq = 0;
+let saving = false;
+let saveAgain = false;
+// O que foi mexido nesta aba — usado pra juntar com o que outra pessoa salvou ao mesmo tempo.
+let touched = new Set();
+let removed = new Set();
+let surveyTouched = false;
+let undoCount = {};       // estado antes da 1ª contagem nesta aba (pra "apagar" um número digitado)
+let rolloverInfo = null;  // aviso de virada de mês
 
-const els = {
-  loginGate: document.getElementById('loginGate'),
-  appView: document.getElementById('appView'),
-  loginError: document.getElementById('loginError'),
-  btnLogin: document.getElementById('btnLogin'),
-  btnLogout: document.getElementById('btnLogout'),
-  name: document.getElementById('cfgName'),
-  owner: document.getElementById('cfgOwner'),
-  repo: document.getElementById('cfgRepo'),
-  branch: document.getElementById('cfgBranch'),
-  path: document.getElementById('cfgPath'),
-  token: document.getElementById('cfgToken'),
-  statusbar: document.getElementById('statusbar'),
-  drawers: document.getElementById('drawers'),
-  grid: document.getElementById('grid'),
-  dash: document.getElementById('dash'),
-  sectionTitle: document.getElementById('sectionTitle'),
-  btnSave: document.getElementById('btnSave'),
-  btnLoad: document.getElementById('btnLoad'),
-  bulkVerify: document.getElementById('bulkVerify'),
-  search: document.getElementById('search'),
-  btnNewItem: document.getElementById('btnNewItem'),
-  btnCountMode: document.getElementById('btnCountMode'),
-  countProgress: document.getElementById('countProgress'),
-  countProgressText: document.getElementById('countProgressText'),
-  countProgressBar: document.getElementById('countProgressBar'),
-  toast: document.getElementById('toast'),
-  modalOverlay: document.getElementById('modalOverlay'),
-  modalTitle: document.getElementById('modalTitle'),
-  modalMessage: document.getElementById('modalMessage'),
-  modalCancel: document.getElementById('modalCancel'),
-  modalConfirm: document.getElementById('modalConfirm'),
-  newItemPanel: document.getElementById('newItemPanel'),
-  niHeading: document.getElementById('niHeading'),
-  niCode: document.getElementById('niCode'),
-  niTitle: document.getElementById('niTitle'),
-  niCat: document.getElementById('niCat'),
-  niQty: document.getElementById('niQty'),
-  niImage: document.getElementById('niImage'),
-  niError: document.getElementById('niError'),
-  btnNewItemCancel: document.getElementById('btnNewItemCancel'),
-  btnNewItemConfirm: document.getElementById('btnNewItemConfirm'),
-  btnNewItemRemove: document.getElementById('btnNewItemRemove')
-};
+let activeCat = null;
+let searchTerm = '';
+let step = STEP_OVERVIEW;
+let editingCode = null;
+let showCompare = false;
+let onlyChanged = true;
 
+const $ = (id) => document.getElementById(id);
+
+// ---------- Configuração / login ----------
 function loadConfig(){
   const cfg = JSON.parse(localStorage.getItem('inv-github-config') || '{}');
-  els.name.value = cfg.name || '';
-  els.owner.value = cfg.owner || '';
-  els.repo.value = cfg.repo || '';
-  els.branch.value = cfg.branch || '';
-  els.path.value = cfg.path || '';
-  els.token.value = cfg.token || '';
+  $('cfgName').value = cfg.name || '';
+  $('cfgOwner').value = cfg.owner || '';
+  $('cfgRepo').value = cfg.repo || '';
+  $('cfgBranch').value = cfg.branch || '';
+  $('cfgPath').value = cfg.path || '';
+  $('cfgToken').value = cfg.token || '';
   return cfg;
 }
 function saveConfig(){
   const cfg = {
-    name: els.name.value.trim(),
-    owner: els.owner.value.trim(),
-    repo: els.repo.value.trim(),
-    branch: els.branch.value.trim(),
-    path: els.path.value.trim(),
-    token: els.token.value.trim()
+    name: $('cfgName').value.trim(),
+    owner: $('cfgOwner').value.trim(),
+    repo: $('cfgRepo').value.trim(),
+    branch: $('cfgBranch').value.trim(),
+    path: $('cfgPath').value.trim(),
+    token: $('cfgToken').value.trim()
   };
   localStorage.setItem('inv-github-config', JSON.stringify(cfg));
   return cfg;
@@ -254,97 +215,98 @@ function getConfig(){
     token: cfg.token || ''
   };
 }
-
-function apiUrl(cfg){
-  return `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.path}`;
-}
+function apiUrl(cfg){ return `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.path}`; }
+function userName(){ return getConfig().name || 'Editor'; }
 
 function setStatus(msg, isError){
-  els.statusbar.textContent = msg;
-  els.statusbar.classList.toggle('error', !!isError);
+  $('statusbar').textContent = msg;
+  $('statusbar').classList.toggle('error', !!isError);
 }
 
+function showView(which){
+  $('loginGate').hidden = which !== 'gate';
+  $('homeView').hidden = which !== 'home';
+  $('wizardView').hidden = which !== 'wizard';
+  $('wizFoot').hidden = which !== 'wizard';
+  $('masthead').hidden = which === 'wizard';
+  $('footer').hidden = which === 'wizard';
+  $('btnLogout').hidden = which === 'gate';
+  updateSaveBar();
+  window.scrollTo(0, 0);
+}
+function showGate(msg, isError){
+  showView('gate');
+  $('loginError').textContent = msg || '';
+  $('loginError').style.color = isError ? '' : 'var(--ink-soft)';
+}
+
+// ---------- Modal / toast ----------
 function showConfirm(message, opts){
   opts = opts || {};
-  const title = opts.title || 'Confirmar';
-  const confirmLabel = opts.confirmLabel || 'Confirmar';
-  const danger = !!opts.danger;
   return new Promise((resolve) => {
-    els.modalTitle.textContent = title;
-    els.modalMessage.textContent = message;
-    els.modalConfirm.textContent = confirmLabel;
-    els.modalConfirm.classList.toggle('danger', danger);
-    els.modalConfirm.classList.toggle('primary', !danger);
-    els.modalOverlay.hidden = false;
-    requestAnimationFrame(() => els.modalOverlay.classList.add('show'));
-
+    $('modalTitle').textContent = opts.title || 'Confirmar';
+    $('modalMessage').textContent = message;
+    $('modalConfirm').textContent = opts.confirmLabel || 'Confirmar';
+    $('modalConfirm').classList.toggle('danger', !!opts.danger);
+    $('modalConfirm').classList.toggle('primary', !opts.danger);
+    $('modalOverlay').hidden = false;
     function cleanup(result){
-      els.modalOverlay.classList.remove('show');
-      setTimeout(() => { els.modalOverlay.hidden = true; }, 150);
-      els.modalConfirm.removeEventListener('click', onConfirm);
-      els.modalCancel.removeEventListener('click', onCancel);
-      els.modalOverlay.removeEventListener('click', onBackdrop);
+      $('modalOverlay').hidden = true;
+      $('modalConfirm').removeEventListener('click', onOk);
+      $('modalCancel').removeEventListener('click', onNo);
+      $('modalOverlay').removeEventListener('click', onBackdrop);
       resolve(result);
     }
-    function onConfirm(){ cleanup(true); }
-    function onCancel(){ cleanup(false); }
-    function onBackdrop(e){ if(e.target === els.modalOverlay) cleanup(false); }
-
-    els.modalConfirm.addEventListener('click', onConfirm);
-    els.modalCancel.addEventListener('click', onCancel);
-    els.modalOverlay.addEventListener('click', onBackdrop);
+    function onOk(){ cleanup(true); }
+    function onNo(){ cleanup(false); }
+    function onBackdrop(e){ if(e.target === $('modalOverlay')) cleanup(false); }
+    $('modalConfirm').addEventListener('click', onOk);
+    $('modalCancel').addEventListener('click', onNo);
+    $('modalOverlay').addEventListener('click', onBackdrop);
   });
 }
 
 let toastTimer = null;
 function showToast(msg, isError){
   clearTimeout(toastTimer);
-  els.toast.textContent = msg;
-  els.toast.hidden = false;
-  els.toast.classList.toggle('error', !!isError);
-  requestAnimationFrame(() => els.toast.classList.add('show'));
+  const t = $('toast');
+  t.textContent = msg;
+  t.hidden = false;
+  t.classList.toggle('error', !!isError);
+  requestAnimationFrame(() => t.classList.add('show'));
   toastTimer = setTimeout(() => {
-    els.toast.classList.remove('show');
-    setTimeout(() => { els.toast.hidden = true; }, 250);
-  }, 4000);
+    t.classList.remove('show');
+    setTimeout(() => { t.hidden = true; }, 250);
+  }, 3500);
 }
 
-function showApp(){
-  els.loginGate.hidden = true;
-  els.appView.hidden = false;
-}
-function showGate(msg, isError){
-  els.appView.hidden = true;
-  els.loginGate.hidden = false;
-  els.loginError.textContent = msg || '';
-  els.loginError.classList.toggle('error', !!isError);
+// ---------- GitHub ----------
+async function fetchRemote(cfg){
+  const res = await fetch(`${apiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch)}&t=${Date.now()}`, {
+    headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' },
+    cache: 'no-store'
+  });
+  if(!res.ok){
+    const body = await res.text();
+    throw new Error(`HTTP ${res.status} — ${body.slice(0, 200)}`);
+  }
+  const json = await res.json();
+  return { sha: json.sha, payload: normalizePayload(JSON.parse(base64ToUtf8(json.content.replace(/\n/g, '')))) };
 }
 
 async function loadFromGitHub(){
   const cfg = getConfig();
-  if(!cfg.token){
-    showGate('Preencha a senha de acesso para entrar.', true);
-    return false;
-  }
-  setStatus('Carregando do GitHub...');
+  if(!cfg.token){ showGate('Preencha a senha de acesso para entrar.', true); return false; }
   try{
-    const res = await fetch(`${apiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch)}`, {
-      headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' }
-    });
-    if(!res.ok){
-      const body = await res.text();
-      throw new Error(`HTTP ${res.status} — ${body.slice(0,200)}`);
-    }
-    const json = await res.json();
-    currentSha = json.sha;
-    const decoded = base64ToUtf8(json.content.replace(/\n/g, ''));
-    const payload = JSON.parse(decoded);
-    items = payload.items || [];
+    const remote = await fetchRemote(cfg);
+    currentSha = remote.sha;
+    data = remote.payload;
     dirty = false;
-    els.btnSave.disabled = true;
-    showApp();
-    setStatus('Carregado do GitHub. Última atualização: ' + formatDateTime(payload.updatedAt));
-    render();
+    touched = new Set(); removed = new Set(); surveyTouched = false; undoCount = {};
+    ensureMonth();
+    showView('home');
+    setStatus('Carregado do GitHub · última atualização ' + formatDateTime(data.updatedAt));
+    renderHome();
     return true;
   }catch(e){
     showGate('Não foi possível entrar: ' + e.message, true);
@@ -352,486 +314,715 @@ async function loadFromGitHub(){
   }
 }
 
-async function putToGitHub(cfg, sha){
-  const payload = { items, updatedAt: new Date().toISOString() };
-  const content = utf8ToBase64(JSON.stringify(payload, null, 2));
-  const quem = cfg.name ? cfg.name : 'Editor';
+function putToGitHub(cfg, sha, message){
+  data.updatedAt = new Date().toISOString();
   const body = {
-    message: `Atualiza inventário — ${quem} — ` + new Date().toLocaleString('pt-BR'),
-    content,
+    message: message || `Atualiza inventário — ${cfg.name || 'Editor'} — ` + new Date().toLocaleString('pt-BR'),
+    content: utf8ToBase64(JSON.stringify(data, null, 2)),
     branch: cfg.branch
   };
   if(sha) body.sha = sha;
   return fetch(apiUrl(cfg), {
     method: 'PUT',
-    headers: {
-      'Authorization': `Bearer ${cfg.token}`,
-      'Accept': 'application/vnd.github+json',
-      'Content-Type': 'application/json'
-    },
+    headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
 }
 
-async function fetchLatestSha(cfg){
-  const res = await fetch(`${apiUrl(cfg)}?ref=${encodeURIComponent(cfg.branch)}`, {
-    headers: { 'Authorization': `Bearer ${cfg.token}`, 'Accept': 'application/vnd.github+json' }
-  });
-  if(!res.ok) return null;
-  const json = await res.json();
-  return json.sha;
+// Junta o que está no GitHub com o que foi mexido nesta aba (sem apagar a contagem de outra pessoa).
+function mergeRemote(remote){
+  const local = new Map(data.items.map(it => [it.code, it]));
+  const merged = remote.items.filter(it => !removed.has(it.code) && !touched.has(it.code));
+  touched.forEach(code => { if(local.has(code)) merged.push(local.get(code)); });
+  data.items = merged;
+  if(surveyTouched){
+    data.history = Object.assign({}, remote.history, data.history);
+  }else{
+    data.survey = remote.survey;
+    data.history = remote.history;
+  }
 }
 
-async function saveToGitHub(){
+async function saveToGitHub(opts){
+  opts = opts || {};
   const cfg = getConfig();
-  if(!cfg.token){
-    showGate('Preencha a senha de acesso.', true);
-    return;
-  }
-  setStatus('Salvando no GitHub...');
-  els.btnSave.disabled = true;
-  const originalLabel = els.btnSave.textContent;
-  els.btnSave.textContent = 'Salvando...';
-  let resolvedConflict = false;
+  if(!cfg.token){ showGate('Preencha a senha de acesso.', true); return false; }
+  if(saving){ saveAgain = true; return false; }
+  saving = true;
+  const seqAtStart = editSeq;
+  setSaveState('Salvando…');
+  let ok = false;
   try{
-    let res = await putToGitHub(cfg, currentSha);
-    if(res.status === 409){
-      // Alguem salvou entre o carregamento desta aba e agora. Busca o sha atual e tenta de novo,
-      // sem perder as edicoes feitas nesta aba.
-      setStatus('Outra pessoa salvou enquanto você editava — sincronizando automaticamente...');
-      const freshSha = await fetchLatestSha(cfg);
-      if(freshSha){
-        res = await putToGitHub(cfg, freshSha);
-        resolvedConflict = res.ok;
-      }
+    let res = await putToGitHub(cfg, currentSha, opts.message);
+    if(res.status === 409 || res.status === 422){
+      // Alguém salvou enquanto você editava: busca a versão nova e junta com as suas mudanças.
+      const remote = await fetchRemote(cfg);
+      mergeRemote(remote.payload);
+      currentSha = remote.sha;
+      res = await putToGitHub(cfg, currentSha, opts.message);
+      if(res.ok && !$('homeView').hidden) renderHome();
     }
     if(!res.ok){
       const errBody = await res.text();
-      throw new Error(`HTTP ${res.status} — ${errBody.slice(0,200)}`);
+      throw new Error(`HTTP ${res.status} — ${errBody.slice(0, 160)}`);
     }
     const json = await res.json();
     currentSha = json.content.sha;
-    dirty = false;
-    const successMsg = resolvedConflict
-      ? 'Conflito resolvido automaticamente — suas alterações foram salvas por cima.'
-      : 'Salvo no GitHub às ' + new Date().toLocaleTimeString('pt-BR') + '. A tela pública atualiza em ~1 minuto.';
-    setStatus(successMsg);
-    showToast(resolvedConflict ? '✓ Salvo (um conflito com outra edição foi resolvido automaticamente).' : '✓ Inventário salvo no GitHub com sucesso.');
-    els.btnSave.textContent = 'Salvo ✓';
-    setTimeout(() => { els.btnSave.textContent = originalLabel; }, 2500);
+    if(editSeq === seqAtStart){
+      dirty = false;
+      touched = new Set(); removed = new Set(); surveyTouched = false;
+    }
+    ok = true;
+    setStatus('Salvo às ' + new Date().toLocaleTimeString('pt-BR') + ' · a tela pública atualiza em ~1 minuto.');
+    setSaveState('Salvo às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
+    if(!opts.silent) showToast('✓ Salvo no GitHub.');
   }catch(e){
-    setStatus('Falha ao salvar: ' + e.message + ' — nada foi perdido, tente salvar de novo.', true);
+    setStatus('Falha ao salvar: ' + e.message + ' — nada foi perdido, tente de novo.', true);
+    setSaveState('Não salvou — tente de novo');
     showToast('Falha ao salvar: ' + e.message, true);
-    els.btnSave.textContent = originalLabel;
-    els.btnSave.disabled = false;
+  }finally{
+    saving = false;
+    updateSaveBar();
+    if(saveAgain){ saveAgain = false; if(dirty) saveToGitHub({ silent: true }); }
   }
+  return ok;
 }
 
 function markDirty(){
   dirty = true;
-  els.btnSave.disabled = false;
-  setStatus('Alterações não salvas — clique em "Salvar no GitHub" para gravar.');
+  editSeq++;
+  updateSaveBar();
+  setSaveState('Alterações ainda não salvas');
 }
+function touch(code){ touched.add(code); markDirty(); }
 
-function renderDash(){
-  const countable = items.filter(it => it.quantity !== null);
-  const total = countable.length;
-  const verified = items.filter(it => it.status === 'Verificado').length;
-  const totalQty = countable.reduce((s,it) => s + (Number(it.quantity)||0), 0);
-  const pct = total ? Math.round((verified/total)*100) : 0;
-  const attention = items.filter(it=>it.status==='Repor'||it.status==='Baixo Estoque').length;
-  const isActive = (f) => statFilter === f ? 'active' : '';
-  els.dash.innerHTML = `
-    <div class="stat ${isActive('all')}" data-filter="all"><div class="n">${items.length}</div><div class="l">Itens no catálogo</div></div>
-    <div class="stat ${isActive('all')}" data-filter="all"><div class="n">${totalQty.toLocaleString('pt-BR')}</div><div class="l">Exemplares em estoque</div></div>
-    <div class="stat ${isActive('verified')}" data-filter="verified"><div class="n">${verified}/${total}</div><div class="l">Verificados</div>
-      <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
-    </div>
-    <div class="stat ${isActive('attention')}" data-filter="attention"><div class="n">${attention}</div><div class="l">Precisam de atenção</div></div>
-  `;
-  if(countMode) return;
-  els.dash.querySelectorAll('.stat[data-filter]').forEach(el => {
-    el.addEventListener('click', () => {
-      statFilter = el.dataset.filter;
-      searchTerm = '';
-      els.search.value = '';
-      renderDrawers();
-      renderGrid();
+function updateSaveBar(){
+  const onHome = !$('homeView').hidden;
+  $('saveBar').hidden = !(dirty && onHome);
+  $('btnSave').disabled = saving;
+  $('btnSave').textContent = saving ? 'Salvando…' : 'Salvar agora';
+}
+function setSaveState(msg){ $('wizSaveState').textContent = msg; }
+
+// ---------- Mês / levantamento ----------
+// Na virada do mês: guarda um retrato do mês que passou e começa o levantamento novo (tudo pendente).
+function ensureMonth(){
+  const m = currentMonth();
+  const old = data.survey && data.survey.month;
+  if(old === m) return;
+  if(old && old < m){
+    const qty = {};
+    let pending = 0;
+    data.items.forEach(it => {
+      qty[it.code] = Number(it.quantity) || 0;
+      if(it.countedMonth !== old) pending++;
     });
-  });
-}
-
-function renderDrawers(){
-  els.drawers.innerHTML = CATEGORIES.map(cat => {
-    const key = CAT_KEY[cat];
-    const catItems = items.filter(it => it.cat === cat);
-    const verified = catItems.filter(it => it.status === 'Verificado').length;
-    const active = (!searchTerm && !statFilter && cat === activeCategory) ? 'active' : '';
-    return `<div class="drawer ${active}" data-cat="${cat}" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
-      <span class="icon">${ICONS[cat]}</span>
-      <span class="name">${cat}</span>
-      <span class="count">${verified}/${catItems.length} verificados</span>
-    </div>`;
-  }).join('');
-  els.drawers.querySelectorAll('.drawer').forEach(el => {
-    el.addEventListener('click', () => {
-      activeCategory = el.dataset.cat;
-      statFilter = null;
-      searchTerm = '';
-      els.search.value = '';
-      renderDrawers();
-      renderGrid();
-    });
-  });
-}
-
-function visibleItems(){
-  if(countMode){
-    let list = items.filter(it => !sessionConfirmed.has(it.code));
-    if(searchTerm){
-      const t = searchTerm.toLowerCase();
-      list = list.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
-    }
-    return list;
+    data.history[old] = {
+      label: 'Levantamento de ' + monthLabel(old),
+      closedAt: data.survey.closedAt || new Date().toISOString(),
+      by: data.survey.closedBy || 'fechado automaticamente na virada do mês',
+      qty, pending
+    };
+    rolloverInfo = { old, pending };
   }
-  if(searchTerm){
-    const t = searchTerm.toLowerCase();
-    return items.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
-  }
-  if(statFilter === 'all') return items;
-  if(statFilter === 'verified') return items.filter(it => it.status === 'Verificado');
-  if(statFilter === 'attention') return items.filter(it => it.status === 'Repor' || it.status === 'Baixo Estoque');
-  return items.filter(it => it.cat === activeCategory);
-}
-
-function normalCardHTML(it, idx){
-  const key = CAT_KEY[it.cat];
-  const tok = STATUS_TOKEN[it.status] || 'pendente';
-  const quantidadeHTML = it.quantity === null
-    ? `<span class="continuo">Controle contínuo</span>`
-    : `<div class="stepper">
-        <button data-act="dec" data-idx="${idx}" aria-label="Diminuir">−</button>
-        <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
-        <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
-      </div>`;
-  const thumbHTML = it.image ? `<img class="thumb thumb-zoomable" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
-  return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
-    <button class="editbtn" data-act="edit" data-idx="${idx}">Editar</button>
-    <span class="hole"></span>
-    ${thumbHTML}
-    <span class="code">${it.code}</span>
-    <p class="title">${it.title}</p>
-    <div class="row">
-      ${quantidadeHTML}
-      <select class="status" data-idx="${idx}" style="background:var(--${tok}-bg);color:var(--${tok});">
-        <option ${it.status==='Pendente'?'selected':''}>Pendente</option>
-        <option ${it.status==='Verificado'?'selected':''}>Verificado</option>
-        <option ${it.status==='Baixo Estoque'?'selected':''}>Baixo Estoque</option>
-        <option ${it.status==='Repor'?'selected':''}>Repor</option>
-      </select>
-    </div>
-    <textarea class="note" rows="1" placeholder="Observação…" data-idx="${idx}">${it.note||''}</textarea>
-    ${it.lastChecked ? `<div class="lastcheck">Verificado em ${it.lastChecked}</div>` : ''}
-  </div>`;
-}
-
-function countCardHTML(it, idx){
-  const key = CAT_KEY[it.cat];
-  const quantidadeHTML = it.quantity === null
-    ? `<span class="continuo">Controle contínuo</span>`
-    : `<div class="stepper">
-        <button data-act="dec" data-idx="${idx}" aria-label="Diminuir">−</button>
-        <input type="number" min="0" value="${it.quantity}" data-idx="${idx}" data-act="qty">
-        <button data-act="inc" data-idx="${idx}" aria-label="Aumentar">+</button>
-      </div>`;
-  const thumbHTML = it.image ? `<img class="thumb thumb-zoomable" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
-  return `<div class="card count-card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
-    <span class="hole"></span>
-    ${thumbHTML}
-    <span class="code">${it.code}</span>
-    <p class="title">${it.title}</p>
-    <div class="row">
-      ${quantidadeHTML}
-    </div>
-    <button class="btnline primary" data-act="confirm" data-idx="${idx}" style="width:100%;margin-top:11px;">Confirmar contagem ✓</button>
-  </div>`;
-}
-
-function renderCountProgress(){
-  const total = items.length;
-  const done = sessionConfirmed.size;
-  const pct = total ? Math.round((done/total)*100) : 0;
-  els.countProgressText.textContent = `${done} de ${total} confirmados`;
-  els.countProgressBar.style.width = pct + '%';
-}
-
-function renderGrid(){
-  const list = visibleItems();
-  if(countMode){
-    renderCountProgress();
-    els.sectionTitle.textContent = searchTerm ? `Resultados para "${searchTerm}"` : 'Levantamento em andamento';
-    if(!list.length){
-      els.grid.innerHTML = '<div class="empty">🎉 Levantamento concluído! Todos os itens foram confirmados. Clique em "Salvar no GitHub" pra gravar, ou "Encerrar levantamento" pra voltar à edição normal.</div>';
-      return;
-    }
-    els.grid.innerHTML = list.map((it) => countCardHTML(it, items.indexOf(it))).join('');
-    els.grid.querySelectorAll('[data-act="inc"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, 1)));
-    els.grid.querySelectorAll('[data-act="dec"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, -1)));
-    els.grid.querySelectorAll('[data-act="qty"]').forEach(inp => inp.addEventListener('change', () => {
-      const idx = inp.dataset.idx;
-      items[idx].quantity = Math.max(0, parseInt(inp.value)||0);
-      markDirty();
-    }));
-    els.grid.querySelectorAll('[data-act="confirm"]').forEach(b => b.addEventListener('click', () => confirmCount(Number(b.dataset.idx))));
-    return;
-  }
-
-  const filterLabels = { all: 'Todos os itens', verified: 'Itens verificados', attention: 'Itens que precisam de atenção' };
-  els.sectionTitle.textContent = searchTerm ? `Resultados para "${searchTerm}"` : (filterLabels[statFilter] || activeCategory);
-  if(!list.length){
-    els.grid.innerHTML = '<div class="empty">Nenhum item encontrado. Clique em "Recarregar do GitHub" se a lista estiver vazia.</div>';
-    return;
-  }
-  els.grid.innerHTML = list.map((it) => normalCardHTML(it, items.indexOf(it))).join('');
-
-  els.grid.querySelectorAll('[data-act="inc"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, 1)));
-  els.grid.querySelectorAll('[data-act="dec"]').forEach(b => b.addEventListener('click', () => bump(b.dataset.idx, -1)));
-  els.grid.querySelectorAll('[data-act="edit"]').forEach(b => b.addEventListener('click', () => openEditPanel(Number(b.dataset.idx))));
-  els.grid.querySelectorAll('[data-act="qty"]').forEach(inp => inp.addEventListener('change', () => {
-    const idx = inp.dataset.idx;
-    items[idx].quantity = Math.max(0, parseInt(inp.value)||0);
-    afterEdit();
-  }));
-  els.grid.querySelectorAll('select.status').forEach(sel => sel.addEventListener('change', () => {
-    const idx = sel.dataset.idx;
-    items[idx].status = sel.value;
-    if(sel.value === 'Verificado'){
-      items[idx].lastChecked = new Date().toLocaleString('pt-BR');
-    }
-    afterEdit();
-  }));
-  els.grid.querySelectorAll('textarea.note').forEach(ta => ta.addEventListener('input', () => {
-    items[ta.dataset.idx].note = ta.value;
-    markDirty();
-  }));
-}
-
-function confirmCount(idx){
-  const it = items[idx];
-  it.status = (it.quantity||0) === 0 ? 'Repor' : 'Verificado';
-  it.lastChecked = new Date().toLocaleString('pt-BR');
-  sessionConfirmed.add(it.code);
-  afterEdit();
-}
-
-function startCountMode(){
-  countMode = true;
-  sessionConfirmed = new Set();
-  searchTerm = '';
-  els.search.value = '';
-  els.drawers.hidden = true;
-  els.countProgress.hidden = false;
-  els.btnNewItem.hidden = true;
-  els.btnLoad.hidden = true;
-  els.bulkVerify.hidden = true;
-  els.btnCountMode.textContent = 'Encerrar levantamento';
-  render();
-}
-
-function endCountMode(){
-  countMode = false;
-  els.drawers.hidden = false;
-  els.countProgress.hidden = true;
-  els.btnNewItem.hidden = false;
-  els.btnLoad.hidden = false;
-  els.bulkVerify.hidden = false;
-  els.btnCountMode.textContent = 'Iniciar novo levantamento';
-  render();
-}
-
-function bump(idx, delta){
-  items[idx].quantity = Math.max(0, (items[idx].quantity||0) + delta);
-  afterEdit();
-}
-
-function afterEdit(){
-  renderDash();
-  renderDrawers();
-  renderGrid();
+  data.survey = { month: m, startedAt: new Date().toISOString(), closedAt: null, closedBy: null };
+  surveyTouched = true;
   markDirty();
 }
 
-function render(){
-  renderDash();
-  renderDrawers();
-  renderGrid();
+function baseQty(){
+  const k = baselineKey(data.history, currentMonth());
+  return k ? (data.history[k].qty || {}) : {};
+}
+// Quantidade de referência ("antes") de um item.
+function prevFor(it, base){
+  if(base && Object.prototype.hasOwnProperty.call(base, it.code)) return Number(base[it.code]) || 0;
+  if(isCounted(it) && it.prevQty !== undefined) return Number(it.prevQty) || 0;
+  return isCounted(it) ? null : Number(it.quantity) || 0;
 }
 
-els.search.addEventListener('input', (e) => {
-  searchTerm = e.target.value.trim();
-  renderDrawers();
-  renderGrid();
-});
-
-const lightboxEl = document.getElementById('lightbox');
-const lightboxImgEl = document.getElementById('lightboxImg');
-function openLightbox(src, alt){
-  lightboxImgEl.src = src;
-  lightboxImgEl.alt = alt || '';
-  lightboxEl.hidden = false;
-  requestAnimationFrame(() => lightboxEl.classList.add('show'));
-}
-function closeLightbox(){
-  lightboxEl.classList.remove('show');
-  setTimeout(() => { lightboxEl.hidden = true; lightboxImgEl.src = ''; }, 200);
-}
-lightboxEl.addEventListener('click', closeLightbox);
-document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-window.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !lightboxEl.hidden) closeLightbox(); });
-els.grid.addEventListener('click', (e) => {
-  if(e.target.classList.contains('thumb-zoomable')) openLightbox(e.target.src, e.target.alt);
-});
-
-els.bulkVerify.addEventListener('click', () => {
-  const list = visibleItems();
-  const now = new Date().toLocaleString('pt-BR');
-  list.forEach(it => { it.status = 'Verificado'; it.lastChecked = now; });
-  afterEdit();
-});
-
-els.btnCountMode.addEventListener('click', async () => {
-  if(countMode){
-    endCountMode();
+function setCount(it, value){
+  const m = currentMonth();
+  if(value === null){
+    if(it.countedMonth !== m) return;
+    const u = undoCount[it.code];
+    if(u){
+      Object.assign(it, u);
+    }else{
+      it.quantity = it.prevQty !== undefined ? it.prevQty : it.quantity;
+      it.countedMonth = null;
+    }
+    if(data.survey.closedAt){ data.survey.closedAt = null; data.survey.closedBy = null; surveyTouched = true; }
   }else{
-    const ok = await showConfirm(
-      'Isso vai listar todos os itens como pendentes de contagem, até você confirmar cada um. Continuar?',
-      { title: 'Iniciar levantamento', confirmLabel: 'Iniciar' }
-    );
-    if(!ok) return;
-    startCountMode();
+    if(it.countedMonth !== m){
+      if(!undoCount[it.code]){
+        undoCount[it.code] = { quantity: it.quantity, countedMonth: it.countedMonth, lastChecked: it.lastChecked, prevQty: it.prevQty, countedBy: it.countedBy };
+      }
+      it.prevQty = Number(it.quantity) || 0;
+    }
+    it.quantity = Math.max(0, value);
+    it.countedMonth = m;
+    it.lastChecked = nowBR();
+    it.countedBy = userName();
   }
-});
+  touch(it.code);
+}
 
-els.btnLoad.addEventListener('click', loadFromGitHub);
-els.btnSave.addEventListener('click', saveToGitHub);
+function catProgress(cat){
+  const list = data.items.filter(it => it.cat === cat);
+  const done = list.filter(isCounted).length;
+  return { total: list.length, done, left: list.length - done };
+}
+function totalProgress(){
+  const done = data.items.filter(isCounted).length;
+  return { total: data.items.length, done, left: data.items.length - done };
+}
+function surveyClosed(){
+  return data.survey.month === currentMonth() && !!data.survey.closedAt && totalProgress().left === 0;
+}
 
-els.btnLogin.addEventListener('click', async () => {
-  if(!els.token.value.trim()){
-    showGate('Preencha a senha de acesso.', true);
+// ---------- Tela inicial ----------
+function renderNotice(){
+  if(!rolloverInfo){ $('notice').innerHTML = ''; return; }
+  const m = currentMonth();
+  $('notice').innerHTML = `<div class="notice">
+    Começou o levantamento de <b>${monthLabel(m)}</b> — todos os itens voltaram para <b>Pendente</b>.
+    ${rolloverInfo.pending ? `O levantamento de ${monthLabel(rolloverInfo.old)} ficou com ${rolloverInfo.pending} item(ns) sem contagem.` : ''}
+  </div>`;
+}
+
+function renderSurveyCard(){
+  const m = currentMonth();
+  const p = totalProgress();
+  const closed = surveyClosed();
+  const pct = p.total ? Math.round(p.done / p.total * 100) : 0;
+  const cats = CATEGORIES.map(cat => {
+    const c = catProgress(cat);
+    return `<div class="survey-cat ${c.left === 0 ? 'complete' : ''}" style="${catStyle(cat)}"><span>${CAT_SHORT[cat]}</span><span>${c.done}/${c.total}</span></div>`;
+  }).join('');
+  const btnLabel = closed ? 'Ver resumo' : p.done === 0 ? 'Começar levantamento →' : `Continuar levantamento (faltam ${p.left}) →`;
+  $('surveyCard').innerHTML = `<section class="survey-card ${closed ? 'done' : ''}">
+    <div class="survey-top">
+      <div>
+        <h2>Levantamento de ${monthLabel(m)}</h2>
+        <p>${closed
+          ? `Concluído em ${formatDateTime(data.survey.closedAt)}${data.survey.closedBy ? ' por ' + esc(data.survey.closedBy) : ''}.`
+          : 'Conte o estoque no começo do mês. Todos os itens precisam ser preenchidos — se não tiver nenhum, coloque 0.'}</p>
+      </div>
+      <button class="btnline ${closed ? '' : 'accent'} big" id="btnStartSurvey">${btnLabel}</button>
+    </div>
+    <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
+    <div class="survey-meta">
+      <span><b>${p.done}</b> de ${p.total} itens contados</span>
+      ${p.done ? '<button class="linkbtn" id="btnResetSurvey" style="font-size:.76rem;">Recomeçar do zero</button>' : ''}
+    </div>
+    <div class="survey-cats">${cats}</div>
+  </section>`;
+  $('btnStartSurvey').addEventListener('click', () => openWizard(closed ? STEP_REVIEW : firstIncompleteStep()));
+  const reset = $('btnResetSurvey');
+  if(reset) reset.addEventListener('click', resetSurvey);
+}
+
+async function resetSurvey(){
+  const ok = await showConfirm(`Isso apaga a contagem de ${monthLabel(currentMonth())} e deixa todos os itens pendentes de novo. Continuar?`,
+    { title: 'Recomeçar levantamento?', confirmLabel: 'Recomeçar', danger: true });
+  if(!ok) return;
+  data.items.forEach(it => { if(isCounted(it)) setCount(it, null); });
+  data.survey.closedAt = null; data.survey.closedBy = null; surveyTouched = true;
+  renderHome();
+}
+
+function baseList(){
+  if(!searchTerm) return data.items;
+  const t = searchTerm.toLowerCase();
+  return data.items.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
+}
+
+function renderChips(){
+  const list = baseList();
+  const chip = (cat) => {
+    const n = cat ? list.filter(it => it.cat === cat).length : list.length;
+    const on = activeCat === cat ? 'on' : '';
+    return cat
+      ? `<button class="chip ${on}" data-cat="${esc(cat)}" style="${catStyle(cat)}">${CAT_SHORT[cat]} <span class="cnt">${n}</span></button>`
+      : `<button class="chip all ${on}" data-cat="">Todas <span class="cnt">${n}</span></button>`;
+  };
+  $('chips').innerHTML = chip(null) + CATEGORIES.map(chip).join('');
+  $('chips').querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
+    activeCat = b.dataset.cat || null;
+    renderChips();
+    renderCatalog();
+  }));
+}
+
+function catalogRowHTML(it){
+  const st = itemState(it);
+  const sub = [
+    `<span class="pill ${st}">${STATE_LABEL[st]}</span>`,
+    it.reorder ? '<span class="pill pedir">Pedir mais</span>' : '',
+    it.lastChecked ? `<span>${esc(String(it.lastChecked).slice(0, 10))}${it.countedBy ? ' · ' + esc(it.countedBy) : ''}</span>` : '',
+    it.note ? `<span class="rnote">${esc(it.note)}</span>` : ''
+  ].join('');
+  const c = esc(it.code);
+  return `<div class="irow" style="${catStyle(it.cat)}">
+    ${thumbHTML(it)}
+    <div class="rmain">
+      <div class="rtitle"><span class="code">${c}</span>${esc(it.title)}</div>
+      <div class="rsub">${sub}</div>
+    </div>
+    <div class="stepper">
+      <button data-act="dec" data-code="${c}" aria-label="Diminuir">−</button>
+      <input type="number" min="0" inputmode="numeric" value="${Number(it.quantity) || 0}" data-act="qty" data-code="${c}">
+      <button data-act="inc" data-code="${c}" aria-label="Aumentar">+</button>
+    </div>
+    <button class="iconbtn" data-act="edit" data-code="${c}" aria-label="Editar item" title="Editar item">✎</button>
+  </div>`;
+}
+
+function findItem(code){ return data.items.find(it => it.code === code); }
+
+function renderCatalog(){
+  let list = baseList();
+  if(activeCat) list = list.filter(it => it.cat === activeCat);
+  const el = $('catalog');
+  if(!list.length){
+    el.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
     return;
   }
-  saveConfig();
-  els.btnLogin.disabled = true;
-  await loadFromGitHub();
-  els.btnLogin.disabled = false;
+  el.innerHTML = itemsByCategory(list).filter(g => g.items.length).map(({ cat, items }) => {
+    const done = items.filter(isCounted).length;
+    return `<section class="group" style="${catStyle(cat)}">
+      <div class="group-title"><span>${esc(cat)}</span><small>${done}/${items.length} contados</small></div>
+      <div class="rows">${items.map(catalogRowHTML).join('')}</div>
+    </section>`;
+  }).join('');
+}
+
+// Delegação de eventos do catálogo (não precisa religar a cada render).
+$('catalog').addEventListener('click', (e) => {
+  const b = e.target.closest('button[data-act]');
+  if(e.target.tagName === 'IMG' && e.target.closest('.rthumb')){ openLightbox(e.target.src); return; }
+  if(!b) return;
+  const it = findItem(b.dataset.code);
+  if(!it) return;
+  if(b.dataset.act === 'edit'){ openItemModal(it); return; }
+  const delta = b.dataset.act === 'inc' ? 1 : -1;
+  setCount(it, Math.max(0, (Number(it.quantity) || 0) + delta));
+  renderHome();
+});
+$('catalog').addEventListener('change', (e) => {
+  if(e.target.dataset.act !== 'qty') return;
+  const it = findItem(e.target.dataset.code);
+  if(!it) return;
+  setCount(it, Math.max(0, parseInt(e.target.value, 10) || 0));
+  renderHome();
 });
 
-els.btnLogout.addEventListener('click', async () => {
+function renderHome(){
+  renderNotice();
+  renderSurveyCard();
+  renderChips();
+  renderCatalog();
+  updateSaveBar();
+}
+
+// ---------- Assistente (passo a passo) ----------
+function firstIncompleteStep(){
+  const i = CATEGORIES.findIndex(cat => catProgress(cat).left > 0);
+  return totalProgress().done === 0 ? STEP_OVERVIEW : (i === -1 ? STEP_REVIEW : i + 1);
+}
+
+function openWizard(s){
+  step = s;
+  showCompare = false;
+  showView('wizard');
+  $('wizMonth').textContent = monthLabelCap(currentMonth());
+  setSaveState(dirty ? 'Alterações ainda não salvas' : '');
+  renderWizard();
+}
+
+async function goStep(s){
+  step = Math.max(STEP_OVERVIEW, Math.min(STEP_REVIEW, s));
+  renderWizard();
+  window.scrollTo(0, 0);
+  if(dirty) saveToGitHub({ silent: true }); // salva a cada passo pra não perder nada
+}
+
+function renderWizSteps(){
+  const bars = [];
+  CATEGORIES.forEach((cat, i) => {
+    const p = catProgress(cat);
+    const cls = p.left === 0 ? 'full' : p.done > 0 ? 'part' : '';
+    bars.push(`<button class="${cls} ${step === i + 1 ? 'cur' : ''}" data-step="${i + 1}" title="${esc(cat)}: ${p.done}/${p.total}"></button>`);
+  });
+  const t = totalProgress();
+  bars.push(`<button class="${surveyClosed() ? 'full' : ''} ${step === STEP_REVIEW ? 'cur' : ''}" data-step="${STEP_REVIEW}" title="Revisão"></button>`);
+  $('wizSteps').innerHTML = bars.join('');
+  $('wizSteps').querySelectorAll('button').forEach(b => b.addEventListener('click', () => goStep(Number(b.dataset.step))));
+  $('wizStepLabel').textContent = step === STEP_OVERVIEW ? `${t.done}/${t.total}` : step === STEP_REVIEW ? 'Revisão' : `Passo ${step}/${CATEGORIES.length}`;
+}
+
+function renderWizFoot(){
+  $('wizPrev').disabled = step === STEP_OVERVIEW;
+  if(step === STEP_OVERVIEW) $('wizNext').textContent = 'Começar →';
+  else if(step === CATEGORIES.length) $('wizNext').textContent = 'Revisar →';
+  else if(step === STEP_REVIEW) $('wizNext').textContent = surveyClosed() ? 'Voltar ao início' : 'Concluir ✓';
+  else $('wizNext').textContent = 'Próximo →';
+  $('wizNext').disabled = step === STEP_REVIEW && !surveyClosed() && totalProgress().left > 0;
+}
+
+function renderWizard(){
+  renderWizSteps();
+  renderWizFoot();
+  if(step === STEP_OVERVIEW) renderOverview();
+  else if(step === STEP_REVIEW) renderReview();
+  else renderCategoryStep(CATEGORIES[step - 1]);
+}
+
+function renderOverview(){
+  const m = currentMonth();
+  const t = totalProgress();
+  $('wizBody').innerHTML = `<div class="wiz-head">
+      <h2>${monthLabelCap(m)}</h2>
+      <p>Conte o estoque de cada categoria e digite a quantidade de <b>todos</b> os itens — se não tiver nenhum, coloque <b>0</b>.
+      Dá pra parar e continuar depois: cada passo é salvo sozinho. No fim, revise e conclua.</p>
+      <p style="font-size:.8rem;">Dica: é a mesma contagem pedida no relatório de estoque do JW Hub de ${monthLabel(prevMonthKey(m))} (prazo: dia 10).</p>
+    </div>
+    <div class="wiz-cats">
+      ${CATEGORIES.map((cat, i) => {
+        const p = catProgress(cat);
+        return `<button class="wiz-cat" data-step="${i + 1}" style="${catStyle(cat)}">
+          <span><b>${esc(cat)}</b><small>${p.total} itens</small></span>
+          <span class="st ${p.left === 0 ? 'ok' : 'no'}">${p.left === 0 ? 'Completo ✓' : p.done ? `Faltam ${p.left}` : 'Não começou'}</span>
+        </button>`;
+      }).join('')}
+      <button class="wiz-cat" data-step="${STEP_REVIEW}" style="--cat-color:var(--ink);">
+        <span><b>Revisão e conclusão</b><small>Resumo por categoria e comparação com o mês anterior</small></span>
+        <span class="st ${t.left === 0 ? 'ok' : 'no'}">${t.left === 0 ? 'Pronto ✓' : `${t.done}/${t.total}`}</span>
+      </button>
+    </div>`;
+  $('wizBody').querySelectorAll('.wiz-cat').forEach(b => b.addEventListener('click', () => goStep(Number(b.dataset.step))));
+}
+
+function countRowHTML(it, base){
+  const counted = isCounted(it);
+  const prev = prevFor(it, base);
+  const c = esc(it.code);
+  return `<div class="crow ${counted ? 'filled' : ''}" data-row="${c}">
+    ${thumbHTML(it)}
+    <div class="rmain">
+      <div class="rtitle"><span class="code">${c}</span>${esc(it.title)}</div>
+      <div class="prev">${prev === null ? 'sem registro anterior' : 'antes: ' + fmt(prev)}${it.reorder ? ' · <span class="pill pedir">Pedir mais</span>' : ''}</div>
+    </div>
+    <div class="cinput">
+      ${prev !== null ? `<button class="same" data-same="${c}" data-v="${prev}" ${counted ? 'hidden' : ''} title="Usar o mesmo número de antes">= ${fmt(prev)}</button>` : ''}
+      <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" data-code="${c}"
+        value="${counted ? Number(it.quantity) || 0 : ''}" placeholder="—" aria-label="Quantidade de ${esc(it.title)}">
+    </div>
+    <span class="okmark">${counted ? '✓' : ''}</span>
+  </div>`;
+}
+
+function renderCategoryStep(cat){
+  const list = sortItems(data.items.filter(it => it.cat === cat));
+  const base = baseQty();
+  $('wizBody').innerHTML = `<div class="wiz-head" style="${catStyle(cat)}">
+      <h2>${esc(cat)}</h2>
+      <p>Digite quanto tem de cada item. Se não tiver nenhum, coloque 0. O botão <b>“= n”</b> repete o número de antes.</p>
+    </div>
+    <div class="wiz-tools">
+      <span class="left-badge" id="leftBadge"></span>
+      <button class="btnline small" id="fillZero">Colocar 0 nos que faltam</button>
+    </div>
+    <div class="rows" style="${catStyle(cat)}">${list.length ? list.map(it => countRowHTML(it, base)).join('') : '<div class="empty">Nenhum item nesta categoria.</div>'}</div>`;
+  updateCatBadge(cat);
+
+  const body = $('wizBody');
+  body.querySelectorAll('input[data-code]').forEach(inp => {
+    inp.addEventListener('input', () => onCountInput(inp, cat));
+    inp.addEventListener('keydown', (e) => { if(e.key === 'Enter'){ e.preventDefault(); focusNext(inp); } });
+  });
+  body.querySelectorAll('[data-same]').forEach(b => b.addEventListener('click', () => {
+    const inp = body.querySelector(`input[data-code="${CSS.escape(b.dataset.same)}"]`);
+    inp.value = b.dataset.v;
+    onCountInput(inp, cat);
+    focusNext(inp);
+  }));
+  body.querySelector('#fillZero').addEventListener('click', async () => {
+    const empty = [...body.querySelectorAll('input[data-code]')].filter(i => i.value === '');
+    if(!empty.length){ showToast('Todos os itens desta categoria já estão preenchidos.'); return; }
+    const ok = await showConfirm(`Colocar 0 em ${empty.length} item(ns) que ainda estão vazios em ${cat}? Use só se você conferiu que não tem nenhum.`,
+      { title: 'Colocar 0 nos que faltam?', confirmLabel: 'Colocar 0' });
+    if(!ok) return;
+    empty.forEach(i => { i.value = '0'; onCountInput(i, cat); });
+  });
+}
+
+$('wizBody').addEventListener('click', (e) => {
+  if(e.target.tagName === 'IMG' && e.target.closest('.rthumb')) openLightbox(e.target.src);
+});
+
+function focusNext(inp){
+  const all = [...$('wizBody').querySelectorAll('input[data-code]')];
+  const next = all[all.indexOf(inp) + 1];
+  if(next){ next.focus(); next.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+  else inp.blur();
+}
+
+// Atualiza só a linha mexida (sem redesenhar a tela, pra não perder o foco do teclado).
+function onCountInput(inp, cat){
+  const it = findItem(inp.dataset.code);
+  if(!it) return;
+  const raw = inp.value.trim();
+  const v = raw === '' ? null : Math.max(0, parseInt(raw, 10));
+  if(v !== null && isNaN(v)) return;
+  setCount(it, v);
+  const row = inp.closest('.crow');
+  row.classList.toggle('filled', v !== null);
+  row.classList.remove('missing');
+  row.querySelector('.okmark').textContent = v !== null ? '✓' : '';
+  const same = row.querySelector('[data-same]');
+  if(same) same.hidden = v !== null;
+  updateCatBadge(cat);
+  renderWizSteps();
+}
+
+function updateCatBadge(cat){
+  const p = catProgress(cat);
+  const el = $('leftBadge');
+  if(!el) return;
+  el.textContent = p.left === 0 ? `Tudo preenchido ✓ (${p.total})` : `Faltam ${p.left} de ${p.total}`;
+  el.classList.toggle('ok', p.left === 0);
+}
+
+function reviewCatHTML(cat, base){
+  const list = sortItems(data.items.filter(it => it.cat === cat));
+  const p = catProgress(cat);
+  const withQty = list.filter(it => isCounted(it) && (Number(it.quantity) || 0) > 0);
+  const total = withQty.reduce((s, it) => s + (Number(it.quantity) || 0), 0);
+  const lines = withQty.map(it => {
+    const prev = prevFor(it, base);
+    const d = prev === null ? null : (Number(it.quantity) || 0) - prev;
+    const dHTML = d ? `<span class="d ${d > 0 ? 'up' : 'down'}">${d > 0 ? '+' : '−'}${fmt(Math.abs(d))}</span>` : '';
+    return `<div class="review-line"><span><span class="mono" style="font-family:'IBM Plex Mono',monospace;font-size:.78rem;">(${esc(it.code)})</span> ${esc(it.title)}</span><span class="q">${fmt(it.quantity)}${dHTML}</span></div>`;
+  }).join('');
+  return `<details class="review-cat" style="${catStyle(cat)}">
+    <summary>
+      <span><b>${esc(cat)}</b><small>Itens com alguma quantidade: ${withQty.length} · ${fmt(total)} exemplares</small></span>
+      <span class="st ${p.left === 0 ? 'ok' : 'no'}" style="font-size:.78rem;font-weight:600;color:var(--${p.left === 0 ? 'contado' : 'falta'});">${p.left === 0 ? '✓' : `faltam ${p.left}`}</span>
+    </summary>
+    <div class="review-list">${lines || '<div class="review-line"><span class="muted">Nenhum item com quantidade.</span></div>'}</div>
+  </details>`;
+}
+
+function renderReview(){
+  const m = currentMonth();
+  const t = totalProgress();
+  const base = baseQty();
+  const closed = surveyClosed();
+  let top = '';
+  if(closed){
+    top = `<div class="done-box">✓ Levantamento concluído em ${formatDateTime(data.survey.closedAt)}${data.survey.closedBy ? ' por ' + esc(data.survey.closedBy) : ''}.
+      Se precisar corrigir algum número, é só voltar na categoria e alterar.</div>`;
+  }else if(t.left > 0){
+    const missing = CATEGORIES.map((cat, i) => ({ cat, i, p: catProgress(cat) })).filter(x => x.p.left > 0);
+    top = `<div class="missing-box"><b>Faltam ${t.left} item(ns) para concluir.</b> Todos precisam de um número, nem que seja 0.
+      <ul>${missing.map(x => `<li>${esc(x.cat)}: ${x.p.left} — <button class="linkbtn" data-step="${x.i + 1}">preencher</button></li>`).join('')}</ul></div>`;
+  }else{
+    top = `<div class="done-box">Tudo preenchido! Confira o resumo e toque em <b>Concluir</b>.</div>`;
+  }
+  $('wizBody').innerHTML = `<div class="wiz-head">
+      <h2>Revisão e conclusão</h2>
+      <p>${monthLabelCap(m)} · confira se as quantidades estão certas. Toque numa categoria pra ver os itens.</p>
+    </div>
+    ${top}
+    ${CATEGORIES.map(cat => reviewCatHTML(cat, base)).join('')}
+    <div class="row" style="margin:14px 0;">
+      <button class="btnline" id="btnCopy">📋 Copiar resumo</button>
+      <button class="btnline" id="btnToggleCompare">${showCompare ? 'Esconder comparação' : '⇄ Comparar com o mês anterior'}</button>
+    </div>
+    <div id="compareWrap" ${showCompare ? '' : 'hidden'}>
+      <div class="row" style="justify-content:flex-end;margin-bottom:8px;">
+        <label class="check"><input type="checkbox" id="onlyChanged" ${onlyChanged ? 'checked' : ''}> Mostrar só o que mudou</label>
+      </div>
+      <div id="compareTable">${showCompare ? compareHTML(data.items, data.history, { onlyChanged }) : ''}</div>
+    </div>`;
+  $('wizBody').querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => goStep(Number(b.dataset.step))));
+  $('btnCopy').addEventListener('click', copySummary);
+  $('btnToggleCompare').addEventListener('click', () => { showCompare = !showCompare; renderReview(); });
+  const oc = $('onlyChanged');
+  if(oc) oc.addEventListener('change', () => { onlyChanged = oc.checked; $('compareTable').innerHTML = compareHTML(data.items, data.history, { onlyChanged }); });
+}
+
+function summaryText(){
+  const lines = [`Levantamento de ${monthLabel(currentMonth())} — Congregação Ipê`, ''];
+  CATEGORIES.forEach(cat => {
+    const list = sortItems(data.items.filter(it => it.cat === cat && isCounted(it) && (Number(it.quantity) || 0) > 0));
+    lines.push(cat.toUpperCase());
+    if(!list.length) lines.push('  Itens com alguma quantidade: 0');
+    list.forEach(it => lines.push(`  (${it.code}) ${it.title}: ${it.quantity}`));
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+async function copySummary(){
+  const text = summaryText();
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast('✓ Resumo copiado. É só colar no WhatsApp ou onde precisar.');
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    showToast(ok ? '✓ Resumo copiado.' : 'Não foi possível copiar neste navegador.', !ok);
+  }
+}
+
+async function concludeSurvey(){
+  const t = totalProgress();
+  if(t.left > 0){ showToast(`Ainda faltam ${t.left} item(ns).`, true); return; }
+  const ok = await showConfirm(`Concluir o levantamento de ${monthLabel(currentMonth())} com ${t.total} itens contados?`,
+    { title: 'Concluir levantamento', confirmLabel: 'Concluir' });
+  if(!ok) return;
+  const m = currentMonth();
+  const qty = {};
+  data.items.forEach(it => { qty[it.code] = Number(it.quantity) || 0; });
+  data.history[m] = { label: 'Levantamento de ' + monthLabel(m), closedAt: new Date().toISOString(), by: userName(), qty, pending: 0 };
+  data.survey.closedAt = new Date().toISOString();
+  data.survey.closedBy = userName();
+  surveyTouched = true;
+  markDirty();
+  renderWizard();
+  const saved = await saveToGitHub({ silent: true, message: `Conclui levantamento de ${monthLabel(m)} — ${userName()}` });
+  showToast(saved ? '✓ Levantamento concluído e salvo!' : 'Concluído, mas não salvou — toque em Salvar.', !saved);
+}
+
+$('wizPrev').addEventListener('click', () => goStep(step - 1));
+$('wizNext').addEventListener('click', () => {
+  if(step === STEP_REVIEW){
+    if(surveyClosed()) exitWizard();
+    else concludeSurvey();
+    return;
+  }
+  goStep(step + 1);
+});
+function exitWizard(){
+  showView('home');
+  renderHome();
+  if(dirty) saveToGitHub({ silent: true });
+}
+$('wizExit').addEventListener('click', exitWizard);
+
+// ---------- Novo item / editar ----------
+$('niCat').innerHTML = CATEGORIES.map(c => `<option>${esc(c)}</option>`).join('');
+
+function openItemModal(it){
+  editingCode = it ? it.code : null;
+  $('niHeading').textContent = it ? 'Editar item' : 'Novo item';
+  $('niRemove').hidden = !it;
+  $('niQtyWrap').hidden = !!it;
+  $('niCode').value = it ? it.code : '';
+  $('niTitle').value = it ? it.title : '';
+  $('niCat').value = it ? it.cat : (activeCat || CATEGORIES[0]);
+  $('niImage').value = it ? it.image : '';
+  $('niNote').value = it ? it.note : '';
+  $('niReorder').checked = it ? !!it.reorder : false;
+  $('niQty').value = '';
+  $('niError').textContent = '';
+  $('itemModal').hidden = false;
+  $('niCode').focus();
+}
+function closeItemModal(){ $('itemModal').hidden = true; editingCode = null; }
+$('btnNewItem').addEventListener('click', () => openItemModal(null));
+$('niCancel').addEventListener('click', closeItemModal);
+$('itemModal').addEventListener('click', (e) => { if(e.target === $('itemModal')) closeItemModal(); });
+
+$('niSave').addEventListener('click', () => {
+  const code = $('niCode').value.trim();
+  const title = $('niTitle').value.trim();
+  if(!code){ $('niError').textContent = 'O código é obrigatório.'; $('niCode').focus(); return; }
+  if(!title){ $('niError').textContent = 'O título é obrigatório.'; $('niTitle').focus(); return; }
+  const clash = data.items.some(it => it.code !== editingCode && it.code.toLowerCase() === code.toLowerCase());
+  if(clash){ $('niError').textContent = `Já existe um item com o código "${code}".`; $('niCode').focus(); return; }
+
+  const fields = {
+    code, title,
+    cat: $('niCat').value,
+    image: $('niImage').value.trim(),
+    note: $('niNote').value.trim(),
+    reorder: $('niReorder').checked
+  };
+  let it;
+  if(editingCode === null){
+    it = Object.assign({ quantity: 0, countedMonth: null, lastChecked: null }, fields);
+    data.items.push(it);
+    const q = $('niQty').value.trim();
+    if(q !== '') setCount(it, Math.max(0, parseInt(q, 10) || 0));
+  }else{
+    it = findItem(editingCode);
+    if(code !== editingCode){ removed.add(editingCode); touched.delete(editingCode); }
+    Object.assign(it, fields);
+  }
+  touch(it.code);
+  activeCat = it.cat;
+  closeItemModal();
+  renderHome();
+});
+
+$('niRemove').addEventListener('click', async () => {
+  const it = findItem(editingCode);
+  if(!it) return;
+  const ok = await showConfirm(`Remover "${it.title}" (${it.code}) do inventário?`, { title: 'Remover item?', confirmLabel: 'Remover', danger: true });
+  if(!ok) return;
+  data.items = data.items.filter(x => x !== it);
+  removed.add(it.code);
+  touched.delete(it.code);
+  markDirty();
+  closeItemModal();
+  renderHome();
+});
+
+// ---------- Lightbox ----------
+function openLightbox(src){ $('lightboxImg').src = src; $('lightbox').hidden = false; }
+$('lightbox').addEventListener('click', () => { $('lightbox').hidden = true; $('lightboxImg').src = ''; });
+
+// ---------- Eventos gerais ----------
+$('search').addEventListener('input', (e) => {
+  searchTerm = e.target.value.trim();
+  renderChips();
+  renderCatalog();
+});
+$('btnSave').addEventListener('click', () => saveToGitHub());
+$('btnLoad').addEventListener('click', async () => {
+  if(dirty){
+    const ok = await showConfirm('Recarregar descarta as alterações que ainda não foram salvas. Continuar?', { title: 'Recarregar?', confirmLabel: 'Recarregar', danger: true });
+    if(!ok) return;
+  }
+  loadFromGitHub();
+});
+
+$('btnLogin').addEventListener('click', async () => {
+  if(!$('cfgToken').value.trim()){ showGate('Preencha a senha de acesso.', true); return; }
+  saveConfig();
+  $('btnLogin').disabled = true;
+  await loadFromGitHub();
+  $('btnLogin').disabled = false;
+});
+$('cfgToken').addEventListener('keydown', (e) => { if(e.key === 'Enter') $('btnLogin').click(); });
+
+$('btnLogout').addEventListener('click', async () => {
   if(dirty){
     const ok = await showConfirm('Existem alterações não salvas. Sair mesmo assim?', { title: 'Sair sem salvar?', confirmLabel: 'Sair', danger: true });
     if(!ok) return;
   }
   localStorage.removeItem('inv-github-config');
-  els.token.value = '';
-  items = [];
+  $('cfgToken').value = '';
+  data = normalizePayload({});
   dirty = false;
   showGate('Você saiu. Entre novamente com a senha de acesso.');
-});
-
-// --- Painel de item: adicionar novo ou editar existente (código é sempre obrigatório) ---
-els.niCat.innerHTML = CATEGORIES.map(c => `<option>${c}</option>`).join('');
-
-function openNewItemPanel(){
-  editingIndex = null;
-  els.niHeading.textContent = 'Adicionar novo item';
-  els.btnNewItemConfirm.textContent = 'Adicionar item';
-  els.btnNewItemRemove.hidden = true;
-  els.newItemPanel.hidden = false;
-  els.niCode.value = '';
-  els.niTitle.value = '';
-  els.niCat.value = activeCategory;
-  els.niQty.value = 0;
-  els.niImage.value = '';
-  els.niError.textContent = '';
-  els.niCode.focus();
-}
-
-function openEditPanel(idx){
-  editingIndex = idx;
-  const it = items[idx];
-  els.niHeading.textContent = 'Editar item';
-  els.btnNewItemConfirm.textContent = 'Salvar alterações';
-  els.btnNewItemRemove.hidden = false;
-  els.newItemPanel.hidden = false;
-  els.niCode.value = it.code;
-  els.niTitle.value = it.title;
-  els.niCat.value = it.cat;
-  els.niQty.value = it.quantity === null ? 0 : it.quantity;
-  els.niImage.value = it.image || '';
-  els.niError.textContent = '';
-  els.newItemPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  els.niCode.focus();
-}
-
-function closeNewItemPanel(){
-  els.newItemPanel.hidden = true;
-  els.niError.textContent = '';
-  editingIndex = null;
-}
-els.btnNewItem.addEventListener('click', openNewItemPanel);
-els.btnNewItemCancel.addEventListener('click', closeNewItemPanel);
-
-els.btnNewItemConfirm.addEventListener('click', () => {
-  const code = els.niCode.value.trim();
-  const title = els.niTitle.value.trim();
-  const cat = els.niCat.value;
-  const quantity = Math.max(0, parseInt(els.niQty.value) || 0);
-  const image = els.niImage.value.trim();
-
-  if(!code){
-    els.niError.textContent = 'O código é obrigatório.';
-    els.niCode.focus();
-    return;
-  }
-  if(!title){
-    els.niError.textContent = 'O título é obrigatório.';
-    els.niTitle.focus();
-    return;
-  }
-  const codeLower = code.toLowerCase();
-  const clash = items.some((it, i) => i !== editingIndex && it.code.toLowerCase() === codeLower);
-  if(clash){
-    els.niError.textContent = `Já existe um item com o código "${code}". Use um código diferente.`;
-    els.niCode.focus();
-    return;
-  }
-
-  if(editingIndex === null){
-    items.push({ code, title, cat, image, quantity, status: 'Pendente', note: '', lastChecked: null });
-  }else{
-    const it = items[editingIndex];
-    it.code = code;
-    it.title = title;
-    it.cat = cat;
-    it.image = image;
-    it.quantity = quantity;
-  }
-
-  activeCategory = cat;
-  searchTerm = '';
-  els.search.value = '';
-  closeNewItemPanel();
-  afterEdit();
-});
-
-els.btnNewItemRemove.addEventListener('click', async () => {
-  if(editingIndex === null) return;
-  const it = items[editingIndex];
-  const ok = await showConfirm(`Remover "${it.title}" (${it.code}) do inventário?`, { title: 'Remover item?', confirmLabel: 'Remover', danger: true });
-  if(!ok) return;
-  items.splice(editingIndex, 1);
-  closeNewItemPanel();
-  afterEdit();
 });
 
 window.addEventListener('beforeunload', (e) => {

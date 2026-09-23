@@ -12,38 +12,36 @@
 <body>
 <div class="wrap">
 
-  <div class="masthead">
-    <div class="brandrow">
-      <img src="logo.png" alt="Símbolo da Congregação Ipê" class="brandmark">
-      <div class="brandtext">
-        <p class="eyebrow"><span>Congregação Ipê · Somente leitura</span><a class="badge-link" href="editor.html">Ir para edição →</a></p>
-        <h1>Balcão de Literatura</h1>
-        <p class="sub">Consulta pública do inventário. Para atualizar quantidades, use a tela de edição.</p>
-        <p class="updated-note" id="statusbar">Carregando...</p>
-      </div>
+  <header class="masthead">
+    <img src="logo.png" alt="Símbolo da Congregação Ipê" class="brandmark">
+    <div class="brandtext">
+      <p class="eyebrow">Congregação Ipê · Consulta</p>
+      <h1>Balcão de Literatura</h1>
+      <p class="updated-note" id="statusbar">Carregando...</p>
     </div>
-  </div>
+    <div class="head-actions no-print">
+      <a class="badge-link" href="editor.html">Editar →</a>
+    </div>
+  </header>
 
+  <div id="surveyCard"></div>
   <div class="dash" id="dash"></div>
 
-  <div class="searchrow">
-    <input type="text" id="search" placeholder="Buscar por título ou código (ex: bt, Sentinela, Bíblia)…">
-    <div class="view-toggle">
-      <button class="btnline active-view" id="btnViewCards">▦ Cards</button>
-      <button class="btnline" id="btnViewList">☰ Lista</button>
-      <button class="btnline print-only-btn" id="btnPrint" hidden>🖨 Imprimir</button>
+  <div class="toolbar">
+    <input type="search" id="search" placeholder="Buscar por título ou código (ex: bt, Sentinela)…">
+    <div class="segmented" id="viewSeg">
+      <button data-view="list" class="on">☰ Lista</button>
+      <button data-view="cards">▦ Capas</button>
+      <button data-view="compare">⇄ Comparar</button>
+      <button data-view="print">🖨 Imprimir</button>
     </div>
   </div>
 
-  <div class="drawers" id="drawers"></div>
+  <div class="chips" id="chips"></div>
+  <div id="content"></div>
+  <div class="print-area" id="printArea"></div>
 
-  <div class="bulkrow">
-    <h2 id="sectionTitle">Todos os itens</h2>
-  </div>
-
-  <div class="grid" id="grid"></div>
-  <div class="list-wrap" id="listWrap" hidden></div>
-
+  <footer>Dados atualizados pela equipe do balcão · Congregação Ipê</footer>
 </div>
 
 <div class="lightbox" id="lightbox" hidden>
@@ -53,201 +51,215 @@
 
 <script src="shared.js"></script>
 <script>
-let items = [];
-let activeCategory = CATEGORIES[0];
-let searchTerm = "";
-let statFilter = null; // null = navega por categoria; 'all' | 'verified' | 'attention'
-let viewMode = 'cards'; // 'cards' | 'list'
+let data = normalizePayload({});
+let activeCat = null;      // null = todas
+let filter = null;         // null | 'pendente' | 'attention'
+let searchTerm = '';
+let view = 'list';
+let onlyChanged = false;
 
-const drawersEl = document.getElementById('drawers');
-const gridEl = document.getElementById('grid');
-const listWrapEl = document.getElementById('listWrap');
-const dashEl = document.getElementById('dash');
-const sectionTitleEl = document.getElementById('sectionTitle');
-const statusbarEl = document.getElementById('statusbar');
-const btnViewCards = document.getElementById('btnViewCards');
-const btnViewList = document.getElementById('btnViewList');
-const btnPrint = document.getElementById('btnPrint');
+const $ = (id) => document.getElementById(id);
 
 async function loadData(){
   try{
     const res = await fetch('./data.json?t=' + Date.now());
     if(!res.ok) throw new Error('HTTP ' + res.status);
-    const payload = await res.json();
-    items = payload.items || [];
-    statusbarEl.textContent = payload.updatedAt ? ('Atualizado em ' + formatDateTime(payload.updatedAt)) : 'Dados carregados';
-    statusbarEl.classList.remove('error');
+    data = normalizePayload(await res.json());
+    $('statusbar').textContent = data.updatedAt ? ('Atualizado em ' + formatDateTime(data.updatedAt)) : 'Dados carregados';
+    $('statusbar').classList.remove('error');
     render();
   }catch(e){
-    statusbarEl.textContent = 'Não foi possível carregar data.json — verifique se o arquivo existe no repositório e se o GitHub Pages já publicou.';
-    statusbarEl.classList.add('error');
+    $('statusbar').textContent = 'Não foi possível carregar os dados agora. Tente de novo em instantes.';
+    $('statusbar').classList.add('error');
   }
+}
+
+function renderSurvey(){
+  const month = currentMonth();
+  const items = data.items;
+  const done = items.filter(isCounted).length;
+  const total = items.length;
+  const closed = data.survey.month === month && data.survey.closedAt && done === total;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const cats = itemsByCategory(items).map(({ cat, items: l }) => {
+    const c = l.filter(isCounted).length;
+    return `<div class="survey-cat ${c === l.length ? 'complete' : ''}" style="${catStyle(cat)}"><span>${CAT_SHORT[cat]}</span><span>${c}/${l.length}</span></div>`;
+  }).join('');
+  $('surveyCard').innerHTML = `<section class="survey-card ${closed ? 'done' : ''}">
+    <div class="survey-top">
+      <div>
+        <h2>Levantamento de ${monthLabel(month)}</h2>
+        <p>${closed
+          ? `Concluído em ${formatDateTime(data.survey.closedAt)}${data.survey.closedBy ? ' por ' + esc(data.survey.closedBy) : ''}.`
+          : done === 0 ? 'Ainda não começou. A contagem é feita no começo de cada mês.' : 'Contagem em andamento.'}</p>
+      </div>
+    </div>
+    <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
+    <div class="survey-meta"><span><b>${done}</b> de ${total} itens contados</span><span>${pct}%</span></div>
+    <div class="survey-cats">${cats}</div>
+  </section>`;
 }
 
 function renderDash(){
-  const countable = items.filter(it => it.quantity !== null);
-  const total = countable.length;
-  const verified = items.filter(it => it.status === 'Verificado').length;
-  const totalQty = countable.reduce((s,it) => s + (Number(it.quantity)||0), 0);
-  const pct = total ? Math.round((verified/total)*100) : 0;
-  const attention = items.filter(it=>it.status==='Repor'||it.status==='Baixo Estoque').length;
-  const isActive = (f) => statFilter === f ? 'active' : '';
-  dashEl.innerHTML = `
-    <div class="stat ${isActive('all')}" data-filter="all"><div class="n">${items.length}</div><div class="l">Itens no catálogo</div></div>
-    <div class="stat ${isActive('all')}" data-filter="all"><div class="n">${totalQty.toLocaleString('pt-BR')}</div><div class="l">Exemplares em estoque</div></div>
-    <div class="stat ${isActive('verified')}" data-filter="verified"><div class="n">${verified}/${total}</div><div class="l">Verificados</div>
-      <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
-    </div>
-    <div class="stat ${isActive('attention')}" data-filter="attention"><div class="n">${attention}</div><div class="l">Precisam de atenção</div></div>
-  `;
-  dashEl.querySelectorAll('.stat[data-filter]').forEach(el => {
-    el.addEventListener('click', () => {
-      statFilter = el.dataset.filter;
-      searchTerm = '';
-      document.getElementById('search').value = '';
-      renderDrawers();
-      renderGrid();
-    });
-  });
+  const items = data.items;
+  const totalQty = items.reduce((s, it) => s + (Number(it.quantity) || 0), 0);
+  const pend = items.filter(it => !isCounted(it)).length;
+  const att = items.filter(needsAttention).length;
+  const on = (f) => filter === f ? 'active' : '';
+  $('dash').innerHTML = `
+    <button class="stat ${filter === null && !activeCat ? 'active' : ''}" data-f="">
+      <div class="n">${items.length}</div><div class="l">Itens</div></button>
+    <button class="stat" data-f="">
+      <div class="n">${fmt(totalQty)}</div><div class="l">Exemplares</div></button>
+    <button class="stat ${on('pendente')}" data-f="pendente">
+      <div class="n">${pend}</div><div class="l">Pendentes</div></button>
+    <button class="stat ${on('attention')}" data-f="attention">
+      <div class="n">${att}</div><div class="l">Pedir / em falta</div></button>`;
+  $('dash').querySelectorAll('.stat').forEach(b => b.addEventListener('click', () => {
+    filter = b.dataset.f || null;
+    activeCat = null;
+    render();
+  }));
 }
 
-function renderDrawers(){
-  drawersEl.innerHTML = CATEGORIES.map(cat => {
-    const key = CAT_KEY[cat];
-    const catItems = items.filter(it => it.cat === cat);
-    const verified = catItems.filter(it => it.status === 'Verificado').length;
-    const active = (!searchTerm && !statFilter && cat === activeCategory) ? 'active' : '';
-    return `<div class="drawer ${active}" data-cat="${cat}" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
-      <span class="icon">${ICONS[cat]}</span>
-      <span class="name">${cat}</span>
-      <span class="count">${verified}/${catItems.length} verificados</span>
-    </div>`;
-  }).join('');
-  drawersEl.querySelectorAll('.drawer').forEach(el => {
-    el.addEventListener('click', () => {
-      activeCategory = el.dataset.cat;
-      statFilter = null;
-      searchTerm = '';
-      document.getElementById('search').value = '';
-      renderDrawers();
-      renderGrid();
-    });
-  });
-}
-
-function visibleItems(){
+function baseList(){
+  let list = data.items;
   if(searchTerm){
     const t = searchTerm.toLowerCase();
-    return items.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
+    list = list.filter(it => it.title.toLowerCase().includes(t) || it.code.toLowerCase().includes(t));
   }
-  if(statFilter === 'all') return items;
-  if(statFilter === 'verified') return items.filter(it => it.status === 'Verificado');
-  if(statFilter === 'attention') return items.filter(it => it.status === 'Repor' || it.status === 'Baixo Estoque');
-  return items.filter(it => it.cat === activeCategory);
+  if(filter === 'pendente') list = list.filter(it => !isCounted(it));
+  if(filter === 'attention') list = list.filter(needsAttention);
+  return list;
+}
+function visibleList(){
+  const list = baseList();
+  return activeCat ? list.filter(it => it.cat === activeCat) : list;
 }
 
-function renderGrid(){
-  const list = visibleItems();
-  const filterLabels = { all: 'Todos os itens', verified: 'Itens verificados', attention: 'Itens que precisam de atenção' };
-  sectionTitleEl.textContent = searchTerm ? `Resultados para "${searchTerm}"` : (filterLabels[statFilter] || activeCategory);
+function renderChips(){
+  const list = baseList();
+  const chip = (cat) => {
+    const n = cat ? list.filter(it => it.cat === cat).length : list.length;
+    const on = activeCat === cat ? 'on' : '';
+    return cat
+      ? `<button class="chip ${on}" data-cat="${esc(cat)}" style="${catStyle(cat)}">${CAT_SHORT[cat]} <span class="cnt">${n}</span></button>`
+      : `<button class="chip all ${on}" data-cat="">Todas <span class="cnt">${n}</span></button>`;
+  };
+  $('chips').innerHTML = chip(null) + CATEGORIES.map(chip).join('');
+  $('chips').querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
+    activeCat = b.dataset.cat || null;
+    render();
+  }));
+}
 
-  if(viewMode === 'list'){
-    gridEl.hidden = true;
-    listWrapEl.hidden = false;
-    renderListTable(list);
+function rowHTML(it){
+  const st = itemState(it);
+  const sub = [
+    `<span class="pill ${st}">${STATE_LABEL[st]}</span>`,
+    it.reorder ? '<span class="pill pedir">Pedir mais</span>' : '',
+    it.lastChecked ? `<span>contado em ${esc(String(it.lastChecked).slice(0, 10))}</span>` : '',
+    it.note ? `<span class="rnote">${esc(it.note)}</span>` : ''
+  ].join('');
+  return `<div class="irow" style="${catStyle(it.cat)}">
+    ${thumbHTML(it)}
+    <div class="rmain">
+      <div class="rtitle"><span class="code">${esc(it.code)}</span>${esc(it.title)}</div>
+      <div class="rsub">${sub}</div>
+    </div>
+    <div class="rqty ${st === 'pendente' ? 'pend' : ''}" title="${st === 'pendente' ? 'Valor do último levantamento' : ''}">${fmt(it.quantity)}</div>
+  </div>`;
+}
+
+function cardHTML(it){
+  const st = itemState(it);
+  const cover = it.image
+    ? `<img src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy" onerror="this.replaceWith(document.createTextNode('${esc(it.code)}'))">`
+    : `<span>${esc(it.code)}</span>`;
+  return `<div class="card" style="${catStyle(it.cat)}">
+    <div class="cover">${cover}</div>
+    <div class="rtitle"><span class="code">${esc(it.code)}</span>${esc(it.title)}</div>
+    <div class="foot"><span class="pill ${st}">${STATE_LABEL[st]}</span><span class="rqty ${st === 'pendente' ? 'pend' : ''}">${fmt(it.quantity)}</span></div>
+  </div>`;
+}
+
+function renderContent(){
+  const list = visibleList();
+  const el = $('content');
+  if(view === 'compare'){
+    el.innerHTML = `<div class="row" style="justify-content:flex-end;margin-bottom:8px;">
+        <label class="check"><input type="checkbox" id="onlyChanged" ${onlyChanged ? 'checked' : ''}> Mostrar só o que mudou</label>
+      </div>` + compareHTML(list, data.history, { onlyChanged });
+    $('onlyChanged').addEventListener('change', (e) => { onlyChanged = e.target.checked; renderContent(); });
     return;
   }
-  gridEl.hidden = false;
-  listWrapEl.hidden = true;
-
   if(!list.length){
-    gridEl.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
+    el.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
     return;
   }
-  gridEl.innerHTML = list.map((it) => {
-    const key = CAT_KEY[it.cat];
-    const tok = STATUS_TOKEN[it.status] || 'pendente';
-    const quantidadeHTML = it.quantity === null
-      ? `<span class="continuo">Controle contínuo</span>`
-      : `<span class="qty-static">${it.quantity}</span>`;
-    const thumbHTML = it.image ? `<img class="thumb thumb-zoomable" src="${it.image}" alt="${it.title}" loading="lazy" onerror="this.remove()">` : '';
-    return `<div class="card" style="--cat-color:var(--${key});--cat-bg:var(--${key}-bg);">
-      <span class="hole"></span>
-      ${thumbHTML}
-      <span class="code">${it.code}</span>
-      <p class="title">${it.title}</p>
-      <div class="row">
-        ${quantidadeHTML}
-        <span class="status-pill" style="background:var(--${tok}-bg);color:var(--${tok});">${it.status}</span>
-      </div>
-      ${it.note ? `<div class="note-static">${it.note}</div>` : ''}
-      ${it.lastChecked ? `<div class="lastcheck">Verificado em ${it.lastChecked}</div>` : ''}
-    </div>`;
+  el.innerHTML = itemsByCategory(list).filter(g => g.items.length).map(({ cat, items }) => {
+    const qty = items.reduce((s, it) => s + (Number(it.quantity) || 0), 0);
+    const body = view === 'cards'
+      ? `<div class="grid">${items.map(cardHTML).join('')}</div>`
+      : `<div class="rows">${items.map(rowHTML).join('')}</div>`;
+    return `<section class="group" style="${catStyle(cat)}">
+      <div class="group-title"><span>${esc(cat)}</span><small>${items.length} itens · ${fmt(qty)} exemplares</small></div>
+      ${body}
+    </section>`;
   }).join('');
-  gridEl.querySelectorAll('.thumb-zoomable').forEach(img => {
-    img.addEventListener('click', () => openLightbox(img.src, img.alt));
-  });
 }
 
-function renderListTable(list){
-  if(!list.length){
-    listWrapEl.innerHTML = '<div class="empty">Nenhum item encontrado.</div>';
+function renderPrintArea(){
+  const list = visibleList();
+  const groups = itemsByCategory(list).filter(g => g.items.length).map(({ cat, items }) => `
+    <tbody style="${catStyle(cat)}">
+      <tr class="cat-row"><th colspan="4">${esc(cat)}</th></tr>
+      ${items.map(it => `<tr>
+        <td class="mono">${esc(it.code)}</td><td>${esc(it.title)}</td>
+        <td class="num">${fmt(it.quantity)}</td><td>${STATE_LABEL[itemState(it)]}${it.reorder ? ' · pedir mais' : ''}</td>
+      </tr>`).join('')}
+    </tbody>`).join('');
+  $('printArea').innerHTML = `<h2 style="margin:0 0 8px;">Inventário — ${monthLabel(currentMonth())}</h2>
+    <div class="table-scroll"><table class="inv-table">
+      <thead><tr><th>Código</th><th>Título</th><th class="num">Qtd.</th><th>Situação</th></tr></thead>${groups}
+    </table></div>`;
+}
+
+$('viewSeg').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+  if(b.dataset.view === 'print'){
+    renderPrintArea();
+    window.print();
     return;
   }
-  const rows = list.map(it => `
-    <tr>
-      <td class="mono">${it.code}</td>
-      <td>${it.title}</td>
-      <td>${it.cat}</td>
-      <td class="num">${it.quantity === null ? 'Contínuo' : it.quantity}</td>
-      <td>${it.status}</td>
-      <td>${it.lastChecked || '—'}</td>
-    </tr>`).join('');
-  listWrapEl.innerHTML = `
-    <table class="inv-table">
-      <thead><tr><th>Código</th><th>Título</th><th>Categoria</th><th>Qtd.</th><th>Status</th><th>Verificado em</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`;
-}
+  view = b.dataset.view;
+  $('viewSeg').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+  renderContent();
+}));
 
-function setViewMode(mode){
-  viewMode = mode;
-  btnViewCards.classList.toggle('active-view', mode === 'cards');
-  btnViewList.classList.toggle('active-view', mode === 'list');
-  btnPrint.hidden = mode !== 'list';
-  renderGrid();
-}
-btnViewCards.addEventListener('click', () => setViewMode('cards'));
-btnViewList.addEventListener('click', () => setViewMode('list'));
-btnPrint.addEventListener('click', () => window.print());
+$('search').addEventListener('input', (e) => {
+  searchTerm = e.target.value.trim();
+  renderChips();
+  renderContent();
+});
 
-const lightboxEl = document.getElementById('lightbox');
-const lightboxImgEl = document.getElementById('lightboxImg');
-function openLightbox(src, alt){
-  lightboxImgEl.src = src;
-  lightboxImgEl.alt = alt || '';
+const lightboxEl = $('lightbox');
+function openLightbox(src){
+  $('lightboxImg').src = src;
   lightboxEl.hidden = false;
-  requestAnimationFrame(() => lightboxEl.classList.add('show'));
 }
-function closeLightbox(){
-  lightboxEl.classList.remove('show');
-  setTimeout(() => { lightboxEl.hidden = true; lightboxImgEl.src = ''; }, 200);
-}
+function closeLightbox(){ lightboxEl.hidden = true; $('lightboxImg').src = ''; }
 lightboxEl.addEventListener('click', closeLightbox);
-document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 window.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !lightboxEl.hidden) closeLightbox(); });
+$('content').addEventListener('click', (e) => {
+  if(e.target.tagName === 'IMG' && (e.target.closest('.rthumb') || e.target.closest('.cover'))) openLightbox(e.target.src);
+});
 
 function render(){
+  renderSurvey();
   renderDash();
-  renderDrawers();
-  renderGrid();
+  renderChips();
+  renderContent();
 }
-
-document.getElementById('search').addEventListener('input', (e) => {
-  searchTerm = e.target.value.trim();
-  renderDrawers();
-  renderGrid();
-});
 
 loadData();
 setInterval(loadData, 30000);
