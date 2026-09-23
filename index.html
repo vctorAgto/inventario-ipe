@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -49,7 +49,7 @@
   <img id="lightboxImg" src="" alt="">
 </div>
 
-<script src="shared.js?v=2"></script>
+<script src="shared.js?v=3"></script>
 <script>
 let data = normalizePayload({});
 let activeCat = null;      // null = todas
@@ -81,10 +81,6 @@ function renderSurvey(){
   const total = items.length;
   const closed = data.survey.month === month && data.survey.closedAt && done === total;
   const pct = total ? Math.round(done / total * 100) : 0;
-  const cats = itemsByCategory(items).map(({ cat, items: l }) => {
-    const c = l.filter(isCounted).length;
-    return `<div class="survey-cat ${c === l.length ? 'complete' : ''}" style="${catStyle(cat)}"><span>${CAT_SHORT[cat]}</span><span>${c}/${l.length}</span></div>`;
-  }).join('');
   $('surveyCard').innerHTML = `<section class="survey-card ${closed ? 'done' : ''}">
     <div class="survey-top">
       <div>
@@ -96,8 +92,12 @@ function renderSurvey(){
     </div>
     <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
     <div class="survey-meta"><span><b>${done}</b> de ${total} itens contados</span><span>${pct}%</span></div>
-    <div class="survey-cats">${cats}</div>
+    ${groupListHTML(items, { clickable: true })}
   </section>`;
+  $('surveyCard').querySelectorAll('.grow[data-cat]').forEach(b => b.addEventListener('click', () => {
+    activeCat = b.dataset.cat; filter = null; render();
+    $('chips').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
 }
 
 function renderDash(){

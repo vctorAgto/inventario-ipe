@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -152,7 +152,7 @@
   </div>
 </div>
 
-<script src="shared.js?v=2"></script>
+<script src="shared.js?v=3"></script>
 <script>
 // Valores padrão deste repositório — quem só tem a senha de acesso não precisa preencher nada disso.
 const DEFAULTS = { owner: 'vctorAgto', repo: 'inventario-ipe', branch: 'main', path: 'data.json' };
@@ -496,10 +496,6 @@ function renderSurveyCard(){
   const p = totalProgress();
   const closed = surveyClosed();
   const pct = p.total ? Math.round(p.done / p.total * 100) : 0;
-  const cats = CATEGORIES.map(cat => {
-    const c = catProgress(cat);
-    return `<div class="survey-cat ${c.left === 0 ? 'complete' : ''}" style="${catStyle(cat)}"><span>${CAT_SHORT[cat]}</span><span>${c.done}/${c.total}</span></div>`;
-  }).join('');
   const btnLabel = closed ? 'Ver resumo' : p.done === 0 ? 'Começar levantamento →' : `Continuar levantamento (faltam ${p.left}) →`;
   $('surveyCard').innerHTML = `<section class="survey-card ${closed ? 'done' : ''}">
     <div class="survey-top">
@@ -516,8 +512,10 @@ function renderSurveyCard(){
       <span><b>${p.done}</b> de ${p.total} itens contados</span>
       ${p.done ? '<button class="linkbtn" id="btnResetSurvey" style="font-size:.76rem;">Recomeçar do zero</button>' : ''}
     </div>
-    <div class="survey-cats">${cats}</div>
+    ${groupListHTML(data.items, { clickable: true })}
   </section>`;
+  $('surveyCard').querySelectorAll('.grow[data-cat]').forEach(b =>
+    b.addEventListener('click', () => openWizard(CATEGORIES.indexOf(b.dataset.cat) + 1)));
   $('btnStartSurvey').addEventListener('click', () => openWizard(closed ? STEP_REVIEW : firstIncompleteStep()));
   const reset = $('btnResetSurvey');
   if(reset) reset.addEventListener('click', resetSurvey);
@@ -688,20 +686,13 @@ function renderOverview(){
       Dá pra parar e continuar depois: cada passo é salvo sozinho. No fim, revise e conclua.</p>
       <p style="font-size:.8rem;">Dica: é a mesma contagem pedida no relatório de estoque do JW Hub de ${monthLabel(prevMonthKey(m))} (prazo: dia 10).</p>
     </div>
-    <div class="wiz-cats">
-      ${CATEGORIES.map((cat, i) => {
-        const p = catProgress(cat);
-        return `<button class="wiz-cat" data-step="${i + 1}" style="${catStyle(cat)}">
-          <span><b>${esc(cat)}</b><small>${p.total} itens</small></span>
-          <span class="st ${p.left === 0 ? 'ok' : 'no'}">${p.left === 0 ? 'Completo ✓' : p.done ? `Faltam ${p.left}` : 'Não começou'}</span>
-        </button>`;
-      }).join('')}
-      <button class="wiz-cat" data-step="${STEP_REVIEW}" style="--cat-color:var(--ink);">
-        <span><b>Revisão e conclusão</b><small>Resumo por categoria e comparação com o mês anterior</small></span>
-        <span class="st ${t.left === 0 ? 'ok' : 'no'}">${t.left === 0 ? 'Pronto ✓' : `${t.done}/${t.total}`}</span>
-      </button>
-    </div>`;
-  $('wizBody').querySelectorAll('.wiz-cat').forEach(b => b.addEventListener('click', () => goStep(Number(b.dataset.step))));
+    ${groupListHTML(data.items, { clickable: true, extra: `<button class="grow review" data-step="${STEP_REVIEW}">
+        <span class="gmain"><span class="gname">Revisão e conclusão</span>
+        <span class="gsub">${t.left === 0 ? 'Tudo preenchido — revise e conclua.' : `Faltam ${t.left} de ${t.total} itens. Revise o levantamento e conclua.`}</span></span>
+        <span class="garrow">›</span></button>` })}`;
+  $('wizBody').querySelectorAll('.grow[data-cat]').forEach(b =>
+    b.addEventListener('click', () => goStep(CATEGORIES.indexOf(b.dataset.cat) + 1)));
+  $('wizBody').querySelector('.grow.review').addEventListener('click', () => goStep(STEP_REVIEW));
 }
 
 function countRowHTML(it, base){

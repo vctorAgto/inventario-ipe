@@ -213,3 +213,30 @@ function formatDateTime(iso){
 function nowBR(){
   return new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
+
+// Lista de grupos no estilo do relatório do JW Hub (um bloco por categoria).
+// opts.clickable: cada linha vira botão com data-cat; opts.extra: HTML de uma linha final (ex.: Revisão).
+function groupListHTML(items, opts){
+  opts = opts || {};
+  const tag = opts.clickable ? 'button' : 'div';
+  const rows = CATEGORIES.map(cat => {
+    const list = items.filter(it => it.cat === cat);
+    const done = list.filter(isCounted).length;
+    const withQty = list.filter(it => isCounted(it) && (Number(it.quantity) || 0) > 0).length;
+    const left = list.length - done;
+    const pct = list.length ? Math.round(done / list.length * 100) : 0;
+    const state = left === 0 ? 'ok' : done > 0 ? 'part' : 'none';
+    const badge = left === 0
+      ? '<span class="gcheck" aria-label="Completo"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+      : `<span class="gleft ${state}">${done ? 'faltam ' + left : 'pendente'}</span>`;
+    return `<${tag} class="grow ${state}" data-cat="${esc(cat)}" style="${catStyle(cat)}">
+      <span class="gmain">
+        <span class="gname">${esc(cat)}</span>
+        <span class="gsub">Itens com alguma quantidade: <b>${withQty}</b> · ${done} de ${list.length} contados</span>
+        <span class="gbar"><span style="width:${pct}%"></span></span>
+      </span>
+      ${badge}
+    </${tag}>`;
+  }).join('');
+  return `<div class="groups">${rows}${opts.extra || ''}</div>`;
+}

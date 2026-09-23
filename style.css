@@ -422,3 +422,35 @@ footer{text-align:center;color:var(--ink-soft);font-size:.74rem;margin-top:40px;
   .wiz-head h2{font-size:1.25rem;}
   .inv-table th,.inv-table td{padding:7px 8px;font-size:.8rem;}
 }
+
+/* ---------- Grupos no estilo JW Hub ---------- */
+.groups{
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  box-shadow:var(--shadow);margin-top:14px;
+}
+.grow{
+  display:flex;align-items:center;gap:14px;width:100%;padding:13px 16px 13px 14px;
+  border:none;border-bottom:1px solid var(--line);border-left:5px solid var(--cat-color, var(--ink));
+  background:none;font:inherit;color:inherit;text-align:left;
+}
+.grow:last-child{border-bottom:none;}
+button.grow{cursor:pointer;transition:background .15s;}
+button.grow:hover{background:var(--cat-bg, var(--bg));}
+.grow.ok{background:linear-gradient(90deg, var(--cat-bg) 0%, transparent 70%);}
+.gmain{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.gname{font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;color:var(--cat-color, var(--ink));}
+.gsub{font-size:.78rem;color:var(--ink-soft);}
+.gsub b{color:var(--ink);}
+.gbar{display:block;height:4px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px;max-width:280px;}
+.gbar span{display:block;height:100%;background:var(--cat-color);border-radius:3px;transition:width .3s;}
+.gcheck{
+  width:30px;height:30px;border-radius:50%;background:#3f9b58;color:#fff;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px -2px rgba(63,155,88,.6);
+}
+.gleft{font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.gleft.part{background:var(--baixo-bg);color:var(--baixo);}
+.gleft.none{background:var(--pendente-bg);color:var(--pendente);}
+.grow.review{--cat-color:var(--ink);}
+.grow.review .gname{font-family:'Inter',sans-serif;font-size:.98rem;}
+.grow .garrow{color:var(--ink-soft);font-size:1.1rem;flex-shrink:0;}
+.survey-card .groups{box-shadow:none;}
