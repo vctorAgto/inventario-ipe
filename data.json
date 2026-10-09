@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-09T13:00:40.126Z",
+  "updatedAt": "2026-10-09T13:00:47.577Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -222,7 +222,7 @@
       "title": "Bíblia (edição média)",
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_lg.jpg",
-      "quantity": 1,
+      "quantity": 0,
       "countedMonth": "2026-10",
       "lastChecked": "09/10/2026, 10:00",
       "reorder": false,
