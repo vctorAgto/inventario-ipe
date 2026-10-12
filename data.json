@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-12T23:57:42.946Z",
+  "updatedAt": "2026-10-12T23:58:28.417Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -685,11 +685,13 @@
       "title": "Cartão de diretivas médicas avançadas",
       "cat": "Formulários e itens",
       "image": "",
-      "quantity": 35,
-      "countedMonth": null,
-      "lastChecked": "01/07/2026",
+      "quantity": 30,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:58",
       "reorder": false,
-      "note": "Código provisório — confirme o código oficial."
+      "note": "Código provisório — confirme o código oficial.",
+      "prevQty": 35,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "tmp-cartao-diretivas-criancas",
@@ -697,10 +699,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 5,
-      "countedMonth": null,
-      "lastChecked": "01/07/2026",
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:58",
       "reorder": false,
-      "note": "Código provisório — confirme o código oficial."
+      "note": "Código provisório — confirme o código oficial.",
+      "prevQty": 5,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "tmp-veja-boa-terra",
@@ -857,22 +861,26 @@
       "title": "Cartão de visita para curso bíblico",
       "cat": "Formulários e itens",
       "image": "",
-      "quantity": 1400,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 14:08:17",
+      "quantity": 1000,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:58",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 1400,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "jwcd4",
       "title": "Cartão de visita para jw.org",
       "cat": "Formulários e itens",
       "image": "",
-      "quantity": 1400,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 14:09:05",
+      "quantity": 1000,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:57",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 1400,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "ia",
@@ -1086,10 +1094,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:58",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "S-4",
@@ -1097,10 +1107,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:58",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "inv",
