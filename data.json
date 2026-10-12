@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-09T13:00:47.577Z",
+  "updatedAt": "2026-10-12T23:53:04.239Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -745,10 +745,12 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": "11/08/2026, 09:14:10",
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:53",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "nwtpkt",
@@ -756,10 +758,12 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": "11/08/2026, 09:14:10",
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:53",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "wp26.1",
