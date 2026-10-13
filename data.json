@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-13T00:04:32.600Z",
+  "updatedAt": "2026-10-13T00:13:17.267Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -1664,6 +1664,19 @@
       "lastChecked": "12/10/2026, 21:04",
       "reorder": false,
       "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
+    },
+    {
+      "quantity": 99,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:12",
+      "code": "g26. 1-T",
+      "title": "O que fazer se me sinto sozinho?",
+      "cat": "Revistas para o público",
+      "image": "https://cms-imgp.jw-cdn.org/img/p/g/202611/T/pt/g_T_202611_lg.jpg",
+      "note": "Despertai",
+      "reorder": true,
       "prevQty": 0,
       "countedBy": "Gianluca Santos Rosa"
     }
