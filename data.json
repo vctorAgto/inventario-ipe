@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-12T23:58:28.417Z",
+  "updatedAt": "2026-10-13T00:00:09.300Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -363,77 +363,91 @@
       "title": "A dor e a tristeza vão acabar algum dia?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-sfr/T/pt/t-sfr_T_lg.jpg",
-      "quantity": 200,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 13:57:41",
+      "quantity": 0,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 200,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "t-fam",
       "title": "Como ter uma família feliz?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-fam/T/pt/t-fam_T_lg.jpg",
-      "quantity": 237,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 13:57:48",
+      "quantity": 60,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:59",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 237,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "t-rlg",
       "title": "Deus aprova todas as religiões?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-rlg/T/pt/t-rlg_T_lg.jpg",
-      "quantity": 312,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 13:55:02",
+      "quantity": 250,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 312,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "t-god",
       "title": "Quem é o verdadeiro Deus?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-god/T/pt/t-god_T_lg.jpg",
-      "quantity": 305,
-      "countedMonth": null,
-      "lastChecked": "01/07/2026",
+      "quantity": 221,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:59",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 305,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "t-ftr",
       "title": "É possível viver feliz para sempre?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-ftr/T/pt/t-ftr_T_lg.jpg",
-      "quantity": 224,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 13:57:36",
+      "quantity": 14,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:59",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 224,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "t-kng",
       "title": "Como o Reino de Deus vai agir",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-kng/T/pt/t-kng_T_lg.jpg",
-      "quantity": 200,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 13:59:25",
+      "quantity": 0,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:59",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 200,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "t-pry",
       "title": "Alguém ouve nossas orações?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-pry/T/pt/t-pry_T_lg.jpg",
-      "quantity": 260,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 13:58:12",
+      "quantity": 70,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:59",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 260,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "wcg",
@@ -839,22 +853,26 @@
       "title": "Os conselhos de jesus funcionam hoje?",
       "cat": "Folhetos",
       "image": "",
-      "quantity": 600,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 13:49:56",
+      "quantity": 400,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:59",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 600,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "t-dth",
       "title": "Sera que as pessoas que amamos voltarao a viver?",
       "cat": "Folhetos",
       "image": "",
-      "quantity": 140,
-      "countedMonth": "2026-09",
-      "lastChecked": "13/09/2026, 14:01:32",
+      "quantity": 90,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 20:58",
       "reorder": true,
-      "note": ""
+      "note": "",
+      "prevQty": 140,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "jwcd9",
