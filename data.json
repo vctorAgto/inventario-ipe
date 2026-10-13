@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-13T00:00:21.565Z",
+  "updatedAt": "2026-10-13T00:00:26.333Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -1140,10 +1140,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-30",
@@ -1151,10 +1153,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-31",
@@ -1162,10 +1166,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-32",
@@ -1173,10 +1179,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-33",
@@ -1184,10 +1192,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-34",
@@ -1195,10 +1205,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-35",
@@ -1206,10 +1218,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-36",
@@ -1217,10 +1231,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "T-37",
@@ -1228,10 +1244,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "g18.1",
