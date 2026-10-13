@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-13T00:00:09.300Z",
+  "updatedAt": "2026-10-13T00:00:21.565Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -1101,10 +1101,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 0,
-      "countedMonth": null,
-      "lastChecked": null,
+      "countedMonth": "2026-10",
+      "lastChecked": "12/10/2026, 21:00",
       "reorder": false,
-      "note": ""
+      "note": "",
+      "prevQty": 0,
+      "countedBy": "Gianluca Santos Rosa"
     },
     {
       "code": "jwcd10",
