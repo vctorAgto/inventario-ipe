@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-13T00:13:17.267Z",
+  "updatedAt": "2026-10-13T00:20:40.688Z",
   "survey": {
     "month": "2026-10",
     "startedAt": "2026-10-09T13:00:33.929Z",
@@ -1090,7 +1090,7 @@
       "quantity": 0,
       "countedMonth": "2026-10",
       "lastChecked": "12/10/2026, 20:54",
-      "reorder": false,
+      "reorder": true,
       "note": "",
       "prevQty": 0,
       "countedBy": "Gianluca Santos Rosa"
@@ -1103,7 +1103,7 @@
       "quantity": 0,
       "countedMonth": "2026-10",
       "lastChecked": "12/10/2026, 20:54",
-      "reorder": false,
+      "reorder": true,
       "note": "",
       "prevQty": 0,
       "countedBy": "Gianluca Santos Rosa"
