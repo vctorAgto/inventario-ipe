@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:28:19.960Z",
+  "updatedAt": "2026-11-13T00:29:24.857Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -491,25 +491,25 @@
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-sfr/T/pt/t-sfr_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": true,
       "note": "",
-      "prevQty": 200,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 0,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-fam",
       "title": "Como ter uma família feliz?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-fam/T/pt/t-fam_T_lg.jpg",
-      "quantity": 60,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:59",
+      "quantity": 0,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": true,
       "note": "",
-      "prevQty": 237,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 60,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-rlg",
@@ -542,13 +542,13 @@
       "title": "É possível viver feliz para sempre?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-ftr/T/pt/t-ftr_T_lg.jpg",
-      "quantity": 14,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:59",
+      "quantity": 0,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": true,
       "note": "",
-      "prevQty": 224,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 14,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-kng",
@@ -556,25 +556,25 @@
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-kng/T/pt/t-kng_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:59",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": true,
       "note": "",
-      "prevQty": 200,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 0,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-pry",
       "title": "Alguém ouve nossas orações?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-pry/T/pt/t-pry_T_lg.jpg",
-      "quantity": 70,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:59",
+      "quantity": 0,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": true,
       "note": "",
-      "prevQty": 260,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 70,
+      "countedBy": "Gianluca"
     },
     {
       "code": "wcg",
@@ -997,13 +997,13 @@
       "title": "Sera que as pessoas que amamos voltarao a viver?",
       "cat": "Folhetos",
       "image": "",
-      "quantity": 90,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:58",
+      "quantity": 0,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": true,
       "note": "",
-      "prevQty": 140,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 90,
+      "countedBy": "Gianluca"
     },
     {
       "code": "jwcd9",
@@ -1270,13 +1270,13 @@
       "title": "Convite para Reuniões Cristãs",
       "cat": "Folhetos",
       "image": "",
-      "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "quantity": 584,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:28",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-30",
@@ -1284,12 +1284,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-31",
@@ -1297,12 +1297,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-32",
@@ -1310,12 +1310,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-33",
@@ -1323,12 +1323,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-34",
@@ -1336,12 +1336,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-35",
@@ -1349,12 +1349,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-36",
@@ -1362,12 +1362,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "T-37",
@@ -1375,12 +1375,12 @@
       "cat": "Folhetos",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:29",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g18.1",
