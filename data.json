@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:18:27.168Z",
+  "updatedAt": "2026-11-13T00:20:21.228Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -347,13 +347,13 @@
       "title": "Seja feliz para sempre! (brochura)",
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lff/T/pt/lff_T_lg.jpg",
-      "quantity": 906,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "quantity": 867,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:19",
       "reorder": false,
       "note": "",
-      "prevQty": 1235,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 906,
+      "countedBy": "Gianluca"
     },
     {
       "code": "g18.2",
@@ -477,13 +477,13 @@
       "title": "Escute a Deus",
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ld/T/pt/ld_T_lg.jpg",
-      "quantity": 200,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:55",
+      "quantity": 214,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:19",
       "reorder": false,
       "note": "",
-      "prevQty": 52,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 200,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-sfr",
@@ -608,12 +608,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lmd/T/pt/lmd_T_lg.jpg",
       "quantity": 9,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 9,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g25.1",
@@ -634,12 +634,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lf/T/pt/lf_T_lg.jpg",
       "quantity": 20,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 20,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lfb",
@@ -881,12 +881,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/th/T/pt/th_T_lg.jpg",
       "quantity": 9,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 9,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "rj",
@@ -894,12 +894,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/rj/T/pt/rj_T_lg.jpg",
       "quantity": 6,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 6,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "sp",
@@ -920,12 +920,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/la/T/pt/la_T_lg.jpg",
       "quantity": 3,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 3,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "rk",
@@ -933,12 +933,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/rk/T/pt/rk_T_lg.jpg",
       "quantity": 2,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 2,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "nwtls",
@@ -1166,13 +1166,13 @@
       "title": "Escute e Viva",
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ll/T/pt/ll_T_lg.jpg",
-      "quantity": 138,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:55",
+      "quantity": 240,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:19",
       "reorder": false,
       "note": "",
-      "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 138,
+      "countedBy": "Gianluca"
     },
     {
       "code": "mb",
