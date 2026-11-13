@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:20:31.627Z",
+  "updatedAt": "2026-11-13T00:21:09.706Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -829,12 +829,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 30,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:58",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "Código provisório — confirme o código oficial.",
-      "prevQty": 35,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 30,
+      "countedBy": "Gianluca"
     },
     {
       "code": "tmp-cartao-diretivas-criancas",
@@ -842,12 +842,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 5,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:58",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "Código provisório — confirme o código oficial.",
       "prevQty": 5,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "tmp-veja-boa-terra",
@@ -1232,12 +1232,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "jwcd10",
@@ -1245,12 +1245,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:58",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "S-4",
@@ -1258,12 +1258,12 @@
       "cat": "Formulários e itens",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:58",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "inv",
