@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-13T00:20:40.688Z",
+  "updatedAt": "2026-11-13T00:18:27.168Z",
   "survey": {
-    "month": "2026-10",
-    "startedAt": "2026-10-09T13:00:33.929Z",
-    "closedAt": "2026-10-13T00:04:32.594Z",
-    "closedBy": "Gianluca Santos Rosa"
+    "month": "2026-11",
+    "startedAt": "2026-11-12T23:58:08.733Z",
+    "closedAt": null,
+    "closedBy": null
   },
   "history": {
     "2026-08": {
@@ -322,7 +322,8 @@
         "g23.1": 0,
         "wp23.1": 0,
         "g24.1": 0,
-        "wp25.1": 0
+        "wp25.1": 0,
+        "g26. 1-T": 99
       },
       "pending": 0
     }
@@ -334,12 +335,12 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "09/10/2026, 10:00",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:18",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gean"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lffi",
@@ -398,13 +399,13 @@
       "title": "Um mundo em crise",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202207/T/pt/g_T_202207_lg.jpg",
-      "quantity": 172,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:01",
+      "quantity": 154,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:14",
       "reorder": false,
       "note": "",
-      "prevQty": 170,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 172,
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp24.1",
@@ -424,13 +425,13 @@
       "title": "Faz sentido acreditar num Criador?",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202111/T/pt/g_T_202111_lg.jpg",
-      "quantity": 36,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:01",
+      "quantity": 149,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:11",
       "reorder": false,
       "note": "",
-      "prevQty": 167,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 36,
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp18.3",
@@ -450,13 +451,13 @@
       "title": "Será que Deus ouve nossas orações?",
       "cat": "Revistas para o público",
       "image": "",
-      "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "quantity": 15,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:17",
       "reorder": false,
       "note": "",
-      "prevQty": 24,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 0,
+      "countedBy": "Gianluca"
     },
     {
       "code": "g20.1",
@@ -945,12 +946,12 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:18",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "nwtpkt",
@@ -958,12 +959,12 @@
       "cat": "Bíblias",
       "image": "https://cms-imgp.jw-cdn.org/img/p/nwt/T/pt/nwt_T_md.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:18",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp26.1",
@@ -1009,26 +1010,26 @@
       "title": "Cartão de visita para curso bíblico",
       "cat": "Formulários e itens",
       "image": "",
-      "quantity": 1000,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:58",
+      "quantity": 500,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:00",
       "reorder": false,
       "note": "",
-      "prevQty": 1400,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 1000,
+      "countedBy": "Gianluca"
     },
     {
       "code": "jwcd4",
       "title": "Cartão de visita para jw.org",
       "cat": "Formulários e itens",
       "image": "",
-      "quantity": 1000,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:57",
+      "quantity": 530,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 20:59",
       "reorder": false,
       "note": "",
-      "prevQty": 1400,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 1000,
+      "countedBy": "Gianluca"
     },
     {
       "code": "ia",
@@ -1679,6 +1680,19 @@
       "reorder": true,
       "prevQty": 0,
       "countedBy": "Gianluca Santos Rosa"
+    },
+    {
+      "quantity": 24,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:18",
+      "code": "wp25.1-T",
+      "title": "O fim das guerras como?",
+      "cat": "Revistas para o público",
+      "image": "",
+      "note": "",
+      "reorder": false,
+      "prevQty": 0,
+      "countedBy": "Gianluca"
     }
   ]
 }
