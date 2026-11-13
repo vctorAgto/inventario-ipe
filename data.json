@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:23:15.305Z",
+  "updatedAt": "2026-11-13T00:23:32.371Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -1218,9 +1218,9 @@
       "title": "10 Perguntas",
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ypq/T/pt/ypq_T_lg.jpg",
-      "quantity": 0,
+      "quantity": 2,
       "countedMonth": "2026-11",
-      "lastChecked": "12/11/2026, 21:20",
+      "lastChecked": "12/11/2026, 21:23",
       "reorder": false,
       "note": "",
       "prevQty": 0,
