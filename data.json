@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:29:24.857Z",
+  "updatedAt": "2026-11-13T00:32:55.919Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -360,13 +360,13 @@
       "title": "12 segredos para uma família feliz",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/201807/T/pt/g_T_201807_lg.jpg",
-      "quantity": 600,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "quantity": 540,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:30",
       "reorder": false,
       "note": "Na verdade é Despertai N.º 2 2018 (estava catalogado como Brochura).",
-      "prevQty": 606,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 600,
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp19.2",
@@ -387,12 +387,12 @@
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201901/T/pt/wp_T_201901_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:03",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
-      "prevQty": 131,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 0,
+      "countedBy": "Gianluca"
     },
     {
       "code": "g22.1",
@@ -438,13 +438,13 @@
       "title": "Será que Deus se importa com você?",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201809/T/pt/wp_T_201809_lg.jpg",
-      "quantity": 239,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:02",
+      "quantity": 289,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
-      "prevQty": 294,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 239,
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp21.1",
@@ -464,13 +464,13 @@
       "title": "Como aliviar o estresse",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202003/T/pt/g_T_202003_lg.jpg",
-      "quantity": 400,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:01",
+      "quantity": 290,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:31",
       "reorder": false,
       "note": "",
-      "prevQty": 340,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 400,
+      "countedBy": "Gianluca"
     },
     {
       "code": "ld",
@@ -1388,12 +1388,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp18.1",
@@ -1401,12 +1401,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp18.2",
@@ -1414,12 +1414,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g18.3",
@@ -1427,12 +1427,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g19.1",
@@ -1440,12 +1440,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g19.2",
@@ -1453,12 +1453,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g19.3",
@@ -1466,12 +1466,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp19.3",
@@ -1479,12 +1479,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp20.1",
@@ -1492,12 +1492,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g20.2",
@@ -1505,12 +1505,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp20.2",
@@ -1518,12 +1518,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g20.3",
@@ -1531,12 +1531,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp20.3",
@@ -1544,12 +1544,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g21.1",
@@ -1557,12 +1557,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g21.2",
@@ -1570,12 +1570,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp21.2",
@@ -1583,12 +1583,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp21.3",
@@ -1596,12 +1596,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp22.1",
@@ -1609,12 +1609,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g23.1",
@@ -1622,12 +1622,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp23.1",
@@ -1635,12 +1635,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "g24.1",
@@ -1648,12 +1648,12 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp25.1",
@@ -1661,25 +1661,25 @@
       "cat": "Revistas para o público",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:32",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
-      "quantity": 99,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:12",
+      "quantity": 20,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:31",
       "code": "g26. 1-T",
       "title": "O que fazer se me sinto sozinho?",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202611/T/pt/g_T_202611_lg.jpg",
       "note": "Despertai",
       "reorder": true,
-      "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 99,
+      "countedBy": "Gianluca"
     },
     {
       "quantity": 24,
