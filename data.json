@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:23:32.371Z",
+  "updatedAt": "2026-11-13T00:24:22.513Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -582,12 +582,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wcg/T/jwpub/wcg_T_lg.jpg",
       "quantity": 14,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:23",
       "reorder": false,
       "note": "",
-      "prevQty": 4,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 14,
+      "countedBy": "Gianluca"
     },
     {
       "code": "scl",
@@ -595,12 +595,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/scl/T/pt/scl_T_lg.jpg",
       "quantity": 2,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:23",
       "reorder": false,
       "note": "",
       "prevQty": 2,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lmd",
@@ -647,12 +647,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lfb/T/pt/lfb_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lff",
@@ -660,12 +660,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lff/T/pt/lff_T_lg.jpg",
       "quantity": 10,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:23",
       "reorder": false,
       "note": "",
-      "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 10,
+      "countedBy": "Gianluca"
     },
     {
       "code": "bt",
@@ -673,12 +673,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/bt/T/pt/bt_T_lg.jpg",
       "quantity": 5,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 5,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "kr",
@@ -686,12 +686,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/kr/T/pt/kr_T_lg.jpg",
       "quantity": 4,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:23",
       "reorder": false,
       "note": "",
       "prevQty": 4,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "be",
@@ -699,12 +699,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/be/T/pt/be_T_lg.jpg",
       "quantity": 1,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 1,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "jy",
@@ -712,12 +712,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/jy/T/pt/jy_T_lg.jpg",
       "quantity": 4,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "Edição letra grande. No JW Hub aparece só como (jy).",
       "prevQty": 4,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "bt-lg",
@@ -725,12 +725,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/bt/T/pt/bt_T_lg.jpg",
       "quantity": 3,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "Edição letra grande. No JW Hub a quantidade entra junto com (bt).",
       "prevQty": 3,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "cf",
@@ -738,12 +738,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/cf/T/pt/cf_T_lg.jpg",
       "quantity": 2,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "Edição letra grande. No JW Hub aparece só como (cf).",
       "prevQty": 2,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "od",
@@ -751,12 +751,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/od/T/pt/od_T_lg.jpg",
       "quantity": 19,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:23",
       "reorder": false,
       "note": "",
       "prevQty": 19,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lvs",
@@ -764,12 +764,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lvs/T/pt/lvs_T_lg.jpg",
       "quantity": 9,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:23",
       "reorder": false,
       "note": "",
       "prevQty": 9,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "cl",
@@ -777,12 +777,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/cl/T/pt/cl_T_lg.jpg",
       "quantity": 3,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 3,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "bhs",
@@ -790,12 +790,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/bhs/T/pt/bhs_T_lg.jpg",
       "quantity": 2,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 2,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "sjjls",
@@ -803,12 +803,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/1102016770/T/art/1102016770_T_cvr_lg.jpg",
       "quantity": 7,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "Quantidades parecem trocadas com o JW Hub (lá: sjj = 7, sjjls = 11) — confira na próxima contagem.",
       "prevQty": 7,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "sjj",
@@ -816,12 +816,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/1102016770/T/art/1102016770_T_cvr_lg.jpg",
       "quantity": 11,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "Quantidades parecem trocadas com o JW Hub (lá: sjj = 7, sjjls = 11) — confira na próxima contagem.",
       "prevQty": 11,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "tmp-cartao-diretivas",
@@ -1037,12 +1037,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ia/T/pt/ia_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:53",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lr",
@@ -1050,12 +1050,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lr/T/pt/lr_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "rr",
@@ -1063,12 +1063,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/rr/T/pt/rr_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "sjjyls",
@@ -1076,12 +1076,12 @@
       "cat": "Livros",
       "image": "",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "yp1",
@@ -1089,12 +1089,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/yp1/T/pt/yp1_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": true,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "yp2",
@@ -1102,12 +1102,12 @@
       "cat": "Livros",
       "image": "https://cms-imgp.jw-cdn.org/img/p/yp2/T/pt/yp2_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": true,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "ay",
