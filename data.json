@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:20:21.228Z",
+  "updatedAt": "2026-11-13T00:20:31.627Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -854,26 +854,26 @@
       "title": "Veja a boa terra",
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/gl/univ/pt/gl_univ_lg.jpg",
-      "quantity": 10,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:57",
+      "quantity": 0,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "Código provisório — confirme o código oficial.",
-      "prevQty": 11,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 10,
+      "countedBy": "Gianluca"
     },
     {
       "code": "wfg",
       "title": "Aprenda com a sabedoria de Jesus",
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wfg/T/pt/wfg_T_lg.jpg",
-      "quantity": 63,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:57",
+      "quantity": 0,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 63,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "th",
@@ -907,12 +907,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/sp/T/pt/sp_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
-      "prevQty": 4,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 0,
+      "countedBy": "Gianluca"
     },
     {
       "code": "la",
@@ -1115,12 +1115,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ay/T/pt/ay_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "hf",
@@ -1128,12 +1128,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/hf/T/pt/hf_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "hl",
@@ -1141,12 +1141,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/hl/T/pt/hl_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lc",
@@ -1154,12 +1154,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/lc/T/pt/lc_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:54",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "ll",
@@ -1180,12 +1180,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/mb/T/pt/mb_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "pc",
@@ -1193,12 +1193,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/pc/T/pt/pc_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "ph",
@@ -1206,12 +1206,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ph/T/pt/ph_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:56",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "ypq",
@@ -1219,12 +1219,12 @@
       "cat": "Brochuras e livretos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/ypq/T/pt/ypq_T_lg.jpg",
       "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:57",
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:20",
       "reorder": false,
       "note": "",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "jwcd1",
