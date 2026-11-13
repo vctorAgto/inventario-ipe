@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:21:09.706Z",
+  "updatedAt": "2026-11-13T00:23:15.305Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -516,26 +516,26 @@
       "title": "Deus aprova todas as religiões?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-rlg/T/pt/t-rlg_T_lg.jpg",
-      "quantity": 250,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:00",
+      "quantity": 80,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:22",
       "reorder": true,
       "note": "",
-      "prevQty": 312,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 250,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-god",
       "title": "Quem é o verdadeiro Deus?",
       "cat": "Folhetos",
       "image": "https://cms-imgp.jw-cdn.org/img/p/t-god/T/pt/t-god_T_lg.jpg",
-      "quantity": 221,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:59",
+      "quantity": 102,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:22",
       "reorder": true,
       "note": "",
-      "prevQty": 305,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 221,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-ftr",
@@ -984,13 +984,13 @@
       "title": "Os conselhos de jesus funcionam hoje?",
       "cat": "Folhetos",
       "image": "",
-      "quantity": 400,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 20:59",
+      "quantity": 105,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:22",
       "reorder": true,
       "note": "",
-      "prevQty": 600,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 400,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-dth",
