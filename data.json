@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-13T00:24:22.513Z",
+  "updatedAt": "2026-11-13T00:28:19.960Z",
   "survey": {
     "month": "2026-11",
     "startedAt": "2026-11-12T23:58:08.733Z",
@@ -373,13 +373,13 @@
       "title": "Você perdeu a alegria de viver?",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/201905/T/pt/wp_T_201905_lg.jpg",
-      "quantity": 461,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:03",
+      "quantity": 432,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:28",
       "reorder": false,
       "note": "",
-      "prevQty": 487,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 461,
+      "countedBy": "Gianluca"
     },
     {
       "code": "wp19.1",
@@ -412,13 +412,13 @@
       "title": "Como saber o que é certo e errado",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/wp/202407/T/pt/wp_T_202407_lg.jpg",
-      "quantity": 50,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "quantity": 54,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:26",
       "reorder": false,
       "note": "",
-      "prevQty": 54,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 50,
+      "countedBy": "Gianluca"
     },
     {
       "code": "g21.3",
@@ -620,13 +620,13 @@
       "title": "5 dicas para lidar com as altas de preço",
       "cat": "Revistas para o público",
       "image": "https://cms-imgp.jw-cdn.org/img/p/g/202511/T/pt/g_T_202511_lg.jpg",
-      "quantity": 0,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "quantity": 8,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:24",
       "reorder": false,
       "note": "Código ajustado para g25.1 pela lista do JW Hub — confira se é essa edição.",
       "prevQty": 0,
-      "countedBy": "Gianluca Santos Rosa"
+      "countedBy": "Gianluca"
     },
     {
       "code": "lf",
@@ -971,13 +971,13 @@
       "title": "Paz mundial apenas um sonho?",
       "cat": "Revistas para o público",
       "image": "",
-      "quantity": 410,
-      "countedMonth": "2026-10",
-      "lastChecked": "12/10/2026, 21:04",
+      "quantity": 374,
+      "countedMonth": "2026-11",
+      "lastChecked": "12/11/2026, 21:25",
       "reorder": false,
       "note": "",
-      "prevQty": 450,
-      "countedBy": "Gianluca Santos Rosa"
+      "prevQty": 410,
+      "countedBy": "Gianluca"
     },
     {
       "code": "t-jss",
